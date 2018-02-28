@@ -220,7 +220,12 @@ public class SmoolKP {
 					return false;
 				}
 				//Angel 05/11/14, DEFAULT_IPADDRESS is not always in properties 
-				theSIB.getProperties().setProperty("DEFAULT_IPADDRESS",theSIB.getProperties().getProperty("ADDRESSES"));
+				String tempParam = theSIB.getProperties().getProperty("DEFAULT_IPADDRESS");
+				if (tempParam==null || tempParam.equals("")){
+				  	Logger.error("DEFAULT_IPADDRESS not found!! trying to add ADDRESSES instead");
+					theSIB.getProperties().setProperty("DEFAULT_IPADDRESS",theSIB.getProperties().getProperty("ADDRESSES"));
+				}
+				
 				//TODO Angel: (long term) review list of sib properties and remove obsolete or error-prone properties (ADDRESSES and PORT are good, DEFAULT_IPADDRESSis mandatory but it collides with ADDRESSES and HOST is an old property)
 
 				SmartModel model = ModelManager.getInstance().createModel(KP_NAME, theSIB);
