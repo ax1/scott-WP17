@@ -1,12 +1,20 @@
 package SCOTTConsumer.logic;
 
 import java.io.IOException;
+import java.util.Observable;
 import java.util.Observer;
 
 import SCOTTConsumer.api.*;
 import SCOTTConsumer.model.smoolcore.impl.MessageReceiveSensor;
 
-
+/**
+ * TODOs
+ * 1-review observer & observer 2 (equivalents) and discard one
+ * 2-check connect() methods and implement/adapt as library methods in SmoolKP (handier than existing connection methods)
+ * 3-look at the exception management in new connect() methods and compare to exisiting boolean result in smoolkp
+ * 4-add a infinite loop with sleep for re-triying connections when disconnected (i.e: every 10000 millis)
+ *
+ */
 public class ConsumerMain {
 	
 	public static void main(String [] args) throws Exception {
@@ -17,14 +25,25 @@ public class ConsumerMain {
 	public ConsumerMain(String name) throws Exception {
 		SmoolKP.setKPName(name);
 		//-------------connect to SIB---------------------------------------------
-		connect();
-		//connect("s", "192.168.1.2");
+		//connect();
+		connect("sib1", "172.24.4.98");
 		//--------------delay to prevent subscription error---------
 		try {Thread.sleep(1000);}catch(Exception e) {;}
 		//--------------add custom observer to subscription-------
+		
 		Observer observer = (o, concept)->	System.out.println("message arrived: "+((MessageReceiveSensor)concept).getMessage().getBody());
+		
+		Observer observer2=new Observer() {
+			public void update(Observable o, Object concept) {
+				System.out.println("message arrived: "+((MessageReceiveSensor)concept).getMessage().getBody());
+				
+			}
+		};
+		
 		Consumer consumer = SmoolKP.getConsumer();
-		consumer.subscribeToMessageReceiveSensor(new MessageReceiveSensorSubscription(observer), null);
+		consumer.subscribeToMessageReceiveSensor(new MessageReceiveSensorSubscription(observer2), null);
+		
+
 	}
 	
 	private void connect() throws IOException {
@@ -39,6 +58,7 @@ public class ConsumerMain {
 		}
 	}
 	
+
 	private void connect(String name, String ip) throws IOException {
 		boolean connected = SmoolKP.connectToSIB(name,ip, "23000",0);
 		if (connected) {
