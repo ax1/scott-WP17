@@ -27,34 +27,44 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 public class SCOTTMQTTClient {
 
-	public static void main(String[] args) {
-		int harvesterID = 187221;
-		String topic = "131100"; // from Interfaces document-> send 131100 but from canonical SERVICE/SUBSERVICE/
-									// REGION/SUBREGION/ SOURCE/SUBSOURCE/CRCHead/CRCPay
-		String clientID = "331"; // id container
+	private static int harvesterID = 187221;
 
-		String content = message(harvesterID, clientID, 43.295242, -2.891246);
-		int qos = 0;
-		String broker = "tcp://172.26.252.144:1883";
-		// String broker = "tcp://rcc:1883";
-		MemoryPersistence persistence = new MemoryPersistence();
+	/*
+	 * from Interfaces document-> send 131100 but from canonical
+	 * SERVICE/SUBSERVICE/REGION/SUBREGION/ SOURCE/SUBSOURCE/CRCHead/CRCPay
+	 */
+	private static String topic = "131100"; //
 
-		try {
-			MqttClient mqttClient = new MqttClient(broker, clientID, persistence);
+	private static String clientID = "331"; // id container
+	private static String broker = "tcp://150.241.54.144:1883";// 150.241.54.144 OR 172.26.252.144
+
+	private static MqttClient mqttClient;
+	private static MemoryPersistence persistence = new MemoryPersistence();
+
+	public static void checkConnect() throws MqttException {
+		if (mqttClient == null)
+			mqttClient = new MqttClient(broker, clientID, persistence);
+		if (!mqttClient.isConnected()) {
 			MqttConnectOptions connOpts = new MqttConnectOptions();
 			connOpts.setCleanSession(true);
 			connOpts.setUserName("scott");
 			connOpts.setPassword("Tecnalia#2019".toCharArray());
-			System.out.println("Connecting to broker: " + broker);
+			System.out.println("mqtt: connecting to broker: " + broker);
 			mqttClient.connect(connOpts);
-			System.out.println("Connected");
+			System.out.println("mqtt: connected");
+		}
+	}
+
+	public static void send() {
+		try {
+			checkConnect();
+			String content = message(harvesterID, clientID, 43.295242, -2.891246);
+			int qos = 0;
 			MqttMessage message = new MqttMessage(content.getBytes());
 			message.setQos(qos);
 			mqttClient.publish(topic, message);
-			System.out.println("Message published");
-			System.out.println(content);
-			mqttClient.disconnect();
-			System.out.println("Disconnected");
+			System.out.println("mqtt: message published");
+			// System.out.println("mqtt: \n"+content);
 		} catch (MqttException me) {
 			System.out.println("reason " + me.getReasonCode());
 			System.out.println("msg " + me.getMessage());
