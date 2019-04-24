@@ -26,7 +26,7 @@ public class ConsumerMain {
 		SmoolKP.setKPName(name);
 		//-------------connect to SIB---------------------------------------------
 		//connect();
-		connect("sib1", "172.24.4.98");
+		connect("sib1", "smool.tecnalia.com","80");
 		//--------------delay to prevent subscription error---------
 		try {Thread.sleep(1000);}catch(Exception e) {;}
 		//--------------add custom observer to subscription-------
@@ -59,8 +59,8 @@ public class ConsumerMain {
 	}
 	
 
-	private void connect(String name, String ip) throws IOException {
-		boolean connected = SmoolKP.connectToSIB(name,ip, "23000",0);
+	private void connect(String name, String ip, String port) throws IOException {
+		boolean connected = SmoolKP.connectToSIB(name,ip, port,0);
 		if (connected) {
 			System.out.println("Successfully connected to SIB");
 		} else {
