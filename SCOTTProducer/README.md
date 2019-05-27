@@ -18,3 +18,9 @@ javac -d bin -cp bin:lib/* src/SCOTTProducer/logic/ProducerMain.java
 
 java -cp bin:lib/* SCOTTProducer.logic.ProducerMain
 ```
+
+## security
+
+https://gist.github.com/sharonbn/4104301
+
+see also indra email with access data, and foder with tecnalia's credentials
