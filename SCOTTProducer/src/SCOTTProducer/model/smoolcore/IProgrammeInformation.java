@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ public interface IProgrammeInformation extends IAbstractOntConcept, IInformation
  	* Sets the dataID property.
  	* @param dataID String value
  	*/
- 	public void setDataID(String dataID );
+ 	public IProgrammeInformation setDataID(String dataID );
 
 	/**
  	* Gets the dataID property.
@@ -42,7 +42,7 @@ public interface IProgrammeInformation extends IAbstractOntConcept, IInformation
  	* Sets the end property.
  	* @param end String value
  	*/
- 	public void setEnd(String end );
+ 	public IProgrammeInformation setEnd(String end );
 
 	/**
  	* Gets the end property.
@@ -54,7 +54,7 @@ public interface IProgrammeInformation extends IAbstractOntConcept, IInformation
  	* Sets the start property.
  	* @param start String value
  	*/
- 	public void setStart(String start );
+ 	public IProgrammeInformation setStart(String start );
 
 	/**
  	* Gets the start property.
@@ -66,7 +66,7 @@ public interface IProgrammeInformation extends IAbstractOntConcept, IInformation
  	* Sets the timestamp property.
  	* @param timestamp String value
  	*/
- 	public void setTimestamp(String timestamp );
+ 	public IProgrammeInformation setTimestamp(String timestamp );
 
 	/**
  	* Gets the timestamp property.

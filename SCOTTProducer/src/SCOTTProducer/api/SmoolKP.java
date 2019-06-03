@@ -94,6 +94,62 @@ public class SmoolKP {
 	}
 	
 	/**
+	 * Clean threads when trying to reconnect multiple times. SmoolKP does not clean
+	 * resources when reconnecting (example, the TCPIPConnector thread is created
+	 * and not disposed every time).
+	 */
+	private static void clean() {
+		try {
+			if (dl != null && dl.getModel() != null) {
+				// dl.getModel().disconnect();
+				dl.getModel().getSIB().destroy();
+			}
+			if (ds != null) {
+				ds.doStop();
+			}
+			instance = new SmoolKP();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Connect to a SIB with zero configuration.
+	 * <p>If any SIB is available in the network, this method will perform a multicast ping for discovering existing SIBs, and then connect to the first SIB found</p>.
+	 * @throws IOException
+	 */
+	public static void connect() throws IOException {
+	  	clean();
+		SmoolKP.synchronousSearch(1000, true);
+		if (SmoolKP.isSIBfound()) {
+			System.out.println("Found a SIB: " + SmoolKP.getDiscoveredSIBs().get(0).getSIBName());
+			if (SmoolKP.connectToSIB(1000)) {
+				System.out.println("Successfully connected to SIB");
+			} else {
+				throw new IOException ("Unable to connect to SIB");
+			}
+		}
+	}
+	
+	/**
+	 * Connect to a SIB
+	 * @param name 		the name of the SIB (typical values are "sib", "sib1", etc...)
+	 * @param address 	the IP or hostname where the SIB is running ("192.168.1.5", "sib.acme.com", etc...)
+	 * @param port		TCP port where the SIB is listening
+	 * @throws IOException
+	 */
+	public static void connect(String name, String address, int port) throws IOException {
+		clean();
+		boolean connected = SmoolKP.connectToSIB(name,address, Integer.toString(port),1000);
+		if (connected) {
+			System.out.println("Successfully connected to SIB");
+		} else {
+			throw new IOException ("Unable to connect to SIB");
+		}
+	}
+	
+	
+	/**
 	 * Connect to a specific SIB. 
 	 * This method blocks until the connection process has ended.
 	 * This method is equivalent to: connectToSIB(sibName, sibAddress, sibPort, 0)
@@ -222,7 +278,7 @@ public class SmoolKP {
 				//Angel 05/11/14, DEFAULT_IPADDRESS is not always in properties 
 				String tempParam = theSIB.getProperties().getProperty("DEFAULT_IPADDRESS");
 				if (tempParam==null || tempParam.equals("")){
-				  	Logger.error("DEFAULT_IPADDRESS not found!! trying to add ADDRESSES instead");
+				  	Logger.warn("DEFAULT_IPADDRESS not found!! trying to add ADDRESSES instead");
 					theSIB.getProperties().setProperty("DEFAULT_IPADDRESS",theSIB.getProperties().getProperty("ADDRESSES"));
 				}
 				
@@ -269,7 +325,6 @@ public class SmoolKP {
 			return false;
 		}
 		else if (!dl.getModel().isConnected()){
-			Logger.debug("Not connected already. No need to disconnect");
 			return true;
 		}
 		try {	
@@ -668,7 +723,7 @@ public class SmoolKP {
 		public void disconnected() {
 			Logger.debug("KP disconnected susccesfully!");
 			sibDiscovered = false;
-			this.discoverSIBs();
+			//this.discoverSIBs();
 
 		}
 
@@ -748,7 +803,7 @@ public class SmoolKP {
 			}
 		}
 
-		public String createMessageReceiveSensor(String elemID, String deviceID, String vendor, java.util.List<IAlarm> alarms, java.util.List<ILogicalLocation> destination, ILogicalLocation logicalLoc, IMessage message, ILogicalLocation origin) throws KPIModelException {
+		public String createMessageReceiveSensor(String elemID, String deviceID, String vendor, java.util.List<IAlarm> alarms, java.util.List<ILogicalLocation> destination, ILogicalLocation logicalLoc, IMessage message, ILogicalLocation origin, ISecurity securityData) throws KPIModelException {
 
 			if (elemID == null)
 				throw new KPIModelException("Concepts must have an ID");
@@ -767,15 +822,20 @@ public class SmoolKP {
 
 			concept.setDeviceID(deviceID);
 			concept.setVendor(vendor);
-			for (IAlarm elem : alarms) {
-				concept.addAlarms(elem);
+			 if (alarms!=null) { 
+				for (IAlarm elem : alarms) {
+					concept.addAlarms(elem);
+				}
 			}
-			for (ILogicalLocation elem : destination) {
-				concept.addDestination(elem);
+			 if (destination!=null) { 
+				for (ILogicalLocation elem : destination) {
+					concept.addDestination(elem);
+				}
 			}
 			concept.setLogicalLoc(logicalLoc);
 			concept.setMessage(message);
 			concept.setOrigin(origin);
+			concept.setSecurityData(securityData);
 
 			//Add it to the HashMap
 			conceptMap.put(elemID, concept);
@@ -785,7 +845,7 @@ public class SmoolKP {
 			return concept._getIndividualID();
 		}
 
-		public void updateMessageReceiveSensor(String elemID, String deviceID, String vendor, java.util.List<IAlarm> alarms, java.util.List<ILogicalLocation> destination, ILogicalLocation logicalLoc, IMessage message, ILogicalLocation origin) throws KPIModelException {
+		public void updateMessageReceiveSensor(String elemID, String deviceID, String vendor, java.util.List<IAlarm> alarms, java.util.List<ILogicalLocation> destination, ILogicalLocation logicalLoc, IMessage message, ILogicalLocation origin, ISecurity securityData) throws KPIModelException {
 
 			//check that we're connected and model is inserted
 			if (SmoolKP.dl.getModel() == null || !SmoolKP.dl.getModel().isConnected()){
@@ -801,20 +861,25 @@ public class SmoolKP {
 			((MessageReceiveSensor) concept).setDeviceID(deviceID);
 			((MessageReceiveSensor) concept).setVendor(vendor);
 			vals = new ArrayList<Object>( ((MessageReceiveSensor) concept)._getNonFunctionalProperty("alarms").listValues() );
-((MessageReceiveSensor) concept)._getNonFunctionalProperty("alarms").removeAll(vals);
+			if (vals != null) ((MessageReceiveSensor) concept)._getNonFunctionalProperty("alarms").removeAll(vals);
 
-			for (IAlarm elem : alarms) {
-				((MessageReceiveSensor) concept).addAlarms(elem);
+			 if (alarms!=null) { 
+				for (IAlarm elem : alarms) {
+					((MessageReceiveSensor) concept).addAlarms(elem);
+				}
 			}
 			vals = new ArrayList<Object>( ((MessageReceiveSensor) concept)._getNonFunctionalProperty("destination").listValues() );
-((MessageReceiveSensor) concept)._getNonFunctionalProperty("destination").removeAll(vals);
+			if (vals != null) ((MessageReceiveSensor) concept)._getNonFunctionalProperty("destination").removeAll(vals);
 
-			for (ILogicalLocation elem : destination) {
-				((MessageReceiveSensor) concept).addDestination(elem);
+			 if (destination!=null) { 
+				for (ILogicalLocation elem : destination) {
+					((MessageReceiveSensor) concept).addDestination(elem);
+				}
 			}
 			((MessageReceiveSensor) concept).setLogicalLoc(logicalLoc);
 			((MessageReceiveSensor) concept).setMessage(message);
 			((MessageReceiveSensor) concept).setOrigin(origin);
+			((MessageReceiveSensor) concept).setSecurityData(securityData);
 
 			dl.getModel().add(concept);
 			dl.getModel().publish();
@@ -830,6 +895,89 @@ public class SmoolKP {
 
 			AbstractOntConcept concept = conceptMap.get(elemID);
 			if (concept == null || !(concept instanceof MessageReceiveSensor)){
+				throw new KPIModelException("Provided ID does not refer to an existing concept of the selected type.");
+			}
+			dl.getModel().remove(concept);
+			dl.getModel().publish();
+		}
+
+		public String createPresenceSensor(String elemID, String deviceID, String vendor, java.util.List<IAlarm> alarms, IPhysicalLocation physicalLoc, IPresenceInformation presence, ISecurity securityData) throws KPIModelException {
+
+			if (elemID == null)
+				throw new KPIModelException("Concepts must have an ID");
+				
+			if (conceptMap.containsKey(elemID)) {
+				throw new KPIModelException("Cannot create two concepts with the same ID");
+			}
+
+			//check that we're connected
+			if (SmoolKP.dl.getModel() == null || !SmoolKP.dl.getModel().isConnected()){
+				Logger.error("Cannot create a new concept. Connection lost. Try to reconnect");
+				throw new KPIModelException("Cannot create a new concept. Connection lost. Try to reconnect");				
+			}
+			PresenceSensor concept = new PresenceSensor();
+			concept._setIndividualID(elemID);
+
+			concept.setDeviceID(deviceID);
+			concept.setVendor(vendor);
+			 if (alarms!=null) { 
+				for (IAlarm elem : alarms) {
+					concept.addAlarms(elem);
+				}
+			}
+			concept.setPhysicalLoc(physicalLoc);
+			concept.setPresence(presence);
+			concept.setSecurityData(securityData);
+
+			//Add it to the HashMap
+			conceptMap.put(elemID, concept);
+			dl.getModel().add(concept);
+			dl.getModel().publish();
+
+			return concept._getIndividualID();
+		}
+
+		public void updatePresenceSensor(String elemID, String deviceID, String vendor, java.util.List<IAlarm> alarms, IPhysicalLocation physicalLoc, IPresenceInformation presence, ISecurity securityData) throws KPIModelException {
+
+			//check that we're connected and model is inserted
+			if (SmoolKP.dl.getModel() == null || !SmoolKP.dl.getModel().isConnected()){
+				Logger.error("Cannot update the concept. Connection lost. Try to reconnect");
+				throw new KPIModelException("Cannot update concept. Connection lost. Try to reconnect");				
+			}
+			AbstractOntConcept concept = conceptMap.get(elemID);
+
+			if (concept == null || !(concept instanceof PresenceSensor)) {
+				throw new KPIModelException("Provided ID does not refer to an existing concept of the selected type.");
+			}
+			Collection<Object> vals = null;
+			((PresenceSensor) concept).setDeviceID(deviceID);
+			((PresenceSensor) concept).setVendor(vendor);
+			vals = new ArrayList<Object>( ((PresenceSensor) concept)._getNonFunctionalProperty("alarms").listValues() );
+			if (vals != null) ((PresenceSensor) concept)._getNonFunctionalProperty("alarms").removeAll(vals);
+
+			 if (alarms!=null) { 
+				for (IAlarm elem : alarms) {
+					((PresenceSensor) concept).addAlarms(elem);
+				}
+			}
+			((PresenceSensor) concept).setPhysicalLoc(physicalLoc);
+			((PresenceSensor) concept).setPresence(presence);
+			((PresenceSensor) concept).setSecurityData(securityData);
+
+			dl.getModel().add(concept);
+			dl.getModel().publish();
+		}
+
+		public void removePresenceSensor(String elemID) throws KPIModelException {
+
+			//check that we're connected and model is inserted
+			if (SmoolKP.dl.getModel() == null || !SmoolKP.dl.getModel().isConnected()){
+				Logger.error("Cannot remove the concept. Connection lost. Try to reconnect");
+				throw new KPIModelException("Cannot remove the concept. Connection lost. Try to reconnect");				
+			}
+
+			AbstractOntConcept concept = conceptMap.get(elemID);
+			if (concept == null || !(concept instanceof PresenceSensor)){
 				throw new KPIModelException("Provided ID does not refer to an existing concept of the selected type.");
 			}
 			dl.getModel().remove(concept);

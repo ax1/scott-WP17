@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -8,7 +8,7 @@
 * This file is a result of OWL 2 java transformation using EMF
 * Contributors:
 *    Enas Ashraf (inas@itida.gov.eg) - creation of level 2 metamodel and transformation to java classes 
-*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - reation of level 1 metamodel by creating ...
+*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - creation of level 1 metamodel by creating ...
 *******************************************************************************/ 
 package SCOTTProducer.model.smoolcore.impl;
      
@@ -25,6 +25,8 @@ import SCOTTProducer.model.smoolcore.ILogicalLocation;
 import SCOTTProducer.model.smoolcore.impl.LogicalLocation;
 import SCOTTProducer.model.smoolcore.IMessage;
 import SCOTTProducer.model.smoolcore.impl.Message;
+import SCOTTProducer.model.smoolcore.ISecurity;
+import SCOTTProducer.model.smoolcore.impl.Security;
 import SCOTTProducer.model.smoolcore.ITwitterAccount;
 import SCOTTProducer.model.smoolcore.impl.TwitterAccount;
 
@@ -150,6 +152,17 @@ public class TweetSendActuator extends AbstractOntConcept implements ITweetSendA
       	this._addProperty(originSlot);
   	  
   	  
+      	// Creates the securityData property
+      	String securityDataIRI = "http://com.tecnalia.smool/core/smoolcore#securityData";
+      	String securityDataPrefix = "smoolcore";
+
+      	FunctionalObjectSlot < Security > securityDataSlot= new FunctionalObjectSlot<Security>(Security.class);
+      	securityDataSlot._setIRI(securityDataIRI);
+      	securityDataSlot._setPrefix(securityDataPrefix);
+      	
+      	this._addProperty(securityDataSlot);
+  	  
+  	  
       	// Creates the tweetWriter property
       	String tweetWriterIRI = "http://com.tecnalia.smool/core/smoolcore#tweetWriter";
       	String tweetWriterPrefix = "smoolcore";
@@ -169,8 +182,9 @@ public class TweetSendActuator extends AbstractOntConcept implements ITweetSendA
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
-	public void setDeviceID(String deviceID) {
-		this.updateAttribute("deviceID",deviceID);        
+	public TweetSendActuator setDeviceID(String deviceID) {
+		this.updateAttribute("deviceID",deviceID);
+		return this;        
 	}
 		
 	 /**
@@ -185,8 +199,9 @@ public class TweetSendActuator extends AbstractOntConcept implements ITweetSendA
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
-	public void setVendor(String vendor) {
-		this.updateAttribute("vendor",vendor);        
+	public TweetSendActuator setVendor(String vendor) {
+		this.updateAttribute("vendor",vendor);
+		return this;        
 	}
 		
 	 /**
@@ -247,8 +262,9 @@ public class TweetSendActuator extends AbstractOntConcept implements ITweetSendA
  	* Sets the logicalLoc property.
  	* @param logicalLoc ILogicalLocation value
  	*/
-	public void setLogicalLoc(ILogicalLocation logicalLoc) {
-		this.updateAttribute("logicalLoc",logicalLoc);        
+	public TweetSendActuator setLogicalLoc(ILogicalLocation logicalLoc) {
+		this.updateAttribute("logicalLoc",logicalLoc);
+		return this;        
 	}
 		
 	 /**
@@ -263,8 +279,9 @@ public class TweetSendActuator extends AbstractOntConcept implements ITweetSendA
  	* Sets the message property.
  	* @param message IMessage value
  	*/
-	public void setMessage(IMessage message) {
-		this.updateAttribute("message",message);        
+	public TweetSendActuator setMessage(IMessage message) {
+		this.updateAttribute("message",message);
+		return this;        
 	}
 		
 	 /**
@@ -279,8 +296,9 @@ public class TweetSendActuator extends AbstractOntConcept implements ITweetSendA
  	* Sets the origin property.
  	* @param origin ILogicalLocation value
  	*/
-	public void setOrigin(ILogicalLocation origin) {
-		this.updateAttribute("origin",origin);        
+	public TweetSendActuator setOrigin(ILogicalLocation origin) {
+		this.updateAttribute("origin",origin);
+		return this;        
 	}
 		
 	 /**
@@ -292,11 +310,29 @@ public class TweetSendActuator extends AbstractOntConcept implements ITweetSendA
 	}
 
  	/**
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
+ 	*/
+	public TweetSendActuator setSecurityData(ISecurity securityData) {
+		this.updateAttribute("securityData",securityData);
+		return this;        
+	}
+		
+	 /**
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
+ 	*/
+	public ISecurity getSecurityData() {
+    	return (ISecurity) this._getFunctionalProperty("securityData").getValue();
+	}
+
+ 	/**
  	* Sets the tweetWriter property.
  	* @param tweetWriter ITwitterAccount value
  	*/
-	public void setTweetWriter(ITwitterAccount tweetWriter) {
-		this.updateAttribute("tweetWriter",tweetWriter);        
+	public TweetSendActuator setTweetWriter(ITwitterAccount tweetWriter) {
+		this.updateAttribute("tweetWriter",tweetWriter);
+		return this;        
 	}
 		
 	 /**

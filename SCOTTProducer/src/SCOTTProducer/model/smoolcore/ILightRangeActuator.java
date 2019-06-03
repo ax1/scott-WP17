@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -17,6 +17,8 @@ import SCOTTProducer.model.smoolcore.IAlarm;
 import SCOTTProducer.model.smoolcore.IContinuousInformation;
        
 import SCOTTProducer.model.smoolcore.IPhysicalLocation;
+       
+import SCOTTProducer.model.smoolcore.ISecurity;
        
 
 /**
@@ -36,7 +38,7 @@ public interface ILightRangeActuator extends IAbstractOntConcept, IRangeActuator
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
- 	public void setDeviceID(String deviceID );
+ 	public ILightRangeActuator setDeviceID(String deviceID );
 
 	/**
  	* Gets the deviceID property.
@@ -48,7 +50,7 @@ public interface ILightRangeActuator extends IAbstractOntConcept, IRangeActuator
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
- 	public void setVendor(String vendor );
+ 	public ILightRangeActuator setVendor(String vendor );
 
 	/**
  	* Gets the vendor property.
@@ -72,7 +74,7 @@ public interface ILightRangeActuator extends IAbstractOntConcept, IRangeActuator
  	* Sets the lightIntensity property.
  	* @param lightIntensity IContinuousInformation value
  	*/
- 	public void setLightIntensity(IContinuousInformation lightIntensity );
+ 	public ILightRangeActuator setLightIntensity(IContinuousInformation lightIntensity );
 
 	/**
  	* Gets the lightIntensity property.
@@ -84,7 +86,7 @@ public interface ILightRangeActuator extends IAbstractOntConcept, IRangeActuator
  	* Sets the physicalLoc property.
  	* @param physicalLoc IPhysicalLocation value
  	*/
- 	public void setPhysicalLoc(IPhysicalLocation physicalLoc );
+ 	public ILightRangeActuator setPhysicalLoc(IPhysicalLocation physicalLoc );
 
 	/**
  	* Gets the physicalLoc property.
@@ -93,14 +95,14 @@ public interface ILightRangeActuator extends IAbstractOntConcept, IRangeActuator
  	public IPhysicalLocation getPhysicalLoc();
 
  	/**
- 	* Sets the value property.
- 	* @param value IContinuousInformation value
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
  	*/
- 	public void setValue(IContinuousInformation value );
+ 	public ILightRangeActuator setSecurityData(ISecurity securityData );
 
 	/**
- 	* Gets the value property.
- 	* @return a IContinuousInformation value
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
 	*/
- 	public IContinuousInformation getValue();
+ 	public ISecurity getSecurityData();
 }

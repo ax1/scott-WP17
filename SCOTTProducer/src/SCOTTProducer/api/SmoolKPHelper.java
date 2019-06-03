@@ -150,5 +150,144 @@ public abstract class SmoolKPHelper {
 		return token;
 	}
 
+	// Helper for subclass class
+	public static ISecurityAuthentication createSecurityAuthenticationSecurity (String elemID, String data, String dataID, String timestamp, String type) {
+		SecurityAuthentication token = new SecurityAuthentication();
+
+		if (elemID != null && !elemID.equals("")) {
+			token._setIndividualID(elemID);
+		}
+
+		token.setData(data);
+		token.setDataID(dataID);
+		token.setTimestamp(timestamp);
+		token.setType(type);
+		return token;
+	}
+
+	// Helper for subclass class
+	public static ISecurityAuthorization createSecurityAuthorizationSecurity (String elemID, String data, String dataID, String timestamp, String type) {
+		SecurityAuthorization token = new SecurityAuthorization();
+
+		if (elemID != null && !elemID.equals("")) {
+			token._setIndividualID(elemID);
+		}
+
+		token.setData(data);
+		token.setDataID(dataID);
+		token.setTimestamp(timestamp);
+		token.setType(type);
+		return token;
+	}
+
+	// Helper for subclass class
+	public static ISecurityConfidentiality createSecurityConfidentialitySecurity (String elemID, String data, String dataID, String timestamp, String type) {
+		SecurityConfidentiality token = new SecurityConfidentiality();
+
+		if (elemID != null && !elemID.equals("")) {
+			token._setIndividualID(elemID);
+		}
+
+		token.setData(data);
+		token.setDataID(dataID);
+		token.setTimestamp(timestamp);
+		token.setType(type);
+		return token;
+	}
+
+	// Helper for subclass class
+	public static ISecurityIntegrity createSecurityIntegritySecurity (String elemID, String data, String dataID, String timestamp, String type) {
+		SecurityIntegrity token = new SecurityIntegrity();
+
+		if (elemID != null && !elemID.equals("")) {
+			token._setIndividualID(elemID);
+		}
+
+		token.setData(data);
+		token.setDataID(dataID);
+		token.setTimestamp(timestamp);
+		token.setType(type);
+		return token;
+	}
+
+	// Helper for subclass class
+	public static ISecurityNonRepudiation createSecurityNonRepudiationSecurity (String elemID, String data, String dataID, String timestamp, String type) {
+		SecurityNonRepudiation token = new SecurityNonRepudiation();
+
+		if (elemID != null && !elemID.equals("")) {
+			token._setIndividualID(elemID);
+		}
+
+		token.setData(data);
+		token.setDataID(dataID);
+		token.setTimestamp(timestamp);
+		token.setType(type);
+		return token;
+	}
+
+	// Helper for subclass class
+	public static IGisLocation createGisLocationPhysicalLocation (String elemID, String dataID, Double latitude, Double longitude, String timestamp) {
+		GisLocation token = new GisLocation();
+
+		if (elemID != null && !elemID.equals("")) {
+			token._setIndividualID(elemID);
+		}
+
+		token.setDataID(dataID);
+		token.setLatitude(latitude);
+		token.setLongitude(longitude);
+		token.setTimestamp(timestamp);
+		return token;
+	}
+
+	// Helper for subclass class
+	public static ILocation2D createLocation2DPhysicalLocation (String elemID, String dataID, String timestamp, Double x, Double y) {
+		Location2D token = new Location2D();
+
+		if (elemID != null && !elemID.equals("")) {
+			token._setIndividualID(elemID);
+		}
+
+		token.setDataID(dataID);
+		token.setTimestamp(timestamp);
+		token.setX(x);
+		token.setY(y);
+		return token;
+	}
+
+	// Helper for subclass class
+	public static ILocation3D createLocation3DPhysicalLocation (String elemID, String dataID, String timestamp, Double x, Double y, Double z) {
+		Location3D token = new Location3D();
+
+		if (elemID != null && !elemID.equals("")) {
+			token._setIndividualID(elemID);
+		}
+
+		token.setDataID(dataID);
+		token.setTimestamp(timestamp);
+		token.setX(x);
+		token.setY(y);
+		token.setZ(z);
+		return token;
+	}
+
+	// Helpers for Leaf class PresenceInformation
+	public static IPresenceInformation createPresenceInformation (String dataID, Boolean status, String timestamp) {
+		return createPresenceInformation("", dataID, status, timestamp);
+	}
+
+	public static IPresenceInformation createPresenceInformation (String elemID, String dataID, Boolean status, String timestamp) {
+		PresenceInformation token = new PresenceInformation();
+
+		if (elemID != null && !elemID.equals("")) {
+			token._setIndividualID(elemID);
+		}
+		
+		token.setDataID(dataID);
+		token.setStatus(status);
+		token.setTimestamp(timestamp);
+		return token;
+	}
+
 
 }

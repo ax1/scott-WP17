@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -18,7 +18,7 @@ import SCOTTProducer.model.smoolcore.IPhysicalLocation;
        
 import SCOTTProducer.model.smoolcore.IProgrammeInformation;
        
-import SCOTTProducer.model.smoolcore.IContinuousInformation;
+import SCOTTProducer.model.smoolcore.ISecurity;
        
 
 /**
@@ -38,7 +38,7 @@ public interface IHVACActuator extends IAbstractOntConcept, IProgrammableActuato
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
- 	public void setDeviceID(String deviceID );
+ 	public IHVACActuator setDeviceID(String deviceID );
 
 	/**
  	* Gets the deviceID property.
@@ -50,7 +50,7 @@ public interface IHVACActuator extends IAbstractOntConcept, IProgrammableActuato
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
- 	public void setVendor(String vendor );
+ 	public IHVACActuator setVendor(String vendor );
 
 	/**
  	* Gets the vendor property.
@@ -74,7 +74,7 @@ public interface IHVACActuator extends IAbstractOntConcept, IProgrammableActuato
  	* Sets the physicalLoc property.
  	* @param physicalLoc IPhysicalLocation value
  	*/
- 	public void setPhysicalLoc(IPhysicalLocation physicalLoc );
+ 	public IHVACActuator setPhysicalLoc(IPhysicalLocation physicalLoc );
 
 	/**
  	* Gets the physicalLoc property.
@@ -86,7 +86,7 @@ public interface IHVACActuator extends IAbstractOntConcept, IProgrammableActuato
  	* Sets the programme property.
  	* @param programme IProgrammeInformation value
  	*/
- 	public void setProgramme(IProgrammeInformation programme );
+ 	public IHVACActuator setProgramme(IProgrammeInformation programme );
 
 	/**
  	* Gets the programme property.
@@ -95,14 +95,14 @@ public interface IHVACActuator extends IAbstractOntConcept, IProgrammableActuato
  	public IProgrammeInformation getProgramme();
 
  	/**
- 	* Sets the value property.
- 	* @param value IContinuousInformation value
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
  	*/
- 	public void setValue(IContinuousInformation value );
+ 	public IHVACActuator setSecurityData(ISecurity securityData );
 
 	/**
- 	* Gets the value property.
- 	* @return a IContinuousInformation value
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
 	*/
- 	public IContinuousInformation getValue();
+ 	public ISecurity getSecurityData();
 }

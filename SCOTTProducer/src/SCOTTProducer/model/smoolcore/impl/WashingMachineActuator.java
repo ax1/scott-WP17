@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -8,7 +8,7 @@
 * This file is a result of OWL 2 java transformation using EMF
 * Contributors:
 *    Enas Ashraf (inas@itida.gov.eg) - creation of level 2 metamodel and transformation to java classes 
-*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - reation of level 1 metamodel by creating ...
+*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - creation of level 1 metamodel by creating ...
 *******************************************************************************/ 
 package SCOTTProducer.model.smoolcore.impl;
      
@@ -27,6 +27,8 @@ import SCOTTProducer.model.smoolcore.IPhysicalLocation;
 import SCOTTProducer.model.smoolcore.impl.PhysicalLocation;
 import SCOTTProducer.model.smoolcore.IProgrammeInformation;
 import SCOTTProducer.model.smoolcore.impl.ProgrammeInformation;
+import SCOTTProducer.model.smoolcore.ISecurity;
+import SCOTTProducer.model.smoolcore.impl.Security;
 
 /**
  * This class implements the ontology concept WashingMachineActuator
@@ -138,6 +140,17 @@ public class WashingMachineActuator extends AbstractOntConcept implements IWashi
       	
       	this._addProperty(programmeSlot);
   	  
+  	  
+      	// Creates the securityData property
+      	String securityDataIRI = "http://com.tecnalia.smool/core/smoolcore#securityData";
+      	String securityDataPrefix = "smoolcore";
+
+      	FunctionalObjectSlot < Security > securityDataSlot= new FunctionalObjectSlot<Security>(Security.class);
+      	securityDataSlot._setIRI(securityDataIRI);
+      	securityDataSlot._setPrefix(securityDataPrefix);
+      	
+      	this._addProperty(securityDataSlot);
+  	  
   	}
 	/*
 	* PROPERTIES: GETTERS AND SETTERS
@@ -147,8 +160,9 @@ public class WashingMachineActuator extends AbstractOntConcept implements IWashi
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
-	public void setDeviceID(String deviceID) {
-		this.updateAttribute("deviceID",deviceID);        
+	public WashingMachineActuator setDeviceID(String deviceID) {
+		this.updateAttribute("deviceID",deviceID);
+		return this;        
 	}
 		
 	 /**
@@ -163,8 +177,9 @@ public class WashingMachineActuator extends AbstractOntConcept implements IWashi
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
-	public void setVendor(String vendor) {
-		this.updateAttribute("vendor",vendor);        
+	public WashingMachineActuator setVendor(String vendor) {
+		this.updateAttribute("vendor",vendor);
+		return this;        
 	}
 		
 	 /**
@@ -202,8 +217,9 @@ public class WashingMachineActuator extends AbstractOntConcept implements IWashi
  	* Sets the bool property.
  	* @param bool IBooleanInformation value
  	*/
-	public void setBool(IBooleanInformation bool) {
-		this.updateAttribute("bool",bool);        
+	public WashingMachineActuator setBool(IBooleanInformation bool) {
+		this.updateAttribute("bool",bool);
+		return this;        
 	}
 		
 	 /**
@@ -218,8 +234,9 @@ public class WashingMachineActuator extends AbstractOntConcept implements IWashi
  	* Sets the physicalLoc property.
  	* @param physicalLoc IPhysicalLocation value
  	*/
-	public void setPhysicalLoc(IPhysicalLocation physicalLoc) {
-		this.updateAttribute("physicalLoc",physicalLoc);        
+	public WashingMachineActuator setPhysicalLoc(IPhysicalLocation physicalLoc) {
+		this.updateAttribute("physicalLoc",physicalLoc);
+		return this;        
 	}
 		
 	 /**
@@ -234,8 +251,9 @@ public class WashingMachineActuator extends AbstractOntConcept implements IWashi
  	* Sets the programme property.
  	* @param programme IProgrammeInformation value
  	*/
-	public void setProgramme(IProgrammeInformation programme) {
-		this.updateAttribute("programme",programme);        
+	public WashingMachineActuator setProgramme(IProgrammeInformation programme) {
+		this.updateAttribute("programme",programme);
+		return this;        
 	}
 		
 	 /**
@@ -244,6 +262,23 @@ public class WashingMachineActuator extends AbstractOntConcept implements IWashi
  	*/
 	public IProgrammeInformation getProgramme() {
     	return (IProgrammeInformation) this._getFunctionalProperty("programme").getValue();
+	}
+
+ 	/**
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
+ 	*/
+	public WashingMachineActuator setSecurityData(ISecurity securityData) {
+		this.updateAttribute("securityData",securityData);
+		return this;        
+	}
+		
+	 /**
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
+ 	*/
+	public ISecurity getSecurityData() {
+    	return (ISecurity) this._getFunctionalProperty("securityData").getValue();
 	}
 
 }

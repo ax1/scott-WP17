@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ public interface ITemperatureInformation extends IAbstractOntConcept, IContinuou
  	* Sets the dataID property.
  	* @param dataID String value
  	*/
- 	public void setDataID(String dataID );
+ 	public ITemperatureInformation setDataID(String dataID );
 
 	/**
  	* Gets the dataID property.
@@ -39,34 +39,10 @@ public interface ITemperatureInformation extends IAbstractOntConcept, IContinuou
  	public String getDataID();
 
  	/**
- 	* Sets the tempUnit property.
- 	* @param tempUnit String value
- 	*/
- 	public void setTempUnit(String tempUnit );
-
-	/**
- 	* Gets the tempUnit property.
- 	* @return a String value
-	*/
- 	public String getTempUnit();
-
- 	/**
- 	* Sets the tempValue property.
- 	* @param tempValue Double value
- 	*/
- 	public void setTempValue(Double tempValue );
-
-	/**
- 	* Gets the tempValue property.
- 	* @return a Double value
-	*/
- 	public Double getTempValue();
-
- 	/**
  	* Sets the timestamp property.
  	* @param timestamp String value
  	*/
- 	public void setTimestamp(String timestamp );
+ 	public ITemperatureInformation setTimestamp(String timestamp );
 
 	/**
  	* Gets the timestamp property.
@@ -78,11 +54,23 @@ public interface ITemperatureInformation extends IAbstractOntConcept, IContinuou
  	* Sets the unit property.
  	* @param unit String value
  	*/
- 	public void setUnit(String unit );
+ 	public ITemperatureInformation setUnit(String unit );
 
 	/**
  	* Gets the unit property.
  	* @return a String value
 	*/
  	public String getUnit();
+
+ 	/**
+ 	* Sets the value property.
+ 	* @param value Double value
+ 	*/
+ 	public ITemperatureInformation setValue(Double value );
+
+	/**
+ 	* Gets the value property.
+ 	* @return a Double value
+	*/
+ 	public Double getValue();
 }

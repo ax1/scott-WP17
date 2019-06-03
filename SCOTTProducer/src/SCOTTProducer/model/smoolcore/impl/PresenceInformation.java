@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -8,7 +8,7 @@
 * This file is a result of OWL 2 java transformation using EMF
 * Contributors:
 *    Enas Ashraf (inas@itida.gov.eg) - creation of level 2 metamodel and transformation to java classes 
-*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - reation of level 1 metamodel by creating ...
+*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - creation of level 1 metamodel by creating ...
 *******************************************************************************/ 
 package SCOTTProducer.model.smoolcore.impl;
      
@@ -63,17 +63,6 @@ public class PresenceInformation extends AbstractOntConcept implements IPresence
       	this._setDefaultIndividualContext();
     
       
-      	// Creates the active property
-      	String activeIRI = "http://com.tecnalia.smool/core/smoolcore#active";
-      	String activePrefix = "smoolcore";
-
-      	FunctionalDatatypeSlot < Boolean > activeSlot= new FunctionalDatatypeSlot<Boolean>(Boolean.class);
-      	activeSlot._setIRI(activeIRI);
-      	activeSlot._setPrefix(activePrefix);
-      	activeSlot.setRange("xsd:Boolean");
-      	this._addProperty(activeSlot);
-  	  
-  	  
       	// Creates the dataID property
       	String dataIDIRI = "http://com.tecnalia.smool/core/smoolcore#dataID";
       	String dataIDPrefix = "smoolcore";
@@ -85,15 +74,15 @@ public class PresenceInformation extends AbstractOntConcept implements IPresence
       	this._addProperty(dataIDSlot);
   	  
   	  
-      	// Creates the presence property
-      	String presenceIRI = "http://com.tecnalia.smool/core/smoolcore#presence";
-      	String presencePrefix = "smoolcore";
+      	// Creates the status property
+      	String statusIRI = "http://com.tecnalia.smool/core/smoolcore#status";
+      	String statusPrefix = "smoolcore";
 
-      	FunctionalDatatypeSlot < Boolean > presenceSlot= new FunctionalDatatypeSlot<Boolean>(Boolean.class);
-      	presenceSlot._setIRI(presenceIRI);
-      	presenceSlot._setPrefix(presencePrefix);
-      	presenceSlot.setRange("xsd:Boolean");
-      	this._addProperty(presenceSlot);
+      	FunctionalDatatypeSlot < Boolean > statusSlot= new FunctionalDatatypeSlot<Boolean>(Boolean.class);
+      	statusSlot._setIRI(statusIRI);
+      	statusSlot._setPrefix(statusPrefix);
+      	statusSlot.setRange("xsd:Boolean");
+      	this._addProperty(statusSlot);
   	  
   	  
       	// Creates the timestamp property
@@ -112,27 +101,12 @@ public class PresenceInformation extends AbstractOntConcept implements IPresence
 	*/
  	
  	/**
- 	* Sets the active property.
- 	* @param active Boolean value
- 	*/
-	public void setActive(Boolean active) {
-		this.updateAttribute("active",active);        
-	}
-		
-	 /**
- 	* Gets the active property.
- 	* @return a Boolean value
- 	*/
-	public Boolean getActive() {
-    	return (Boolean) this._getFunctionalProperty("active").getValue();
-	}
-
- 	/**
  	* Sets the dataID property.
  	* @param dataID String value
  	*/
-	public void setDataID(String dataID) {
-		this.updateAttribute("dataID",dataID);        
+	public PresenceInformation setDataID(String dataID) {
+		this.updateAttribute("dataID",dataID);
+		return this;        
 	}
 		
 	 /**
@@ -144,27 +118,29 @@ public class PresenceInformation extends AbstractOntConcept implements IPresence
 	}
 
  	/**
- 	* Sets the presence property.
- 	* @param presence Boolean value
+ 	* Sets the status property.
+ 	* @param status Boolean value
  	*/
-	public void setPresence(Boolean presence) {
-		this.updateAttribute("presence",presence);        
+	public PresenceInformation setStatus(Boolean status) {
+		this.updateAttribute("status",status);
+		return this;        
 	}
 		
 	 /**
- 	* Gets the presence property.
+ 	* Gets the status property.
  	* @return a Boolean value
  	*/
-	public Boolean getPresence() {
-    	return (Boolean) this._getFunctionalProperty("presence").getValue();
+	public Boolean getStatus() {
+    	return (Boolean) this._getFunctionalProperty("status").getValue();
 	}
 
  	/**
  	* Sets the timestamp property.
  	* @param timestamp String value
  	*/
-	public void setTimestamp(String timestamp) {
-		this.updateAttribute("timestamp",timestamp);        
+	public PresenceInformation setTimestamp(String timestamp) {
+		this.updateAttribute("timestamp",timestamp);
+		return this;        
 	}
 		
 	 /**

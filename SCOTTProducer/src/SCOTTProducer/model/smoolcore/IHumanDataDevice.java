@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -15,6 +15,8 @@ import org.smool.kpi.model.smart.IAbstractOntConcept;
 import SCOTTProducer.model.smoolcore.IPreferenceInformation;
        
 import SCOTTProducer.model.smoolcore.IAlarm;
+       
+import SCOTTProducer.model.smoolcore.ISecurity;
        
 
 /**
@@ -34,7 +36,7 @@ public interface IHumanDataDevice extends IAbstractOntConcept, IPhysicalDataDevi
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
- 	public void setDeviceID(String deviceID );
+ 	public IHumanDataDevice setDeviceID(String deviceID );
 
 	/**
  	* Gets the deviceID property.
@@ -46,7 +48,7 @@ public interface IHumanDataDevice extends IAbstractOntConcept, IPhysicalDataDevi
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
- 	public void setVendor(String vendor );
+ 	public IHumanDataDevice setVendor(String vendor );
 
 	/**
  	* Gets the vendor property.
@@ -58,7 +60,7 @@ public interface IHumanDataDevice extends IAbstractOntConcept, IPhysicalDataDevi
  	* Sets the PublicPreferences property.
  	* @param PublicPreferences IPreferenceInformation value
  	*/
- 	public void setPublicPreferences(IPreferenceInformation PublicPreferences );
+ 	public IHumanDataDevice setPublicPreferences(IPreferenceInformation PublicPreferences );
 
 	/**
  	* Gets the PublicPreferences property.
@@ -77,4 +79,16 @@ public interface IHumanDataDevice extends IAbstractOntConcept, IPhysicalDataDevi
  	* @param alarms IAlarm value to remove
 	*/
  	public void removeAlarms(IAlarm alarms );
+
+ 	/**
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
+ 	*/
+ 	public IHumanDataDevice setSecurityData(ISecurity securityData );
+
+	/**
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
+	*/
+ 	public ISecurity getSecurityData();
 }

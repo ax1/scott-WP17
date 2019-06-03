@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -22,6 +22,8 @@ import SCOTTProducer.model.smoolcore.IEmailMessage;
        
 import SCOTTProducer.model.smoolcore.IMessage;
        
+import SCOTTProducer.model.smoolcore.ISecurity;
+       
 
 /**
  * This class implements interface for the ontology concept EmailSendActuator
@@ -40,7 +42,7 @@ public interface IEmailSendActuator extends IAbstractOntConcept, IMessageSendAct
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
- 	public void setDeviceID(String deviceID );
+ 	public IEmailSendActuator setDeviceID(String deviceID );
 
 	/**
  	* Gets the deviceID property.
@@ -52,7 +54,7 @@ public interface IEmailSendActuator extends IAbstractOntConcept, IMessageSendAct
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
- 	public void setVendor(String vendor );
+ 	public IEmailSendActuator setVendor(String vendor );
 
 	/**
  	* Gets the vendor property.
@@ -88,7 +90,7 @@ public interface IEmailSendActuator extends IAbstractOntConcept, IMessageSendAct
  	* Sets the emailFrom property.
  	* @param emailFrom IEmailAddress value
  	*/
- 	public void setEmailFrom(IEmailAddress emailFrom );
+ 	public IEmailSendActuator setEmailFrom(IEmailAddress emailFrom );
 
 	/**
  	* Gets the emailFrom property.
@@ -100,7 +102,7 @@ public interface IEmailSendActuator extends IAbstractOntConcept, IMessageSendAct
  	* Sets the emailMessage property.
  	* @param emailMessage IEmailMessage value
  	*/
- 	public void setEmailMessage(IEmailMessage emailMessage );
+ 	public IEmailSendActuator setEmailMessage(IEmailMessage emailMessage );
 
 	/**
  	* Gets the emailMessage property.
@@ -124,7 +126,7 @@ public interface IEmailSendActuator extends IAbstractOntConcept, IMessageSendAct
  	* Sets the logicalLoc property.
  	* @param logicalLoc ILogicalLocation value
  	*/
- 	public void setLogicalLoc(ILogicalLocation logicalLoc );
+ 	public IEmailSendActuator setLogicalLoc(ILogicalLocation logicalLoc );
 
 	/**
  	* Gets the logicalLoc property.
@@ -136,7 +138,7 @@ public interface IEmailSendActuator extends IAbstractOntConcept, IMessageSendAct
  	* Sets the message property.
  	* @param message IMessage value
  	*/
- 	public void setMessage(IMessage message );
+ 	public IEmailSendActuator setMessage(IMessage message );
 
 	/**
  	* Gets the message property.
@@ -148,11 +150,23 @@ public interface IEmailSendActuator extends IAbstractOntConcept, IMessageSendAct
  	* Sets the origin property.
  	* @param origin ILogicalLocation value
  	*/
- 	public void setOrigin(ILogicalLocation origin );
+ 	public IEmailSendActuator setOrigin(ILogicalLocation origin );
 
 	/**
  	* Gets the origin property.
  	* @return a ILogicalLocation value
 	*/
  	public ILogicalLocation getOrigin();
+
+ 	/**
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
+ 	*/
+ 	public IEmailSendActuator setSecurityData(ISecurity securityData );
+
+	/**
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
+	*/
+ 	public ISecurity getSecurityData();
 }

@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -20,6 +20,8 @@ import SCOTTProducer.model.smoolcore.IFacebookAccount;
        
 import SCOTTProducer.model.smoolcore.IMessage;
        
+import SCOTTProducer.model.smoolcore.ISecurity;
+       
 
 /**
  * This class implements interface for the ontology concept FacebookMessageSendActuator
@@ -38,7 +40,7 @@ public interface IFacebookMessageSendActuator extends IAbstractOntConcept, IMess
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
- 	public void setDeviceID(String deviceID );
+ 	public IFacebookMessageSendActuator setDeviceID(String deviceID );
 
 	/**
  	* Gets the deviceID property.
@@ -50,7 +52,7 @@ public interface IFacebookMessageSendActuator extends IAbstractOntConcept, IMess
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
- 	public void setVendor(String vendor );
+ 	public IFacebookMessageSendActuator setVendor(String vendor );
 
 	/**
  	* Gets the vendor property.
@@ -98,7 +100,7 @@ public interface IFacebookMessageSendActuator extends IAbstractOntConcept, IMess
  	* Sets the fbSource property.
  	* @param fbSource IFacebookAccount value
  	*/
- 	public void setFbSource(IFacebookAccount fbSource );
+ 	public IFacebookMessageSendActuator setFbSource(IFacebookAccount fbSource );
 
 	/**
  	* Gets the fbSource property.
@@ -110,7 +112,7 @@ public interface IFacebookMessageSendActuator extends IAbstractOntConcept, IMess
  	* Sets the logicalLoc property.
  	* @param logicalLoc ILogicalLocation value
  	*/
- 	public void setLogicalLoc(ILogicalLocation logicalLoc );
+ 	public IFacebookMessageSendActuator setLogicalLoc(ILogicalLocation logicalLoc );
 
 	/**
  	* Gets the logicalLoc property.
@@ -122,7 +124,7 @@ public interface IFacebookMessageSendActuator extends IAbstractOntConcept, IMess
  	* Sets the message property.
  	* @param message IMessage value
  	*/
- 	public void setMessage(IMessage message );
+ 	public IFacebookMessageSendActuator setMessage(IMessage message );
 
 	/**
  	* Gets the message property.
@@ -134,11 +136,23 @@ public interface IFacebookMessageSendActuator extends IAbstractOntConcept, IMess
  	* Sets the origin property.
  	* @param origin ILogicalLocation value
  	*/
- 	public void setOrigin(ILogicalLocation origin );
+ 	public IFacebookMessageSendActuator setOrigin(ILogicalLocation origin );
 
 	/**
  	* Gets the origin property.
  	* @return a ILogicalLocation value
 	*/
  	public ILogicalLocation getOrigin();
+
+ 	/**
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
+ 	*/
+ 	public IFacebookMessageSendActuator setSecurityData(ISecurity securityData );
+
+	/**
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
+	*/
+ 	public ISecurity getSecurityData();
 }

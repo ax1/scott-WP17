@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -20,6 +20,8 @@ import SCOTTProducer.model.smoolcore.IPhysicalLocation;
        
 import SCOTTProducer.model.smoolcore.IProgrammeInformation;
        
+import SCOTTProducer.model.smoolcore.ISecurity;
+       
 
 /**
  * This class implements interface for the ontology concept WashingMachineActuator
@@ -38,7 +40,7 @@ public interface IWashingMachineActuator extends IAbstractOntConcept, IOnOffActu
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
- 	public void setDeviceID(String deviceID );
+ 	public IWashingMachineActuator setDeviceID(String deviceID );
 
 	/**
  	* Gets the deviceID property.
@@ -50,7 +52,7 @@ public interface IWashingMachineActuator extends IAbstractOntConcept, IOnOffActu
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
- 	public void setVendor(String vendor );
+ 	public IWashingMachineActuator setVendor(String vendor );
 
 	/**
  	* Gets the vendor property.
@@ -74,7 +76,7 @@ public interface IWashingMachineActuator extends IAbstractOntConcept, IOnOffActu
  	* Sets the bool property.
  	* @param bool IBooleanInformation value
  	*/
- 	public void setBool(IBooleanInformation bool );
+ 	public IWashingMachineActuator setBool(IBooleanInformation bool );
 
 	/**
  	* Gets the bool property.
@@ -86,7 +88,7 @@ public interface IWashingMachineActuator extends IAbstractOntConcept, IOnOffActu
  	* Sets the physicalLoc property.
  	* @param physicalLoc IPhysicalLocation value
  	*/
- 	public void setPhysicalLoc(IPhysicalLocation physicalLoc );
+ 	public IWashingMachineActuator setPhysicalLoc(IPhysicalLocation physicalLoc );
 
 	/**
  	* Gets the physicalLoc property.
@@ -98,11 +100,23 @@ public interface IWashingMachineActuator extends IAbstractOntConcept, IOnOffActu
  	* Sets the programme property.
  	* @param programme IProgrammeInformation value
  	*/
- 	public void setProgramme(IProgrammeInformation programme );
+ 	public IWashingMachineActuator setProgramme(IProgrammeInformation programme );
 
 	/**
  	* Gets the programme property.
  	* @return a IProgrammeInformation value
 	*/
  	public IProgrammeInformation getProgramme();
+
+ 	/**
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
+ 	*/
+ 	public IWashingMachineActuator setSecurityData(ISecurity securityData );
+
+	/**
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
+	*/
+ 	public ISecurity getSecurityData();
 }

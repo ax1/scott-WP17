@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ public interface IGisLocation extends IAbstractOntConcept, IPhysicalLocation{
  	* Sets the dataID property.
  	* @param dataID String value
  	*/
- 	public void setDataID(String dataID );
+ 	public IGisLocation setDataID(String dataID );
 
 	/**
  	* Gets the dataID property.
@@ -42,7 +42,7 @@ public interface IGisLocation extends IAbstractOntConcept, IPhysicalLocation{
  	* Sets the latitude property.
  	* @param latitude Double value
  	*/
- 	public void setLatitude(Double latitude );
+ 	public IGisLocation setLatitude(Double latitude );
 
 	/**
  	* Gets the latitude property.
@@ -54,7 +54,7 @@ public interface IGisLocation extends IAbstractOntConcept, IPhysicalLocation{
  	* Sets the longitude property.
  	* @param longitude Double value
  	*/
- 	public void setLongitude(Double longitude );
+ 	public IGisLocation setLongitude(Double longitude );
 
 	/**
  	* Gets the longitude property.
@@ -66,7 +66,7 @@ public interface IGisLocation extends IAbstractOntConcept, IPhysicalLocation{
  	* Sets the timestamp property.
  	* @param timestamp String value
  	*/
- 	public void setTimestamp(String timestamp );
+ 	public IGisLocation setTimestamp(String timestamp );
 
 	/**
  	* Gets the timestamp property.

@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -12,23 +12,23 @@
 package SCOTTProducer.model.smoolcore;
        
 import org.smool.kpi.model.smart.IAbstractOntConcept;
-import SCOTTProducer.model.smoolcore.IAccelerometerInformation;
-       
 import SCOTTProducer.model.smoolcore.IAlarm;
        
-import SCOTTProducer.model.smoolcore.IContinuousInformation;
+import SCOTTProducer.model.smoolcore.IGasInformation;
        
 import SCOTTProducer.model.smoolcore.IPhysicalLocation;
        
+import SCOTTProducer.model.smoolcore.ISecurity;
+       
 
 /**
- * This class implements interface for the ontology concept Accerometer
+ * This class implements interface for the ontology concept GasSensor
  * including all its properties.
  * @author Genrated via EMF OWL to java transformation
  * @version 1.0
  */
 
-public interface IAccerometer extends IAbstractOntConcept, IContinuousSensor{
+public interface IGasSensor extends IAbstractOntConcept, IContinuousSensor{
 
    /*
  	* PROPERTIES: GETTERS AND SETTERS
@@ -38,7 +38,7 @@ public interface IAccerometer extends IAbstractOntConcept, IContinuousSensor{
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
- 	public void setDeviceID(String deviceID );
+ 	public IGasSensor setDeviceID(String deviceID );
 
 	/**
  	* Gets the deviceID property.
@@ -50,25 +50,13 @@ public interface IAccerometer extends IAbstractOntConcept, IContinuousSensor{
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
- 	public void setVendor(String vendor );
+ 	public IGasSensor setVendor(String vendor );
 
 	/**
  	* Gets the vendor property.
  	* @return a String value
 	*/
  	public String getVendor();
-
- 	/**
- 	* Sets the accinfo property.
- 	* @param accinfo IAccelerometerInformation value
- 	*/
- 	public void setAccinfo(IAccelerometerInformation accinfo );
-
-	/**
- 	* Gets the accinfo property.
- 	* @return a IAccelerometerInformation value
-	*/
- 	public IAccelerometerInformation getAccinfo();
 
  	/**
  	* Adds the alarms property.
@@ -83,26 +71,38 @@ public interface IAccerometer extends IAbstractOntConcept, IContinuousSensor{
  	public void removeAlarms(IAlarm alarms );
 
  	/**
- 	* Sets the continuousValue property.
- 	* @param continuousValue IContinuousInformation value
+ 	* Sets the gas property.
+ 	* @param gas IGasInformation value
  	*/
- 	public void setContinuousValue(IContinuousInformation continuousValue );
+ 	public IGasSensor setGas(IGasInformation gas );
 
 	/**
- 	* Gets the continuousValue property.
- 	* @return a IContinuousInformation value
+ 	* Gets the gas property.
+ 	* @return a IGasInformation value
 	*/
- 	public IContinuousInformation getContinuousValue();
+ 	public IGasInformation getGas();
 
  	/**
  	* Sets the physicalLoc property.
  	* @param physicalLoc IPhysicalLocation value
  	*/
- 	public void setPhysicalLoc(IPhysicalLocation physicalLoc );
+ 	public IGasSensor setPhysicalLoc(IPhysicalLocation physicalLoc );
 
 	/**
  	* Gets the physicalLoc property.
  	* @return a IPhysicalLocation value
 	*/
  	public IPhysicalLocation getPhysicalLoc();
+
+ 	/**
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
+ 	*/
+ 	public IGasSensor setSecurityData(ISecurity securityData );
+
+	/**
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
+	*/
+ 	public ISecurity getSecurityData();
 }

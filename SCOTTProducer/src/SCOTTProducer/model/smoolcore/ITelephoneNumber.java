@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -32,7 +32,7 @@ public interface ITelephoneNumber extends IAbstractOntConcept, ILogicalLocation{
  	* Sets the dataID property.
  	* @param dataID String value
  	*/
- 	public void setDataID(String dataID );
+ 	public ITelephoneNumber setDataID(String dataID );
 
 	/**
  	* Gets the dataID property.
@@ -44,7 +44,7 @@ public interface ITelephoneNumber extends IAbstractOntConcept, ILogicalLocation{
  	* Sets the number property.
  	* @param number String value
  	*/
- 	public void setNumber(String number );
+ 	public ITelephoneNumber setNumber(String number );
 
 	/**
  	* Gets the number property.
@@ -56,7 +56,7 @@ public interface ITelephoneNumber extends IAbstractOntConcept, ILogicalLocation{
  	* Sets the timestamp property.
  	* @param timestamp String value
  	*/
- 	public void setTimestamp(String timestamp );
+ 	public ITelephoneNumber setTimestamp(String timestamp );
 
 	/**
  	* Gets the timestamp property.
@@ -68,7 +68,7 @@ public interface ITelephoneNumber extends IAbstractOntConcept, ILogicalLocation{
  	* Sets the logicalLoc property.
  	* @param logicalLoc ILogicalLocation value
  	*/
- 	public void setLogicalLoc(ILogicalLocation logicalLoc );
+ 	public ITelephoneNumber setLogicalLoc(ILogicalLocation logicalLoc );
 
 	/**
  	* Gets the logicalLoc property.

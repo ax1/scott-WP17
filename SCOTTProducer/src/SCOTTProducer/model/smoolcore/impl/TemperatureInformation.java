@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -8,7 +8,7 @@
 * This file is a result of OWL 2 java transformation using EMF
 * Contributors:
 *    Enas Ashraf (inas@itida.gov.eg) - creation of level 2 metamodel and transformation to java classes 
-*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - reation of level 1 metamodel by creating ...
+*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - creation of level 1 metamodel by creating ...
 *******************************************************************************/ 
 package SCOTTProducer.model.smoolcore.impl;
      
@@ -74,28 +74,6 @@ public class TemperatureInformation extends AbstractOntConcept implements ITempe
       	this._addProperty(dataIDSlot);
   	  
   	  
-      	// Creates the tempUnit property
-      	String tempUnitIRI = "http://com.tecnalia.smool/core/smoolcore#tempUnit";
-      	String tempUnitPrefix = "smoolcore";
-
-      	FunctionalDatatypeSlot < String > tempUnitSlot= new FunctionalDatatypeSlot<String>(String.class);
-      	tempUnitSlot._setIRI(tempUnitIRI);
-      	tempUnitSlot._setPrefix(tempUnitPrefix);
-      	tempUnitSlot.setRange("xsd:String");
-      	this._addProperty(tempUnitSlot);
-  	  
-  	  
-      	// Creates the tempValue property
-      	String tempValueIRI = "http://com.tecnalia.smool/core/smoolcore#tempValue";
-      	String tempValuePrefix = "smoolcore";
-
-      	FunctionalDatatypeSlot < Double > tempValueSlot= new FunctionalDatatypeSlot<Double>(Double.class);
-      	tempValueSlot._setIRI(tempValueIRI);
-      	tempValueSlot._setPrefix(tempValuePrefix);
-      	tempValueSlot.setRange("xsd:Double");
-      	this._addProperty(tempValueSlot);
-  	  
-  	  
       	// Creates the timestamp property
       	String timestampIRI = "http://com.tecnalia.smool/core/smoolcore#timestamp";
       	String timestampPrefix = "smoolcore";
@@ -117,6 +95,17 @@ public class TemperatureInformation extends AbstractOntConcept implements ITempe
       	unitSlot.setRange("xsd:String");
       	this._addProperty(unitSlot);
   	  
+  	  
+      	// Creates the value property
+      	String valueIRI = "http://com.tecnalia.smool/core/smoolcore#value";
+      	String valuePrefix = "smoolcore";
+
+      	FunctionalDatatypeSlot < Double > valueSlot= new FunctionalDatatypeSlot<Double>(Double.class);
+      	valueSlot._setIRI(valueIRI);
+      	valueSlot._setPrefix(valuePrefix);
+      	valueSlot.setRange("xsd:Double");
+      	this._addProperty(valueSlot);
+  	  
   	}
 	/*
 	* PROPERTIES: GETTERS AND SETTERS
@@ -126,8 +115,9 @@ public class TemperatureInformation extends AbstractOntConcept implements ITempe
  	* Sets the dataID property.
  	* @param dataID String value
  	*/
-	public void setDataID(String dataID) {
-		this.updateAttribute("dataID",dataID);        
+	public TemperatureInformation setDataID(String dataID) {
+		this.updateAttribute("dataID",dataID);
+		return this;        
 	}
 		
 	 /**
@@ -139,43 +129,12 @@ public class TemperatureInformation extends AbstractOntConcept implements ITempe
 	}
 
  	/**
- 	* Sets the tempUnit property.
- 	* @param tempUnit String value
- 	*/
-	public void setTempUnit(String tempUnit) {
-		this.updateAttribute("tempUnit",tempUnit);        
-	}
-		
-	 /**
- 	* Gets the tempUnit property.
- 	* @return a String value
- 	*/
-	public String getTempUnit() {
-    	return (String) this._getFunctionalProperty("tempUnit").getValue();
-	}
-
- 	/**
- 	* Sets the tempValue property.
- 	* @param tempValue Double value
- 	*/
-	public void setTempValue(Double tempValue) {
-		this.updateAttribute("tempValue",tempValue);        
-	}
-		
-	 /**
- 	* Gets the tempValue property.
- 	* @return a Double value
- 	*/
-	public Double getTempValue() {
-    	return (Double) this._getFunctionalProperty("tempValue").getValue();
-	}
-
- 	/**
  	* Sets the timestamp property.
  	* @param timestamp String value
  	*/
-	public void setTimestamp(String timestamp) {
-		this.updateAttribute("timestamp",timestamp);        
+	public TemperatureInformation setTimestamp(String timestamp) {
+		this.updateAttribute("timestamp",timestamp);
+		return this;        
 	}
 		
 	 /**
@@ -190,8 +149,9 @@ public class TemperatureInformation extends AbstractOntConcept implements ITempe
  	* Sets the unit property.
  	* @param unit String value
  	*/
-	public void setUnit(String unit) {
-		this.updateAttribute("unit",unit);        
+	public TemperatureInformation setUnit(String unit) {
+		this.updateAttribute("unit",unit);
+		return this;        
 	}
 		
 	 /**
@@ -200,6 +160,23 @@ public class TemperatureInformation extends AbstractOntConcept implements ITempe
  	*/
 	public String getUnit() {
     	return (String) this._getFunctionalProperty("unit").getValue();
+	}
+
+ 	/**
+ 	* Sets the value property.
+ 	* @param value Double value
+ 	*/
+	public TemperatureInformation setValue(Double value) {
+		this.updateAttribute("value",value);
+		return this;        
+	}
+		
+	 /**
+ 	* Gets the value property.
+ 	* @return a Double value
+ 	*/
+	public Double getValue() {
+    	return (Double) this._getFunctionalProperty("value").getValue();
 	}
 
 }

@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ public interface INoiseInformation extends IAbstractOntConcept, IContinuousInfor
  	* Sets the dataID property.
  	* @param dataID String value
  	*/
- 	public void setDataID(String dataID );
+ 	public INoiseInformation setDataID(String dataID );
 
 	/**
  	* Gets the dataID property.
@@ -39,34 +39,10 @@ public interface INoiseInformation extends IAbstractOntConcept, IContinuousInfor
  	public String getDataID();
 
  	/**
- 	* Sets the noiseUnit property.
- 	* @param noiseUnit String value
- 	*/
- 	public void setNoiseUnit(String noiseUnit );
-
-	/**
- 	* Gets the noiseUnit property.
- 	* @return a String value
-	*/
- 	public String getNoiseUnit();
-
- 	/**
- 	* Sets the noiseValue property.
- 	* @param noiseValue Double value
- 	*/
- 	public void setNoiseValue(Double noiseValue );
-
-	/**
- 	* Gets the noiseValue property.
- 	* @return a Double value
-	*/
- 	public Double getNoiseValue();
-
- 	/**
  	* Sets the timestamp property.
  	* @param timestamp String value
  	*/
- 	public void setTimestamp(String timestamp );
+ 	public INoiseInformation setTimestamp(String timestamp );
 
 	/**
  	* Gets the timestamp property.
@@ -78,11 +54,23 @@ public interface INoiseInformation extends IAbstractOntConcept, IContinuousInfor
  	* Sets the unit property.
  	* @param unit String value
  	*/
- 	public void setUnit(String unit );
+ 	public INoiseInformation setUnit(String unit );
 
 	/**
  	* Gets the unit property.
  	* @return a String value
 	*/
  	public String getUnit();
+
+ 	/**
+ 	* Sets the value property.
+ 	* @param value Double value
+ 	*/
+ 	public INoiseInformation setValue(Double value );
+
+	/**
+ 	* Gets the value property.
+ 	* @return a Double value
+	*/
+ 	public Double getValue();
 }

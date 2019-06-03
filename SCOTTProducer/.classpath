@@ -14,6 +14,5 @@
 	<classpathentry kind="lib" path="lib/org.smool.kpi.model.smart_2.2.4.jar"/>
 	<classpathentry kind="lib" path="lib/org.smool.kpi.connector_2.2.4.jar"/>
 	<classpathentry kind="lib" path="lib/org.smool.kpi.connector.tcpip_2.2.4.jar"/>
-	<classpathentry kind="lib" path="lib/org.eclipse.paho.client.mqttv3-1.2.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -27,22 +27,10 @@ public interface IPresenceInformation extends IAbstractOntConcept, IBooleanInfor
  	*/
    
  	/**
- 	* Sets the active property.
- 	* @param active Boolean value
- 	*/
- 	public void setActive(Boolean active );
-
-	/**
- 	* Gets the active property.
- 	* @return a Boolean value
-	*/
- 	public Boolean getActive();
-
- 	/**
  	* Sets the dataID property.
  	* @param dataID String value
  	*/
- 	public void setDataID(String dataID );
+ 	public IPresenceInformation setDataID(String dataID );
 
 	/**
  	* Gets the dataID property.
@@ -51,22 +39,22 @@ public interface IPresenceInformation extends IAbstractOntConcept, IBooleanInfor
  	public String getDataID();
 
  	/**
- 	* Sets the presence property.
- 	* @param presence Boolean value
+ 	* Sets the status property.
+ 	* @param status Boolean value
  	*/
- 	public void setPresence(Boolean presence );
+ 	public IPresenceInformation setStatus(Boolean status );
 
 	/**
- 	* Gets the presence property.
+ 	* Gets the status property.
  	* @return a Boolean value
 	*/
- 	public Boolean getPresence();
+ 	public Boolean getStatus();
 
  	/**
  	* Sets the timestamp property.
  	* @param timestamp String value
  	*/
- 	public void setTimestamp(String timestamp );
+ 	public IPresenceInformation setTimestamp(String timestamp );
 
 	/**
  	* Gets the timestamp property.

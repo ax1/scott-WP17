@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -14,11 +14,11 @@ package SCOTTProducer.model.smoolcore;
 import org.smool.kpi.model.smart.IAbstractOntConcept;
 import SCOTTProducer.model.smoolcore.IAlarm;
        
-import SCOTTProducer.model.smoolcore.IContinuousInformation;
-       
 import SCOTTProducer.model.smoolcore.IHumidityInformation;
        
 import SCOTTProducer.model.smoolcore.IPhysicalLocation;
+       
+import SCOTTProducer.model.smoolcore.ISecurity;
        
 
 /**
@@ -38,7 +38,7 @@ public interface IHumiditySensor extends IAbstractOntConcept, IContinuousSensor{
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
- 	public void setDeviceID(String deviceID );
+ 	public IHumiditySensor setDeviceID(String deviceID );
 
 	/**
  	* Gets the deviceID property.
@@ -50,7 +50,7 @@ public interface IHumiditySensor extends IAbstractOntConcept, IContinuousSensor{
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
- 	public void setVendor(String vendor );
+ 	public IHumiditySensor setVendor(String vendor );
 
 	/**
  	* Gets the vendor property.
@@ -71,22 +71,10 @@ public interface IHumiditySensor extends IAbstractOntConcept, IContinuousSensor{
  	public void removeAlarms(IAlarm alarms );
 
  	/**
- 	* Sets the continuousValue property.
- 	* @param continuousValue IContinuousInformation value
- 	*/
- 	public void setContinuousValue(IContinuousInformation continuousValue );
-
-	/**
- 	* Gets the continuousValue property.
- 	* @return a IContinuousInformation value
-	*/
- 	public IContinuousInformation getContinuousValue();
-
- 	/**
  	* Sets the humidity property.
  	* @param humidity IHumidityInformation value
  	*/
- 	public void setHumidity(IHumidityInformation humidity );
+ 	public IHumiditySensor setHumidity(IHumidityInformation humidity );
 
 	/**
  	* Gets the humidity property.
@@ -98,11 +86,23 @@ public interface IHumiditySensor extends IAbstractOntConcept, IContinuousSensor{
  	* Sets the physicalLoc property.
  	* @param physicalLoc IPhysicalLocation value
  	*/
- 	public void setPhysicalLoc(IPhysicalLocation physicalLoc );
+ 	public IHumiditySensor setPhysicalLoc(IPhysicalLocation physicalLoc );
 
 	/**
  	* Gets the physicalLoc property.
  	* @return a IPhysicalLocation value
 	*/
  	public IPhysicalLocation getPhysicalLoc();
+
+ 	/**
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
+ 	*/
+ 	public IHumiditySensor setSecurityData(ISecurity securityData );
+
+	/**
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
+	*/
+ 	public ISecurity getSecurityData();
 }

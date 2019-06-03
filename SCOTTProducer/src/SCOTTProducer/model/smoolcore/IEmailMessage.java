@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ public interface IEmailMessage extends IAbstractOntConcept, IMessage{
  	* Sets the body property.
  	* @param body String value
  	*/
- 	public void setBody(String body );
+ 	public IEmailMessage setBody(String body );
 
 	/**
  	* Gets the body property.
@@ -42,7 +42,7 @@ public interface IEmailMessage extends IAbstractOntConcept, IMessage{
  	* Sets the dataID property.
  	* @param dataID String value
  	*/
- 	public void setDataID(String dataID );
+ 	public IEmailMessage setDataID(String dataID );
 
 	/**
  	* Gets the dataID property.
@@ -54,7 +54,7 @@ public interface IEmailMessage extends IAbstractOntConcept, IMessage{
  	* Sets the subject property.
  	* @param subject String value
  	*/
- 	public void setSubject(String subject );
+ 	public IEmailMessage setSubject(String subject );
 
 	/**
  	* Gets the subject property.
@@ -66,7 +66,7 @@ public interface IEmailMessage extends IAbstractOntConcept, IMessage{
  	* Sets the timestamp property.
  	* @param timestamp String value
  	*/
- 	public void setTimestamp(String timestamp );
+ 	public IEmailMessage setTimestamp(String timestamp );
 
 	/**
  	* Gets the timestamp property.

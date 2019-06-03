@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ public interface IPreferenceInformation extends IAbstractOntConcept, IDiscreteIn
  	* Sets the PreferredTemperature property.
  	* @param PreferredTemperature Integer value
  	*/
- 	public void setPreferredTemperature(Integer PreferredTemperature );
+ 	public IPreferenceInformation setPreferredTemperature(Integer PreferredTemperature );
 
 	/**
  	* Gets the PreferredTemperature property.
@@ -42,7 +42,7 @@ public interface IPreferenceInformation extends IAbstractOntConcept, IDiscreteIn
  	* Sets the dataID property.
  	* @param dataID String value
  	*/
- 	public void setDataID(String dataID );
+ 	public IPreferenceInformation setDataID(String dataID );
 
 	/**
  	* Gets the dataID property.
@@ -54,7 +54,7 @@ public interface IPreferenceInformation extends IAbstractOntConcept, IDiscreteIn
  	* Sets the disabilityType property.
  	* @param disabilityType String value
  	*/
- 	public void setDisabilityType(String disabilityType );
+ 	public IPreferenceInformation setDisabilityType(String disabilityType );
 
 	/**
  	* Gets the disabilityType property.
@@ -66,7 +66,7 @@ public interface IPreferenceInformation extends IAbstractOntConcept, IDiscreteIn
  	* Sets the isSmoker property.
  	* @param isSmoker Boolean value
  	*/
- 	public void setIsSmoker(Boolean isSmoker );
+ 	public IPreferenceInformation setIsSmoker(Boolean isSmoker );
 
 	/**
  	* Gets the isSmoker property.
@@ -78,7 +78,7 @@ public interface IPreferenceInformation extends IAbstractOntConcept, IDiscreteIn
  	* Sets the timestamp property.
  	* @param timestamp String value
  	*/
- 	public void setTimestamp(String timestamp );
+ 	public IPreferenceInformation setTimestamp(String timestamp );
 
 	/**
  	* Gets the timestamp property.
@@ -90,7 +90,7 @@ public interface IPreferenceInformation extends IAbstractOntConcept, IDiscreteIn
  	* Sets the userIDPublic property.
  	* @param userIDPublic String value
  	*/
- 	public void setUserIDPublic(String userIDPublic );
+ 	public IPreferenceInformation setUserIDPublic(String userIDPublic );
 
 	/**
  	* Gets the userIDPublic property.

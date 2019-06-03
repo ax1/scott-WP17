@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -14,9 +14,9 @@ package SCOTTProducer.model.smoolcore;
 import org.smool.kpi.model.smart.IAbstractOntConcept;
 import SCOTTProducer.model.smoolcore.IAlarm;
        
-import SCOTTProducer.model.smoolcore.IBooleanInformation;
-       
 import SCOTTProducer.model.smoolcore.IPhysicalLocation;
+       
+import SCOTTProducer.model.smoolcore.ISecurity;
        
 
 /**
@@ -36,7 +36,7 @@ public interface ITrueFalseSensor extends IAbstractOntConcept, IPhysicalSensor{
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
- 	public void setDeviceID(String deviceID );
+ 	public ITrueFalseSensor setDeviceID(String deviceID );
 
 	/**
  	* Gets the deviceID property.
@@ -48,7 +48,7 @@ public interface ITrueFalseSensor extends IAbstractOntConcept, IPhysicalSensor{
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
- 	public void setVendor(String vendor );
+ 	public ITrueFalseSensor setVendor(String vendor );
 
 	/**
  	* Gets the vendor property.
@@ -69,26 +69,26 @@ public interface ITrueFalseSensor extends IAbstractOntConcept, IPhysicalSensor{
  	public void removeAlarms(IAlarm alarms );
 
  	/**
- 	* Sets the bool property.
- 	* @param bool IBooleanInformation value
- 	*/
- 	public void setBool(IBooleanInformation bool );
-
-	/**
- 	* Gets the bool property.
- 	* @return a IBooleanInformation value
-	*/
- 	public IBooleanInformation getBool();
-
- 	/**
  	* Sets the physicalLoc property.
  	* @param physicalLoc IPhysicalLocation value
  	*/
- 	public void setPhysicalLoc(IPhysicalLocation physicalLoc );
+ 	public ITrueFalseSensor setPhysicalLoc(IPhysicalLocation physicalLoc );
 
 	/**
  	* Gets the physicalLoc property.
  	* @return a IPhysicalLocation value
 	*/
  	public IPhysicalLocation getPhysicalLoc();
+
+ 	/**
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
+ 	*/
+ 	public ITrueFalseSensor setSecurityData(ISecurity securityData );
+
+	/**
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
+	*/
+ 	public ISecurity getSecurityData();
 }

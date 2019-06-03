@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ public interface ILightingInformation extends IAbstractOntConcept, IContinuousIn
  	* Sets the dataID property.
  	* @param dataID String value
  	*/
- 	public void setDataID(String dataID );
+ 	public ILightingInformation setDataID(String dataID );
 
 	/**
  	* Gets the dataID property.
@@ -42,7 +42,7 @@ public interface ILightingInformation extends IAbstractOntConcept, IContinuousIn
  	* Sets the lightUnit property.
  	* @param lightUnit String value
  	*/
- 	public void setLightUnit(String lightUnit );
+ 	public ILightingInformation setLightUnit(String lightUnit );
 
 	/**
  	* Gets the lightUnit property.
@@ -54,7 +54,7 @@ public interface ILightingInformation extends IAbstractOntConcept, IContinuousIn
  	* Sets the lightValue property.
  	* @param lightValue Double value
  	*/
- 	public void setLightValue(Double lightValue );
+ 	public ILightingInformation setLightValue(Double lightValue );
 
 	/**
  	* Gets the lightValue property.
@@ -66,7 +66,7 @@ public interface ILightingInformation extends IAbstractOntConcept, IContinuousIn
  	* Sets the timestamp property.
  	* @param timestamp String value
  	*/
- 	public void setTimestamp(String timestamp );
+ 	public ILightingInformation setTimestamp(String timestamp );
 
 	/**
  	* Gets the timestamp property.
@@ -78,11 +78,23 @@ public interface ILightingInformation extends IAbstractOntConcept, IContinuousIn
  	* Sets the unit property.
  	* @param unit String value
  	*/
- 	public void setUnit(String unit );
+ 	public ILightingInformation setUnit(String unit );
 
 	/**
  	* Gets the unit property.
  	* @return a String value
 	*/
  	public String getUnit();
+
+ 	/**
+ 	* Sets the value property.
+ 	* @param value Double value
+ 	*/
+ 	public ILightingInformation setValue(Double value );
+
+	/**
+ 	* Gets the value property.
+ 	* @return a Double value
+	*/
+ 	public Double getValue();
 }

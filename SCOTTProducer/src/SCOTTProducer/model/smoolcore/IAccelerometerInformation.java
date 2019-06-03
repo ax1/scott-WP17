@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ public interface IAccelerometerInformation extends IAbstractOntConcept, IContinu
  	* Sets the axisx property.
  	* @param axisx Double value
  	*/
- 	public void setAxisx(Double axisx );
+ 	public IAccelerometerInformation setAxisx(Double axisx );
 
 	/**
  	* Gets the axisx property.
@@ -42,7 +42,7 @@ public interface IAccelerometerInformation extends IAbstractOntConcept, IContinu
  	* Sets the axisy property.
  	* @param axisy Double value
  	*/
- 	public void setAxisy(Double axisy );
+ 	public IAccelerometerInformation setAxisy(Double axisy );
 
 	/**
  	* Gets the axisy property.
@@ -54,7 +54,7 @@ public interface IAccelerometerInformation extends IAbstractOntConcept, IContinu
  	* Sets the axisz property.
  	* @param axisz Double value
  	*/
- 	public void setAxisz(Double axisz );
+ 	public IAccelerometerInformation setAxisz(Double axisz );
 
 	/**
  	* Gets the axisz property.
@@ -66,7 +66,7 @@ public interface IAccelerometerInformation extends IAbstractOntConcept, IContinu
  	* Sets the dataID property.
  	* @param dataID String value
  	*/
- 	public void setDataID(String dataID );
+ 	public IAccelerometerInformation setDataID(String dataID );
 
 	/**
  	* Gets the dataID property.
@@ -78,7 +78,7 @@ public interface IAccelerometerInformation extends IAbstractOntConcept, IContinu
  	* Sets the timestamp property.
  	* @param timestamp String value
  	*/
- 	public void setTimestamp(String timestamp );
+ 	public IAccelerometerInformation setTimestamp(String timestamp );
 
 	/**
  	* Gets the timestamp property.
@@ -90,11 +90,23 @@ public interface IAccelerometerInformation extends IAbstractOntConcept, IContinu
  	* Sets the unit property.
  	* @param unit String value
  	*/
- 	public void setUnit(String unit );
+ 	public IAccelerometerInformation setUnit(String unit );
 
 	/**
  	* Gets the unit property.
  	* @return a String value
 	*/
  	public String getUnit();
+
+ 	/**
+ 	* Sets the value property.
+ 	* @param value Double value
+ 	*/
+ 	public IAccelerometerInformation setValue(Double value );
+
+	/**
+ 	* Gets the value property.
+ 	* @return a Double value
+	*/
+ 	public Double getValue();
 }

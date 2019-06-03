@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -8,7 +8,7 @@
 * This file is a result of OWL 2 java transformation using EMF
 * Contributors:
 *    Enas Ashraf (inas@itida.gov.eg) - creation of level 2 metamodel and transformation to java classes 
-*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - reation of level 1 metamodel by creating ...
+*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - creation of level 1 metamodel by creating ...
 *******************************************************************************/ 
 package SCOTTProducer.model.smoolcore.impl;
      
@@ -129,8 +129,9 @@ public class FacebookAccount extends AbstractOntConcept implements IFacebookAcco
  	* Sets the dataID property.
  	* @param dataID String value
  	*/
-	public void setDataID(String dataID) {
-		this.updateAttribute("dataID",dataID);        
+	public FacebookAccount setDataID(String dataID) {
+		this.updateAttribute("dataID",dataID);
+		return this;        
 	}
 		
 	 /**
@@ -145,8 +146,9 @@ public class FacebookAccount extends AbstractOntConcept implements IFacebookAcco
  	* Sets the password property.
  	* @param password String value
  	*/
-	public void setPassword(String password) {
-		this.updateAttribute("password",password);        
+	public FacebookAccount setPassword(String password) {
+		this.updateAttribute("password",password);
+		return this;        
 	}
 		
 	 /**
@@ -161,8 +163,9 @@ public class FacebookAccount extends AbstractOntConcept implements IFacebookAcco
  	* Sets the timestamp property.
  	* @param timestamp String value
  	*/
-	public void setTimestamp(String timestamp) {
-		this.updateAttribute("timestamp",timestamp);        
+	public FacebookAccount setTimestamp(String timestamp) {
+		this.updateAttribute("timestamp",timestamp);
+		return this;        
 	}
 		
 	 /**
@@ -177,8 +180,9 @@ public class FacebookAccount extends AbstractOntConcept implements IFacebookAcco
  	* Sets the username property.
  	* @param username String value
  	*/
-	public void setUsername(String username) {
-		this.updateAttribute("username",username);        
+	public FacebookAccount setUsername(String username) {
+		this.updateAttribute("username",username);
+		return this;        
 	}
 		
 	 /**
@@ -193,8 +197,9 @@ public class FacebookAccount extends AbstractOntConcept implements IFacebookAcco
  	* Sets the logicalLoc property.
  	* @param logicalLoc ILogicalLocation value
  	*/
-	public void setLogicalLoc(ILogicalLocation logicalLoc) {
-		this.updateAttribute("logicalLoc",logicalLoc);        
+	public FacebookAccount setLogicalLoc(ILogicalLocation logicalLoc) {
+		this.updateAttribute("logicalLoc",logicalLoc);
+		return this;        
 	}
 		
 	 /**

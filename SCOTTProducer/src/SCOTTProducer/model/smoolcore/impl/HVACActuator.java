@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -8,7 +8,7 @@
 * This file is a result of OWL 2 java transformation using EMF
 * Contributors:
 *    Enas Ashraf (inas@itida.gov.eg) - creation of level 2 metamodel and transformation to java classes 
-*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - reation of level 1 metamodel by creating ...
+*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - creation of level 1 metamodel by creating ...
 *******************************************************************************/ 
 package SCOTTProducer.model.smoolcore.impl;
      
@@ -25,8 +25,8 @@ import SCOTTProducer.model.smoolcore.IPhysicalLocation;
 import SCOTTProducer.model.smoolcore.impl.PhysicalLocation;
 import SCOTTProducer.model.smoolcore.IProgrammeInformation;
 import SCOTTProducer.model.smoolcore.impl.ProgrammeInformation;
-import SCOTTProducer.model.smoolcore.IContinuousInformation;
-import SCOTTProducer.model.smoolcore.impl.ContinuousInformation;
+import SCOTTProducer.model.smoolcore.ISecurity;
+import SCOTTProducer.model.smoolcore.impl.Security;
 
 /**
  * This class implements the ontology concept HVACActuator
@@ -128,15 +128,15 @@ public class HVACActuator extends AbstractOntConcept implements IHVACActuator, K
       	this._addProperty(programmeSlot);
   	  
   	  
-      	// Creates the value property
-      	String valueIRI = "http://com.tecnalia.smool/core/smoolcore#value";
-      	String valuePrefix = "smoolcore";
+      	// Creates the securityData property
+      	String securityDataIRI = "http://com.tecnalia.smool/core/smoolcore#securityData";
+      	String securityDataPrefix = "smoolcore";
 
-      	FunctionalObjectSlot < ContinuousInformation > valueSlot= new FunctionalObjectSlot<ContinuousInformation>(ContinuousInformation.class);
-      	valueSlot._setIRI(valueIRI);
-      	valueSlot._setPrefix(valuePrefix);
+      	FunctionalObjectSlot < Security > securityDataSlot= new FunctionalObjectSlot<Security>(Security.class);
+      	securityDataSlot._setIRI(securityDataIRI);
+      	securityDataSlot._setPrefix(securityDataPrefix);
       	
-      	this._addProperty(valueSlot);
+      	this._addProperty(securityDataSlot);
   	  
   	}
 	/*
@@ -147,8 +147,9 @@ public class HVACActuator extends AbstractOntConcept implements IHVACActuator, K
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
-	public void setDeviceID(String deviceID) {
-		this.updateAttribute("deviceID",deviceID);        
+	public HVACActuator setDeviceID(String deviceID) {
+		this.updateAttribute("deviceID",deviceID);
+		return this;        
 	}
 		
 	 /**
@@ -163,8 +164,9 @@ public class HVACActuator extends AbstractOntConcept implements IHVACActuator, K
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
-	public void setVendor(String vendor) {
-		this.updateAttribute("vendor",vendor);        
+	public HVACActuator setVendor(String vendor) {
+		this.updateAttribute("vendor",vendor);
+		return this;        
 	}
 		
 	 /**
@@ -202,8 +204,9 @@ public class HVACActuator extends AbstractOntConcept implements IHVACActuator, K
  	* Sets the physicalLoc property.
  	* @param physicalLoc IPhysicalLocation value
  	*/
-	public void setPhysicalLoc(IPhysicalLocation physicalLoc) {
-		this.updateAttribute("physicalLoc",physicalLoc);        
+	public HVACActuator setPhysicalLoc(IPhysicalLocation physicalLoc) {
+		this.updateAttribute("physicalLoc",physicalLoc);
+		return this;        
 	}
 		
 	 /**
@@ -218,8 +221,9 @@ public class HVACActuator extends AbstractOntConcept implements IHVACActuator, K
  	* Sets the programme property.
  	* @param programme IProgrammeInformation value
  	*/
-	public void setProgramme(IProgrammeInformation programme) {
-		this.updateAttribute("programme",programme);        
+	public HVACActuator setProgramme(IProgrammeInformation programme) {
+		this.updateAttribute("programme",programme);
+		return this;        
 	}
 		
 	 /**
@@ -231,19 +235,20 @@ public class HVACActuator extends AbstractOntConcept implements IHVACActuator, K
 	}
 
  	/**
- 	* Sets the value property.
- 	* @param value IContinuousInformation value
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
  	*/
-	public void setValue(IContinuousInformation value) {
-		this.updateAttribute("value",value);        
+	public HVACActuator setSecurityData(ISecurity securityData) {
+		this.updateAttribute("securityData",securityData);
+		return this;        
 	}
 		
 	 /**
- 	* Gets the value property.
- 	* @return a IContinuousInformation value
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
  	*/
-	public IContinuousInformation getValue() {
-    	return (IContinuousInformation) this._getFunctionalProperty("value").getValue();
+	public ISecurity getSecurityData() {
+    	return (ISecurity) this._getFunctionalProperty("securityData").getValue();
 	}
 
 }
