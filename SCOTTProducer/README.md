@@ -21,6 +21,8 @@ java -cp bin:lib/* SCOTTProducer.logic.ProducerMain
 
 ## security
 
+https://github.com/michaelklishin/mqtt-tls-playground/blob/master/java-paho/src/main/java/com/novemberain/examples/mqtt/TLSConnection.java
+
 https://gist.github.com/sharonbn/4104301
 
 see also indra email with access data, and foder with tecnalia's credentials

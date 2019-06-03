@@ -19,6 +19,11 @@
 
 package SCOTTProducer.logic;
 
+import java.io.FileInputStream;
+import java.security.KeyStore;
+
+import javax.net.ssl.KeyManagerFactory;
+
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -36,12 +41,108 @@ public class SCOTTMQTTClient {
 	private static String topic = "131100"; //
 
 	private static String clientID = "331"; // id container
-	private static String broker = "tcp://150.241.54.144:1883";// 150.241.54.144 OR 172.26.252.144
+	// private static String broker = "tcp://150.241.54.144:1883";
+	private static String broker = "mqtt://cmw.ext.innovarail.indra.es:8883";
 
 	private static MqttClient mqttClient;
 	private static MemoryPersistence persistence = new MemoryPersistence();
 
 	public static void checkConnect() throws MqttException {
+		if (mqttClient == null)
+			mqttClient = new MqttClient(broker, clientID, persistence);
+		if (!mqttClient.isConnected()) {
+			MqttConnectOptions connOpts = new MqttConnectOptions();
+			connOpts.setSSLProperties(props)
+			connOpts.setCleanSession(true);
+			connOpts.setUserName("yard_planner");
+			connOpts.setPassword("tecnalia2019".toCharArray());
+			System.out.println("mqtt: connecting to broker: " + broker);
+			mqttClient.connect(connOpts);
+			System.out.println("mqtt: connected");
+			
+			
+			
+			char[] pw = "tecnalia2019".toCharArray();
+			KeyStore ks = KeyStore.getInstance("PKCS12");
+			ks.load(new FileInputStream(
+					"/home/ubuntu/SOFTWARE/SCOTT/INTERCAMBIO INDRA/ACCESO SERVIDOR MQTT/SCOTT__WP17-Integration_Lab/TECNALIA/keystore/yard_planner.keystore.jks"),
+					pw);
+			KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
+			kmf.init(ks, pw);
+			KeyStore tks = KeyStore.getInstance("JKS");
+			tks.load(new FileInputStream("/Users/antares/Tools/rabbitmq/tls/jvm_keystore"), pw);
+			;
+
+		}
+	}
+
+	/**
+	 * Connect by using private key files and TLS
+	 * 
+	 * @throws MqttException
+	 */
+//	public static void checkConnect() throws MqttException {
+//		if (mqttClient == null)
+//			mqttClient = new MqttClient(broker, clientID, persistence);
+//		if (!mqttClient.isConnected()) {
+//			MqttConnectOptions connOpts = new MqttConnectOptions();
+//
+//			char[] pw = "tecnalia2019".toCharArray();
+//			KeyStore ks = KeyStore.getInstance("PKCS12");
+//			ks.load(new FileInputStream(
+//					"/home/ubuntu/SOFTWARE/SCOTT/INTERCAMBIO INDRA/ACCESO SERVIDOR MQTT/SCOTT__WP17-Integration_Lab/TECNALIA/keystore/yard_planner.keystore.jks"),
+//					pw);
+//			KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
+//			kmf.init(ks, pw);
+//			KeyStore tks = KeyStore.getInstance("JKS");
+//			tks.load(new FileInputStream("/Users/antares/Tools/rabbitmq/tls/jvm_keystore"), pw);
+//			connOpts.setSSLProperties(props);
+//			connOpts.setCleanSession(true);
+//			connOpts.setUserName("scott");
+//			connOpts.setPassword("Tecnalia#2019".toCharArray());
+//			System.out.println("mqtt: connecting to broker: " + broker);
+//			mqttClient.connect(connOpts);
+//			System.out.println("mqtt: connected");
+//		}
+//	}
+
+	public static void setTLS(String) throws Exception {
+		    MqttClient client = new MqttClient("ssl://localhost:8883", "paho-java-1");
+		    MqttConnectOptions opts = new MqttConnectOptions();
+
+		    final char[] passphrase = "bunnies".toCharArray();
+
+		    // client key
+		    KeyStore ks = KeyStore.getInstance("PKCS12");
+		    ks.load(new FileInputStream("/Users/antares/Tools/rabbitmq/tls/client_key.p12"), passphrase);
+
+		    KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
+		    kmf.init(ks, passphrase);
+
+		    // server certificate
+		    KeyStore tks = KeyStore.getInstance("JKS");
+		    // created the key store with
+		    // keytool -importcert -alias rmq -file ./server_certificate.pem -keystore ./jvm_keystore
+		    tks.load(new FileInputStream("/Users/antares/Tools/rabbitmq/tls/jvm_keystore"), passphrase);
+
+		    TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
+		    tmf.init(tks);
+
+		    SSLContext ctx = SSLContext.getInstance("SSLv3");
+		    ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
+		    opts.setSocketFactory(ctx.getSocketFactory());
+
+		    client.connect(opts);
+		  }
+
+}
+
+	/**
+	 * Connect by using plain mqtt security
+	 * 
+	 * @throws MqttException
+	 */
+	public static void checkConnectOLD() throws MqttException {
 		if (mqttClient == null)
 			mqttClient = new MqttClient(broker, clientID, persistence);
 		if (!mqttClient.isConnected()) {
@@ -98,9 +199,9 @@ public class SCOTTMQTTClient {
 				.replace("$latitude", Double.toString(latitude)).replace("$longitude", Double.toString(longitude))
 				.replace("$containerID", Double.toString(longitude)).replace("$crc_payload", Long.toString(CRC("")))
 				.replace("$crc_service", Long.toString(CRC("")));
-	}
+}
 
-	/**
+/**
 	 * FILL $timestamp, $nodeID $containerID $latitude $longitude $crc_payload
 	 * $crc_service
 	 */
@@ -146,5 +247,3 @@ public class SCOTTMQTTClient {
 //		  ],
 //		  "CRC": 24495477
 //		}
-
-}
