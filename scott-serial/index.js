@@ -1,19 +1,20 @@
-const net = require('net')
+const { Socket } = require('net')
 const PORT = 4444
 
-function socketServer() {
-  net.createServer(function (socket) {
-    socket.on('data', data => console.log(data.toString()))
-  }).listen(PORT)
-}
-
-
-function socketClient(name) {
-  const s = net.Socket()
+function socketClient(data) {
+  const s = Socket()
   s.connect(PORT)
-  s.write(name)
+  s.write(data)
   s.end()
 }
 
-if (process.argv.length < 3) socketServer()
-else socketClient(process.argv[2])
+
+function ping() {
+  //ping is needed to keep socket running because if NAT in the middle, the default tcp_alive wont work beecause default is 2 hours and the NAT closes automatically connections idle every 5 minutes
+  socketClient('PING')
+}
+
+const data = process.argv[2] ? process.argv[2] : 'test message'
+
+socketClient(data)
+setInterval(ping, 120000)
