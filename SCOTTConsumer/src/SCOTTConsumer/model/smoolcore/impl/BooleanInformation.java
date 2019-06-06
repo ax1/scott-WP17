@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -8,7 +8,7 @@
 * This file is a result of OWL 2 java transformation using EMF
 * Contributors:
 *    Enas Ashraf (inas@itida.gov.eg) - creation of level 2 metamodel and transformation to java classes 
-*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - reation of level 1 metamodel by creating ...
+*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - creation of level 1 metamodel by creating ...
 *******************************************************************************/ 
 package SCOTTConsumer.model.smoolcore.impl;
      
@@ -63,17 +63,6 @@ public class BooleanInformation extends AbstractOntConcept implements IBooleanIn
       	this._setDefaultIndividualContext();
     
       
-      	// Creates the active property
-      	String activeIRI = "http://com.tecnalia.smool/core/smoolcore#active";
-      	String activePrefix = "smoolcore";
-
-      	FunctionalDatatypeSlot < Boolean > activeSlot= new FunctionalDatatypeSlot<Boolean>(Boolean.class);
-      	activeSlot._setIRI(activeIRI);
-      	activeSlot._setPrefix(activePrefix);
-      	activeSlot.setRange("xsd:Boolean");
-      	this._addProperty(activeSlot);
-  	  
-  	  
       	// Creates the dataID property
       	String dataIDIRI = "http://com.tecnalia.smool/core/smoolcore#dataID";
       	String dataIDPrefix = "smoolcore";
@@ -83,6 +72,17 @@ public class BooleanInformation extends AbstractOntConcept implements IBooleanIn
       	dataIDSlot._setPrefix(dataIDPrefix);
       	dataIDSlot.setRange("xsd:String");
       	this._addProperty(dataIDSlot);
+  	  
+  	  
+      	// Creates the status property
+      	String statusIRI = "http://com.tecnalia.smool/core/smoolcore#status";
+      	String statusPrefix = "smoolcore";
+
+      	FunctionalDatatypeSlot < Boolean > statusSlot= new FunctionalDatatypeSlot<Boolean>(Boolean.class);
+      	statusSlot._setIRI(statusIRI);
+      	statusSlot._setPrefix(statusPrefix);
+      	statusSlot.setRange("xsd:Boolean");
+      	this._addProperty(statusSlot);
   	  
   	  
       	// Creates the timestamp property
@@ -101,27 +101,12 @@ public class BooleanInformation extends AbstractOntConcept implements IBooleanIn
 	*/
  	
  	/**
- 	* Sets the active property.
- 	* @param active Boolean value
- 	*/
-	public void setActive(Boolean active) {
-		this.updateAttribute("active",active);        
-	}
-		
-	 /**
- 	* Gets the active property.
- 	* @return a Boolean value
- 	*/
-	public Boolean getActive() {
-    	return (Boolean) this._getFunctionalProperty("active").getValue();
-	}
-
- 	/**
  	* Sets the dataID property.
  	* @param dataID String value
  	*/
-	public void setDataID(String dataID) {
-		this.updateAttribute("dataID",dataID);        
+	public BooleanInformation setDataID(String dataID) {
+		this.updateAttribute("dataID",dataID);
+		return this;        
 	}
 		
 	 /**
@@ -133,11 +118,29 @@ public class BooleanInformation extends AbstractOntConcept implements IBooleanIn
 	}
 
  	/**
+ 	* Sets the status property.
+ 	* @param status Boolean value
+ 	*/
+	public BooleanInformation setStatus(Boolean status) {
+		this.updateAttribute("status",status);
+		return this;        
+	}
+		
+	 /**
+ 	* Gets the status property.
+ 	* @return a Boolean value
+ 	*/
+	public Boolean getStatus() {
+    	return (Boolean) this._getFunctionalProperty("status").getValue();
+	}
+
+ 	/**
  	* Sets the timestamp property.
  	* @param timestamp String value
  	*/
-	public void setTimestamp(String timestamp) {
-		this.updateAttribute("timestamp",timestamp);        
+	public BooleanInformation setTimestamp(String timestamp) {
+		this.updateAttribute("timestamp",timestamp);
+		return this;        
 	}
 		
 	 /**

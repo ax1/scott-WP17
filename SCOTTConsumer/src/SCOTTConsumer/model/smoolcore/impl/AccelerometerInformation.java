@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -8,7 +8,7 @@
 * This file is a result of OWL 2 java transformation using EMF
 * Contributors:
 *    Enas Ashraf (inas@itida.gov.eg) - creation of level 2 metamodel and transformation to java classes 
-*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - reation of level 1 metamodel by creating ...
+*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - creation of level 1 metamodel by creating ...
 *******************************************************************************/ 
 package SCOTTConsumer.model.smoolcore.impl;
      
@@ -128,6 +128,17 @@ public class AccelerometerInformation extends AbstractOntConcept implements IAcc
       	unitSlot.setRange("xsd:String");
       	this._addProperty(unitSlot);
   	  
+  	  
+      	// Creates the value property
+      	String valueIRI = "http://com.tecnalia.smool/core/smoolcore#value";
+      	String valuePrefix = "smoolcore";
+
+      	FunctionalDatatypeSlot < Double > valueSlot= new FunctionalDatatypeSlot<Double>(Double.class);
+      	valueSlot._setIRI(valueIRI);
+      	valueSlot._setPrefix(valuePrefix);
+      	valueSlot.setRange("xsd:Double");
+      	this._addProperty(valueSlot);
+  	  
   	}
 	/*
 	* PROPERTIES: GETTERS AND SETTERS
@@ -137,8 +148,9 @@ public class AccelerometerInformation extends AbstractOntConcept implements IAcc
  	* Sets the axisx property.
  	* @param axisx Double value
  	*/
-	public void setAxisx(Double axisx) {
-		this.updateAttribute("axisx",axisx);        
+	public AccelerometerInformation setAxisx(Double axisx) {
+		this.updateAttribute("axisx",axisx);
+		return this;        
 	}
 		
 	 /**
@@ -153,8 +165,9 @@ public class AccelerometerInformation extends AbstractOntConcept implements IAcc
  	* Sets the axisy property.
  	* @param axisy Double value
  	*/
-	public void setAxisy(Double axisy) {
-		this.updateAttribute("axisy",axisy);        
+	public AccelerometerInformation setAxisy(Double axisy) {
+		this.updateAttribute("axisy",axisy);
+		return this;        
 	}
 		
 	 /**
@@ -169,8 +182,9 @@ public class AccelerometerInformation extends AbstractOntConcept implements IAcc
  	* Sets the axisz property.
  	* @param axisz Double value
  	*/
-	public void setAxisz(Double axisz) {
-		this.updateAttribute("axisz",axisz);        
+	public AccelerometerInformation setAxisz(Double axisz) {
+		this.updateAttribute("axisz",axisz);
+		return this;        
 	}
 		
 	 /**
@@ -185,8 +199,9 @@ public class AccelerometerInformation extends AbstractOntConcept implements IAcc
  	* Sets the dataID property.
  	* @param dataID String value
  	*/
-	public void setDataID(String dataID) {
-		this.updateAttribute("dataID",dataID);        
+	public AccelerometerInformation setDataID(String dataID) {
+		this.updateAttribute("dataID",dataID);
+		return this;        
 	}
 		
 	 /**
@@ -201,8 +216,9 @@ public class AccelerometerInformation extends AbstractOntConcept implements IAcc
  	* Sets the timestamp property.
  	* @param timestamp String value
  	*/
-	public void setTimestamp(String timestamp) {
-		this.updateAttribute("timestamp",timestamp);        
+	public AccelerometerInformation setTimestamp(String timestamp) {
+		this.updateAttribute("timestamp",timestamp);
+		return this;        
 	}
 		
 	 /**
@@ -217,8 +233,9 @@ public class AccelerometerInformation extends AbstractOntConcept implements IAcc
  	* Sets the unit property.
  	* @param unit String value
  	*/
-	public void setUnit(String unit) {
-		this.updateAttribute("unit",unit);        
+	public AccelerometerInformation setUnit(String unit) {
+		this.updateAttribute("unit",unit);
+		return this;        
 	}
 		
 	 /**
@@ -227,6 +244,23 @@ public class AccelerometerInformation extends AbstractOntConcept implements IAcc
  	*/
 	public String getUnit() {
     	return (String) this._getFunctionalProperty("unit").getValue();
+	}
+
+ 	/**
+ 	* Sets the value property.
+ 	* @param value Double value
+ 	*/
+	public AccelerometerInformation setValue(Double value) {
+		this.updateAttribute("value",value);
+		return this;        
+	}
+		
+	 /**
+ 	* Gets the value property.
+ 	* @return a Double value
+ 	*/
+	public Double getValue() {
+    	return (Double) this._getFunctionalProperty("value").getValue();
 	}
 
 }

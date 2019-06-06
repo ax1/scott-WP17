@@ -19,6 +19,11 @@ import SCOTTProducer.model.smoolcore.impl.PresenceSensor;
  * It takes id from harvesters and send to consumers by using SMOOL middleware
  * The concept is a plain Presence, with no location since this is set in the
  * consumer
+ * 
+ * Some messages received from socket are PING messages just to keep alive SMOOL
+ * connection (because if client and server are connected through a NAT or
+ * router, this one can disconnect every 5 mins the idle connections even if
+ * keep_alive is set in OS and code)
  */
 public class ProducerMain {
 	ServerSocket serverSocket;

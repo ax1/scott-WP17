@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -8,7 +8,7 @@
 * This file is a result of OWL 2 java transformation using EMF
 * Contributors:
 *    Enas Ashraf (inas@itida.gov.eg) - creation of level 2 metamodel and transformation to java classes 
-*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - reation of level 1 metamodel by creating ...
+*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - creation of level 1 metamodel by creating ...
 *******************************************************************************/ 
 package SCOTTConsumer.model.smoolcore.impl;
      
@@ -18,33 +18,33 @@ import org.smool.kpi.model.smart.KPConsumer;
 import org.smool.kpi.model.smart.slots.FunctionalDatatypeSlot;
 import org.smool.kpi.model.smart.slots.FunctionalObjectSlot;
 import org.smool.kpi.model.smart.slots.NonFunctionalObjectSlot;
-import SCOTTConsumer.model.smoolcore.IAccerometer;
-import SCOTTConsumer.model.smoolcore.IAccelerometerInformation;
-import SCOTTConsumer.model.smoolcore.impl.AccelerometerInformation;
+import SCOTTConsumer.model.smoolcore.ISmokeSensor;
 import SCOTTConsumer.model.smoolcore.IAlarm;
 import SCOTTConsumer.model.smoolcore.impl.Alarm;
-import SCOTTConsumer.model.smoolcore.IContinuousInformation;
-import SCOTTConsumer.model.smoolcore.impl.ContinuousInformation;
 import SCOTTConsumer.model.smoolcore.IPhysicalLocation;
 import SCOTTConsumer.model.smoolcore.impl.PhysicalLocation;
+import SCOTTConsumer.model.smoolcore.ISecurity;
+import SCOTTConsumer.model.smoolcore.impl.Security;
+import SCOTTConsumer.model.smoolcore.ISmokeInformation;
+import SCOTTConsumer.model.smoolcore.impl.SmokeInformation;
 
 /**
- * This class implements the ontology concept Accerometer
+ * This class implements the ontology concept SmokeSensor
  * including all its properties.
  * @author Genrated via EMF OWL to java transformation
  * @version 1.0
  */
-public class Accerometer extends AbstractOntConcept implements IAccerometer, KPProducer, KPConsumer{
+public class SmokeSensor extends AbstractOntConcept implements ISmokeSensor, KPProducer, KPConsumer{
 
     //Not needed.. public static String CLASS_NAMESPACE = "http://com.tecnalia.smool/core/smoolcore#";
-  	//Not needed.. public static String CLASS_ID = "Accerometer";
-  	public static String CLASS_IRI = "http://com.tecnalia.smool/core/smoolcore#Accerometer"; 
+  	//Not needed.. public static String CLASS_ID = "SmokeSensor";
+  	public static String CLASS_IRI = "http://com.tecnalia.smool/core/smoolcore#SmokeSensor"; 
   		
   		
   	/**
     * The Constructor
     */
-    public Accerometer() {
+    public SmokeSensor() {
     	super();
         init();
 	}
@@ -54,7 +54,7 @@ public class Accerometer extends AbstractOntConcept implements IAccerometer, KPP
  	* The Constructor
  	* @param id the Actuator identifier
  	*/
-	public Accerometer(String id) {
+	public SmokeSensor(String id) {
       	/** Call superclass to establish the identifier */
       	super(id);
       	init();
@@ -95,17 +95,6 @@ public class Accerometer extends AbstractOntConcept implements IAccerometer, KPP
       	this._addProperty(vendorSlot);
   	  
   	  
-      	// Creates the accinfo property
-      	String accinfoIRI = "http://com.tecnalia.smool/core/smoolcore#accinfo";
-      	String accinfoPrefix = "smoolcore";
-
-      	FunctionalObjectSlot < AccelerometerInformation > accinfoSlot= new FunctionalObjectSlot<AccelerometerInformation>(AccelerometerInformation.class);
-      	accinfoSlot._setIRI(accinfoIRI);
-      	accinfoSlot._setPrefix(accinfoPrefix);
-      	
-      	this._addProperty(accinfoSlot);
-  	  
-  	  
       	// Creates the alarms property
       	String alarmsIRI = "http://com.tecnalia.smool/core/smoolcore#alarms";
       	String alarmsPrefix = "smoolcore";
@@ -115,17 +104,6 @@ public class Accerometer extends AbstractOntConcept implements IAccerometer, KPP
       	alarmsSlot._setPrefix(alarmsPrefix);
       	
       	this._addProperty(alarmsSlot);
-  	  
-  	  
-      	// Creates the continuousValue property
-      	String continuousValueIRI = "http://com.tecnalia.smool/core/smoolcore#continuousValue";
-      	String continuousValuePrefix = "smoolcore";
-
-      	FunctionalObjectSlot < ContinuousInformation > continuousValueSlot= new FunctionalObjectSlot<ContinuousInformation>(ContinuousInformation.class);
-      	continuousValueSlot._setIRI(continuousValueIRI);
-      	continuousValueSlot._setPrefix(continuousValuePrefix);
-      	
-      	this._addProperty(continuousValueSlot);
   	  
   	  
       	// Creates the physicalLoc property
@@ -138,6 +116,28 @@ public class Accerometer extends AbstractOntConcept implements IAccerometer, KPP
       	
       	this._addProperty(physicalLocSlot);
   	  
+  	  
+      	// Creates the securityData property
+      	String securityDataIRI = "http://com.tecnalia.smool/core/smoolcore#securityData";
+      	String securityDataPrefix = "smoolcore";
+
+      	FunctionalObjectSlot < Security > securityDataSlot= new FunctionalObjectSlot<Security>(Security.class);
+      	securityDataSlot._setIRI(securityDataIRI);
+      	securityDataSlot._setPrefix(securityDataPrefix);
+      	
+      	this._addProperty(securityDataSlot);
+  	  
+  	  
+      	// Creates the smoke property
+      	String smokeIRI = "http://com.tecnalia.smool/core/smoolcore#smoke";
+      	String smokePrefix = "smoolcore";
+
+      	FunctionalObjectSlot < SmokeInformation > smokeSlot= new FunctionalObjectSlot<SmokeInformation>(SmokeInformation.class);
+      	smokeSlot._setIRI(smokeIRI);
+      	smokeSlot._setPrefix(smokePrefix);
+      	
+      	this._addProperty(smokeSlot);
+  	  
   	}
 	/*
 	* PROPERTIES: GETTERS AND SETTERS
@@ -147,8 +147,9 @@ public class Accerometer extends AbstractOntConcept implements IAccerometer, KPP
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
-	public void setDeviceID(String deviceID) {
-		this.updateAttribute("deviceID",deviceID);        
+	public SmokeSensor setDeviceID(String deviceID) {
+		this.updateAttribute("deviceID",deviceID);
+		return this;        
 	}
 		
 	 /**
@@ -163,8 +164,9 @@ public class Accerometer extends AbstractOntConcept implements IAccerometer, KPP
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
-	public void setVendor(String vendor) {
-		this.updateAttribute("vendor",vendor);        
+	public SmokeSensor setVendor(String vendor) {
+		this.updateAttribute("vendor",vendor);
+		return this;        
 	}
 		
 	 /**
@@ -173,22 +175,6 @@ public class Accerometer extends AbstractOntConcept implements IAccerometer, KPP
  	*/
 	public String getVendor() {
     	return (String) this._getFunctionalProperty("vendor").getValue();
-	}
-
- 	/**
- 	* Sets the accinfo property.
- 	* @param accinfo IAccelerometerInformation value
- 	*/
-	public void setAccinfo(IAccelerometerInformation accinfo) {
-		this.updateAttribute("accinfo",accinfo);        
-	}
-		
-	 /**
- 	* Gets the accinfo property.
- 	* @return a IAccelerometerInformation value
- 	*/
-	public IAccelerometerInformation getAccinfo() {
-    	return (IAccelerometerInformation) this._getFunctionalProperty("accinfo").getValue();
 	}
 
  	/**
@@ -215,27 +201,12 @@ public class Accerometer extends AbstractOntConcept implements IAccerometer, KPP
 	}
 
  	/**
- 	* Sets the continuousValue property.
- 	* @param continuousValue IContinuousInformation value
- 	*/
-	public void setContinuousValue(IContinuousInformation continuousValue) {
-		this.updateAttribute("continuousValue",continuousValue);        
-	}
-		
-	 /**
- 	* Gets the continuousValue property.
- 	* @return a IContinuousInformation value
- 	*/
-	public IContinuousInformation getContinuousValue() {
-    	return (IContinuousInformation) this._getFunctionalProperty("continuousValue").getValue();
-	}
-
- 	/**
  	* Sets the physicalLoc property.
  	* @param physicalLoc IPhysicalLocation value
  	*/
-	public void setPhysicalLoc(IPhysicalLocation physicalLoc) {
-		this.updateAttribute("physicalLoc",physicalLoc);        
+	public SmokeSensor setPhysicalLoc(IPhysicalLocation physicalLoc) {
+		this.updateAttribute("physicalLoc",physicalLoc);
+		return this;        
 	}
 		
 	 /**
@@ -244,6 +215,40 @@ public class Accerometer extends AbstractOntConcept implements IAccerometer, KPP
  	*/
 	public IPhysicalLocation getPhysicalLoc() {
     	return (IPhysicalLocation) this._getFunctionalProperty("physicalLoc").getValue();
+	}
+
+ 	/**
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
+ 	*/
+	public SmokeSensor setSecurityData(ISecurity securityData) {
+		this.updateAttribute("securityData",securityData);
+		return this;        
+	}
+		
+	 /**
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
+ 	*/
+	public ISecurity getSecurityData() {
+    	return (ISecurity) this._getFunctionalProperty("securityData").getValue();
+	}
+
+ 	/**
+ 	* Sets the smoke property.
+ 	* @param smoke ISmokeInformation value
+ 	*/
+	public SmokeSensor setSmoke(ISmokeInformation smoke) {
+		this.updateAttribute("smoke",smoke);
+		return this;        
+	}
+		
+	 /**
+ 	* Gets the smoke property.
+ 	* @return a ISmokeInformation value
+ 	*/
+	public ISmokeInformation getSmoke() {
+    	return (ISmokeInformation) this._getFunctionalProperty("smoke").getValue();
 	}
 
 }

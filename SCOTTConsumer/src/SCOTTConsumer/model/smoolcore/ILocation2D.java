@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ public interface ILocation2D extends IAbstractOntConcept, IPhysicalLocation{
  	* Sets the dataID property.
  	* @param dataID String value
  	*/
- 	public void setDataID(String dataID );
+ 	public ILocation2D setDataID(String dataID );
 
 	/**
  	* Gets the dataID property.
@@ -42,7 +42,7 @@ public interface ILocation2D extends IAbstractOntConcept, IPhysicalLocation{
  	* Sets the timestamp property.
  	* @param timestamp String value
  	*/
- 	public void setTimestamp(String timestamp );
+ 	public ILocation2D setTimestamp(String timestamp );
 
 	/**
  	* Gets the timestamp property.
@@ -54,7 +54,7 @@ public interface ILocation2D extends IAbstractOntConcept, IPhysicalLocation{
  	* Sets the x property.
  	* @param x Double value
  	*/
- 	public void setX(Double x );
+ 	public ILocation2D setX(Double x );
 
 	/**
  	* Gets the x property.
@@ -66,7 +66,7 @@ public interface ILocation2D extends IAbstractOntConcept, IPhysicalLocation{
  	* Sets the y property.
  	* @param y Double value
  	*/
- 	public void setY(Double y );
+ 	public ILocation2D setY(Double y );
 
 	/**
  	* Gets the y property.

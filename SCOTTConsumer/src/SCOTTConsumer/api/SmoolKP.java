@@ -94,6 +94,62 @@ public class SmoolKP {
 	}
 	
 	/**
+	 * Clean threads when trying to reconnect multiple times. SmoolKP does not clean
+	 * resources when reconnecting (example, the TCPIPConnector thread is created
+	 * and not disposed every time).
+	 */
+	private static void clean() {
+		try {
+			if (dl != null && dl.getModel() != null) {
+				// dl.getModel().disconnect();
+				dl.getModel().getSIB().destroy();
+			}
+			if (ds != null) {
+				ds.doStop();
+			}
+			instance = new SmoolKP();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Connect to a SIB with zero configuration.
+	 * <p>If any SIB is available in the network, this method will perform a multicast ping for discovering existing SIBs, and then connect to the first SIB found</p>.
+	 * @throws IOException
+	 */
+	public static void connect() throws IOException {
+	  	clean();
+		SmoolKP.synchronousSearch(1000, true);
+		if (SmoolKP.isSIBfound()) {
+			System.out.println("Found a SIB: " + SmoolKP.getDiscoveredSIBs().get(0).getSIBName());
+			if (SmoolKP.connectToSIB(1000)) {
+				System.out.println("Successfully connected to SIB");
+			} else {
+				throw new IOException ("Unable to connect to SIB");
+			}
+		}
+	}
+	
+	/**
+	 * Connect to a SIB
+	 * @param name 		the name of the SIB (typical values are "sib", "sib1", etc...)
+	 * @param address 	the IP or hostname where the SIB is running ("192.168.1.5", "sib.acme.com", etc...)
+	 * @param port		TCP port where the SIB is listening
+	 * @throws IOException
+	 */
+	public static void connect(String name, String address, int port) throws IOException {
+		clean();
+		boolean connected = SmoolKP.connectToSIB(name,address, Integer.toString(port),1000);
+		if (connected) {
+			System.out.println("Successfully connected to SIB");
+		} else {
+			throw new IOException ("Unable to connect to SIB");
+		}
+	}
+	
+	
+	/**
 	 * Connect to a specific SIB. 
 	 * This method blocks until the connection process has ended.
 	 * This method is equivalent to: connectToSIB(sibName, sibAddress, sibPort, 0)
@@ -222,7 +278,7 @@ public class SmoolKP {
 				//Angel 05/11/14, DEFAULT_IPADDRESS is not always in properties 
 				String tempParam = theSIB.getProperties().getProperty("DEFAULT_IPADDRESS");
 				if (tempParam==null || tempParam.equals("")){
-				  	Logger.error("DEFAULT_IPADDRESS not found!! trying to add ADDRESSES instead");
+				  	Logger.warn("DEFAULT_IPADDRESS not found!! trying to add ADDRESSES instead");
 					theSIB.getProperties().setProperty("DEFAULT_IPADDRESS",theSIB.getProperties().getProperty("ADDRESSES"));
 				}
 				
@@ -269,7 +325,6 @@ public class SmoolKP {
 			return false;
 		}
 		else if (!dl.getModel().isConnected()){
-			Logger.debug("Not connected already. No need to disconnect");
 			return true;
 		}
 		try {	
@@ -668,7 +723,7 @@ public class SmoolKP {
 		public void disconnected() {
 			Logger.debug("KP disconnected susccesfully!");
 			sibDiscovered = false;
-			this.discoverSIBs();
+			//this.discoverSIBs();
 
 		}
 
@@ -783,6 +838,32 @@ public class SmoolKP {
 				return null;
 			}
 			return dl.getModel().query(MessageReceiveSensor.class, individualID, TypeAttribute.RDFM3);
+		}
+
+		public void subscribeToPresenceSensor(PresenceSensorSubscription subscription, String individualID) throws KPIModelException {
+			if (individualID == null || individualID.equals("")) {
+				dl.getModel().subscribe(PresenceSensor.class, subscription);
+			}
+			else {
+				dl.getModel().subscribe(PresenceSensor.class, individualID, subscription);
+			}
+			dl.getModel().publish();
+		}
+
+		public void unsubscribeToPresenceSensor(PresenceSensorSubscription subscription) throws KPIModelException {
+			dl.getModel().unsubscribe(subscription);
+			dl.getModel().publish();
+		}
+
+		public List<PresenceSensor> queryAllPresenceSensor() throws KPIModelException {
+			return dl.getModel().query(PresenceSensor.class, TypeAttribute.RDFM3);
+		}
+
+		public PresenceSensor queryPresenceSensor(String individualID) throws KPIModelException {
+			if (individualID == null) {
+				return null;
+			}
+			return dl.getModel().query(PresenceSensor.class, individualID, TypeAttribute.RDFM3);
 		}
 	}
 

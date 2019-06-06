@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -17,6 +17,8 @@ import SCOTTConsumer.model.smoolcore.IAlarm;
 import SCOTTConsumer.model.smoolcore.ILogicalLocation;
        
 import SCOTTConsumer.model.smoolcore.IMessage;
+       
+import SCOTTConsumer.model.smoolcore.ISecurity;
        
 import SCOTTConsumer.model.smoolcore.IWhatsAppAccount;
        
@@ -38,7 +40,7 @@ public interface IWhatsAppMessageSendActuator extends IAbstractOntConcept, IMess
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
- 	public void setDeviceID(String deviceID );
+ 	public IWhatsAppMessageSendActuator setDeviceID(String deviceID );
 
 	/**
  	* Gets the deviceID property.
@@ -50,7 +52,7 @@ public interface IWhatsAppMessageSendActuator extends IAbstractOntConcept, IMess
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
- 	public void setVendor(String vendor );
+ 	public IWhatsAppMessageSendActuator setVendor(String vendor );
 
 	/**
  	* Gets the vendor property.
@@ -86,7 +88,7 @@ public interface IWhatsAppMessageSendActuator extends IAbstractOntConcept, IMess
  	* Sets the logicalLoc property.
  	* @param logicalLoc ILogicalLocation value
  	*/
- 	public void setLogicalLoc(ILogicalLocation logicalLoc );
+ 	public IWhatsAppMessageSendActuator setLogicalLoc(ILogicalLocation logicalLoc );
 
 	/**
  	* Gets the logicalLoc property.
@@ -98,7 +100,7 @@ public interface IWhatsAppMessageSendActuator extends IAbstractOntConcept, IMess
  	* Sets the message property.
  	* @param message IMessage value
  	*/
- 	public void setMessage(IMessage message );
+ 	public IWhatsAppMessageSendActuator setMessage(IMessage message );
 
 	/**
  	* Gets the message property.
@@ -110,7 +112,7 @@ public interface IWhatsAppMessageSendActuator extends IAbstractOntConcept, IMess
  	* Sets the origin property.
  	* @param origin ILogicalLocation value
  	*/
- 	public void setOrigin(ILogicalLocation origin );
+ 	public IWhatsAppMessageSendActuator setOrigin(ILogicalLocation origin );
 
 	/**
  	* Gets the origin property.
@@ -119,10 +121,22 @@ public interface IWhatsAppMessageSendActuator extends IAbstractOntConcept, IMess
  	public ILogicalLocation getOrigin();
 
  	/**
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
+ 	*/
+ 	public IWhatsAppMessageSendActuator setSecurityData(ISecurity securityData );
+
+	/**
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
+	*/
+ 	public ISecurity getSecurityData();
+
+ 	/**
  	* Sets the whatsappFrom property.
  	* @param whatsappFrom IWhatsAppAccount value
  	*/
- 	public void setWhatsappFrom(IWhatsAppAccount whatsappFrom );
+ 	public IWhatsAppMessageSendActuator setWhatsappFrom(IWhatsAppAccount whatsappFrom );
 
 	/**
  	* Gets the whatsappFrom property.
@@ -134,7 +148,7 @@ public interface IWhatsAppMessageSendActuator extends IAbstractOntConcept, IMess
  	* Sets the whatsappTo property.
  	* @param whatsappTo IWhatsAppAccount value
  	*/
- 	public void setWhatsappTo(IWhatsAppAccount whatsappTo );
+ 	public IWhatsAppMessageSendActuator setWhatsappTo(IWhatsAppAccount whatsappTo );
 
 	/**
  	* Gets the whatsappTo property.

@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -8,7 +8,7 @@
 * This file is a result of OWL 2 java transformation using EMF
 * Contributors:
 *    Enas Ashraf (inas@itida.gov.eg) - creation of level 2 metamodel and transformation to java classes 
-*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - reation of level 1 metamodel by creating ...
+*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - creation of level 1 metamodel by creating ...
 *******************************************************************************/ 
 package SCOTTConsumer.model.smoolcore.impl;
      
@@ -82,8 +82,9 @@ public class PredefinedRule extends AbstractOntConcept implements IPredefinedRul
  	* Sets the ruleID property.
  	* @param ruleID String value
  	*/
-	public void setRuleID(String ruleID) {
-		this.updateAttribute("ruleID",ruleID);        
+	public PredefinedRule setRuleID(String ruleID) {
+		this.updateAttribute("ruleID",ruleID);
+		return this;        
 	}
 		
 	 /**

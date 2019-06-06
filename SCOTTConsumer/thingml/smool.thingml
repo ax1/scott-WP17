@@ -1,0 +1,54 @@
+import "genericSender.thingml"
+
+thing Smool includes CustomDataSender
+
+@src "../src"
+@maven_dep "<dependency><groupId>org.smool.kpi</groupId><artifactId>common</artifactId><version>2.2.4</version></dependency>"
+@maven_dep "<dependency><groupId>org.smool.kpi</groupId><artifactId>connector</artifactId><version>2.2.4</version></dependency>"
+@maven_dep "<dependency><groupId>org.smool.kpi.connector</groupId><artifactId>tcpip</artifactId><version>2.2.4</version></dependency>"
+@maven_dep "<dependency><groupId>org.smool.kpi</groupId><artifactId>model</artifactId><version>2.2.4</version></dependency>"
+@maven_dep "<dependency><groupId>org.smool.kpi.model</groupId><artifactId>direct</artifactId><version>2.2.4</version></dependency>"
+@maven_dep "<dependency><groupId>org.smool.kpi.model</groupId><artifactId>smart</artifactId><version>2.2.4</version></dependency>"
+@maven_dep "<dependency><groupId>org.smool.kpi</groupId><artifactId>ssap</artifactId><version>2.2.4</version></dependency>"
+@maven_dep "<dependency><groupId>javax.xml</groupId><artifactId>jsr173</artifactId><version>1.0</version></dependency>"
+@maven_dep "<dependency><groupId>log4j</groupId><artifactId>log4j</artifactId><version>1.2.9</version></dependency>"
+@maven_dep "<dependency><groupId>xalan</groupId><artifactId>xalan</artifactId><version>2.6.0</version></dependency>"
+@maven_dep "<dependency><groupId>com.sun.xml.stream</groupId><artifactId>sjsxp</artifactId><version>1.0.2</version></dependency>"
+@maven_repo "<repository><id>smool_remote</id><url>http://smool.tecnalia.com:8080</url></repository>"
+@maven_repo "<repository><id>smool_local</id><url>file:///home/ubuntu/SOFTWARE/SMOOL/smool/maven</url></repository>"
+
+
+{
+	statechart client init main {
+		on entry do
+			println "Project name: SCOTTConsumer"
+			 
+			 /* Start sentence depending on KP is consumer producer or prosumer */
+			` try{ ConsumerMain.main(new String[0]); }catch(Exception e){ e.printStackTrace(); }	`
+		end
+		state main {
+			/*
+			 * AVAILABLE SMOOL PRODUCING DATA:
+			 * []
+			 * AVAILABLE SMOOL CONSUMING DATA:
+			 * [org.smool.sdk.ontmodel.ontmodel.impl.ClassImpl@7342eb53 (URI: http://com.tecnalia.smool/core/smoolcore#MessageReceiveSensor, GenerationType: Consumer), org.smool.sdk.ontmodel.ontmodel.impl.ClassImpl@3c6f363 (URI: http://com.tecnalia.smool/core/smoolcore#PresenceSensor, GenerationType: Consumer)]
+			 */
+			internal event s : TemperatureData?temperatureSensorData
+			action do 
+				`
+				try {
+					String name = "SCOTTConsumer";
+					SmoolKP.getProducer().updateTemperatureSensor(name+"_tempSensor", name, "TECNALIA", null, null,
+						ProducerMain.tempSensor.getTemperature().setValue(` & s.sensorData & `));
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				`					
+			end
+		}
+	}
+}
+
+configuration SCOTTConsumer{
+	instance obj : Smool
+}

@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ public interface IBlackBoxRule extends IAbstractOntConcept, IRule{
  	* Sets the ruleID property.
  	* @param ruleID String value
  	*/
- 	public void setRuleID(String ruleID );
+ 	public IBlackBoxRule setRuleID(String ruleID );
 
 	/**
  	* Gets the ruleID property.

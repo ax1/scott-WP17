@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -14,9 +14,9 @@ package SCOTTConsumer.model.smoolcore;
 import org.smool.kpi.model.smart.IAbstractOntConcept;
 import SCOTTConsumer.model.smoolcore.IAlarm;
        
-import SCOTTConsumer.model.smoolcore.IContinuousInformation;
-       
 import SCOTTConsumer.model.smoolcore.IPhysicalLocation;
+       
+import SCOTTConsumer.model.smoolcore.ISecurity;
        
 import SCOTTConsumer.model.smoolcore.ITemperatureInformation;
        
@@ -38,7 +38,7 @@ public interface ITemperatureSensor extends IAbstractOntConcept, IContinuousSens
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
- 	public void setDeviceID(String deviceID );
+ 	public ITemperatureSensor setDeviceID(String deviceID );
 
 	/**
  	* Gets the deviceID property.
@@ -50,7 +50,7 @@ public interface ITemperatureSensor extends IAbstractOntConcept, IContinuousSens
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
- 	public void setVendor(String vendor );
+ 	public ITemperatureSensor setVendor(String vendor );
 
 	/**
  	* Gets the vendor property.
@@ -71,22 +71,10 @@ public interface ITemperatureSensor extends IAbstractOntConcept, IContinuousSens
  	public void removeAlarms(IAlarm alarms );
 
  	/**
- 	* Sets the continuousValue property.
- 	* @param continuousValue IContinuousInformation value
- 	*/
- 	public void setContinuousValue(IContinuousInformation continuousValue );
-
-	/**
- 	* Gets the continuousValue property.
- 	* @return a IContinuousInformation value
-	*/
- 	public IContinuousInformation getContinuousValue();
-
- 	/**
  	* Sets the physicalLoc property.
  	* @param physicalLoc IPhysicalLocation value
  	*/
- 	public void setPhysicalLoc(IPhysicalLocation physicalLoc );
+ 	public ITemperatureSensor setPhysicalLoc(IPhysicalLocation physicalLoc );
 
 	/**
  	* Gets the physicalLoc property.
@@ -95,10 +83,22 @@ public interface ITemperatureSensor extends IAbstractOntConcept, IContinuousSens
  	public IPhysicalLocation getPhysicalLoc();
 
  	/**
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
+ 	*/
+ 	public ITemperatureSensor setSecurityData(ISecurity securityData );
+
+	/**
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
+	*/
+ 	public ISecurity getSecurityData();
+
+ 	/**
  	* Sets the temperature property.
  	* @param temperature ITemperatureInformation value
  	*/
- 	public void setTemperature(ITemperatureInformation temperature );
+ 	public ITemperatureSensor setTemperature(ITemperatureInformation temperature );
 
 	/**
  	* Gets the temperature property.

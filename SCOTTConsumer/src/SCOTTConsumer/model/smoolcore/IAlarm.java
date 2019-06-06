@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ public interface IAlarm extends IAbstractOntConcept, INotification{
  	* Sets the alarmDescription property.
  	* @param alarmDescription String value
  	*/
- 	public void setAlarmDescription(String alarmDescription );
+ 	public IAlarm setAlarmDescription(String alarmDescription );
 
 	/**
  	* Gets the alarmDescription property.
@@ -42,7 +42,7 @@ public interface IAlarm extends IAbstractOntConcept, INotification{
  	* Sets the alarmSeverity property.
  	* @param alarmSeverity String value
  	*/
- 	public void setAlarmSeverity(String alarmSeverity );
+ 	public IAlarm setAlarmSeverity(String alarmSeverity );
 
 	/**
  	* Gets the alarmSeverity property.
@@ -54,7 +54,7 @@ public interface IAlarm extends IAbstractOntConcept, INotification{
  	* Sets the dataID property.
  	* @param dataID String value
  	*/
- 	public void setDataID(String dataID );
+ 	public IAlarm setDataID(String dataID );
 
 	/**
  	* Gets the dataID property.
@@ -66,7 +66,7 @@ public interface IAlarm extends IAbstractOntConcept, INotification{
  	* Sets the timestamp property.
  	* @param timestamp String value
  	*/
- 	public void setTimestamp(String timestamp );
+ 	public IAlarm setTimestamp(String timestamp );
 
 	/**
  	* Gets the timestamp property.

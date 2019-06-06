@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -32,7 +32,7 @@ public interface IIP6Address extends IAbstractOntConcept, IIPAddress{
  	* Sets the dataID property.
  	* @param dataID String value
  	*/
- 	public void setDataID(String dataID );
+ 	public IIP6Address setDataID(String dataID );
 
 	/**
  	* Gets the dataID property.
@@ -44,7 +44,7 @@ public interface IIP6Address extends IAbstractOntConcept, IIPAddress{
  	* Sets the timestamp property.
  	* @param timestamp String value
  	*/
- 	public void setTimestamp(String timestamp );
+ 	public IIP6Address setTimestamp(String timestamp );
 
 	/**
  	* Gets the timestamp property.
@@ -56,7 +56,7 @@ public interface IIP6Address extends IAbstractOntConcept, IIPAddress{
  	* Sets the logicalLoc property.
  	* @param logicalLoc ILogicalLocation value
  	*/
- 	public void setLogicalLoc(ILogicalLocation logicalLoc );
+ 	public IIP6Address setLogicalLoc(ILogicalLocation logicalLoc );
 
 	/**
  	* Gets the logicalLoc property.

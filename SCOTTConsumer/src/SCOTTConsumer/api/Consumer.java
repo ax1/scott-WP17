@@ -43,5 +43,35 @@ public interface Consumer {
 	 * @throws KPIModelException. If an error occurs during publishing.
 	 */
 	public MessageReceiveSensor queryMessageReceiveSensor(String individualID) throws KPIModelException;
+	/**
+	 * Subscribe to the PresenceSensor concept
+	 *
+	 * @param subscription. The subscription object associated to the concept.
+	 * @param individualID. An optional individual ID (might be null).
+	 * @throws KPIModelException. If an error occurs during publishing.
+	 */
+	public void subscribeToPresenceSensor(PresenceSensorSubscription subscription, String individualID) throws KPIModelException;
+	/**
+	 * Unsubscribe to the PresenceSensor concept
+	 *
+	 * @param subscription. The subscription object associated to the concept.
+	 * @throws KPIModelException. If an error occurs during publishing.
+	 */
+	public void unsubscribeToPresenceSensor(PresenceSensorSubscription subscription) throws KPIModelException;
+	/**
+	 * Queries for all the PresenceSensor concepts
+	 *
+	 * @return a list of all the individuals of the LightingSensor concept.
+	 * @throws KPIModelException. If an error occurs during publishing.
+	 */
+	public List<PresenceSensor> queryAllPresenceSensor() throws KPIModelException;
+	/**
+	 * Queries for a single PresenceSensor concept
+	 *
+	 * @param individualID. The ID of the queried individual.
+	 * @return the concept individual or null.
+	 * @throws KPIModelException. If an error occurs during publishing.
+	 */
+	public PresenceSensor queryPresenceSensor(String individualID) throws KPIModelException;
 
 }

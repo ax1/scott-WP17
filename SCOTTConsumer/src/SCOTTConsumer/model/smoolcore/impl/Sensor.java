@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -8,7 +8,7 @@
 * This file is a result of OWL 2 java transformation using EMF
 * Contributors:
 *    Enas Ashraf (inas@itida.gov.eg) - creation of level 2 metamodel and transformation to java classes 
-*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - reation of level 1 metamodel by creating ...
+*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - creation of level 1 metamodel by creating ...
 *******************************************************************************/ 
 package SCOTTConsumer.model.smoolcore.impl;
      
@@ -16,10 +16,13 @@ import org.smool.kpi.model.smart.AbstractOntConcept;
 import org.smool.kpi.model.smart.KPProducer;
 import org.smool.kpi.model.smart.KPConsumer;
 import org.smool.kpi.model.smart.slots.FunctionalDatatypeSlot;
+import org.smool.kpi.model.smart.slots.FunctionalObjectSlot;
 import org.smool.kpi.model.smart.slots.NonFunctionalObjectSlot;
 import SCOTTConsumer.model.smoolcore.ISensor;
 import SCOTTConsumer.model.smoolcore.IAlarm;
 import SCOTTConsumer.model.smoolcore.impl.Alarm;
+import SCOTTConsumer.model.smoolcore.ISecurity;
+import SCOTTConsumer.model.smoolcore.impl.Security;
 
 /**
  * This class implements the ontology concept Sensor
@@ -98,6 +101,17 @@ public class Sensor extends AbstractOntConcept implements ISensor, KPProducer, K
       	
       	this._addProperty(alarmsSlot);
   	  
+  	  
+      	// Creates the securityData property
+      	String securityDataIRI = "http://com.tecnalia.smool/core/smoolcore#securityData";
+      	String securityDataPrefix = "smoolcore";
+
+      	FunctionalObjectSlot < Security > securityDataSlot= new FunctionalObjectSlot<Security>(Security.class);
+      	securityDataSlot._setIRI(securityDataIRI);
+      	securityDataSlot._setPrefix(securityDataPrefix);
+      	
+      	this._addProperty(securityDataSlot);
+  	  
   	}
 	/*
 	* PROPERTIES: GETTERS AND SETTERS
@@ -107,8 +121,9 @@ public class Sensor extends AbstractOntConcept implements ISensor, KPProducer, K
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
-	public void setDeviceID(String deviceID) {
-		this.updateAttribute("deviceID",deviceID);        
+	public Sensor setDeviceID(String deviceID) {
+		this.updateAttribute("deviceID",deviceID);
+		return this;        
 	}
 		
 	 /**
@@ -123,8 +138,9 @@ public class Sensor extends AbstractOntConcept implements ISensor, KPProducer, K
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
-	public void setVendor(String vendor) {
-		this.updateAttribute("vendor",vendor);        
+	public Sensor setVendor(String vendor) {
+		this.updateAttribute("vendor",vendor);
+		return this;        
 	}
 		
 	 /**
@@ -156,6 +172,23 @@ public class Sensor extends AbstractOntConcept implements ISensor, KPProducer, K
             this.removeAttribute("alarms",alarms);
         }
     	
+	}
+
+ 	/**
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
+ 	*/
+	public Sensor setSecurityData(ISecurity securityData) {
+		this.updateAttribute("securityData",securityData);
+		return this;        
+	}
+		
+	 /**
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
+ 	*/
+	public ISecurity getSecurityData() {
+    	return (ISecurity) this._getFunctionalProperty("securityData").getValue();
 	}
 
 }

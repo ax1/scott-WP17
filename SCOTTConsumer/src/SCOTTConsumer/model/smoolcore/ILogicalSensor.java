@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -15,6 +15,8 @@ import org.smool.kpi.model.smart.IAbstractOntConcept;
 import SCOTTConsumer.model.smoolcore.IAlarm;
        
 import SCOTTConsumer.model.smoolcore.ILogicalLocation;
+       
+import SCOTTConsumer.model.smoolcore.ISecurity;
        
 
 /**
@@ -34,7 +36,7 @@ public interface ILogicalSensor extends IAbstractOntConcept, ILogical, ISensor{
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
- 	public void setDeviceID(String deviceID );
+ 	public ILogicalSensor setDeviceID(String deviceID );
 
 	/**
  	* Gets the deviceID property.
@@ -46,7 +48,7 @@ public interface ILogicalSensor extends IAbstractOntConcept, ILogical, ISensor{
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
- 	public void setVendor(String vendor );
+ 	public ILogicalSensor setVendor(String vendor );
 
 	/**
  	* Gets the vendor property.
@@ -70,11 +72,23 @@ public interface ILogicalSensor extends IAbstractOntConcept, ILogical, ISensor{
  	* Sets the logicalLoc property.
  	* @param logicalLoc ILogicalLocation value
  	*/
- 	public void setLogicalLoc(ILogicalLocation logicalLoc );
+ 	public ILogicalSensor setLogicalLoc(ILogicalLocation logicalLoc );
 
 	/**
  	* Gets the logicalLoc property.
  	* @return a ILogicalLocation value
 	*/
  	public ILogicalLocation getLogicalLoc();
+
+ 	/**
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
+ 	*/
+ 	public ILogicalSensor setSecurityData(ISecurity securityData );
+
+	/**
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
+	*/
+ 	public ISecurity getSecurityData();
 }

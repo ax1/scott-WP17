@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -8,7 +8,7 @@
 * This file is a result of OWL 2 java transformation using EMF
 * Contributors:
 *    Enas Ashraf (inas@itida.gov.eg) - creation of level 2 metamodel and transformation to java classes 
-*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - reation of level 1 metamodel by creating ...
+*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - creation of level 1 metamodel by creating ...
 *******************************************************************************/ 
 package SCOTTConsumer.model.smoolcore.impl;
      
@@ -21,12 +21,12 @@ import org.smool.kpi.model.smart.slots.NonFunctionalObjectSlot;
 import SCOTTConsumer.model.smoolcore.IHumiditySensor;
 import SCOTTConsumer.model.smoolcore.IAlarm;
 import SCOTTConsumer.model.smoolcore.impl.Alarm;
-import SCOTTConsumer.model.smoolcore.IContinuousInformation;
-import SCOTTConsumer.model.smoolcore.impl.ContinuousInformation;
 import SCOTTConsumer.model.smoolcore.IHumidityInformation;
 import SCOTTConsumer.model.smoolcore.impl.HumidityInformation;
 import SCOTTConsumer.model.smoolcore.IPhysicalLocation;
 import SCOTTConsumer.model.smoolcore.impl.PhysicalLocation;
+import SCOTTConsumer.model.smoolcore.ISecurity;
+import SCOTTConsumer.model.smoolcore.impl.Security;
 
 /**
  * This class implements the ontology concept HumiditySensor
@@ -106,17 +106,6 @@ public class HumiditySensor extends AbstractOntConcept implements IHumiditySenso
       	this._addProperty(alarmsSlot);
   	  
   	  
-      	// Creates the continuousValue property
-      	String continuousValueIRI = "http://com.tecnalia.smool/core/smoolcore#continuousValue";
-      	String continuousValuePrefix = "smoolcore";
-
-      	FunctionalObjectSlot < ContinuousInformation > continuousValueSlot= new FunctionalObjectSlot<ContinuousInformation>(ContinuousInformation.class);
-      	continuousValueSlot._setIRI(continuousValueIRI);
-      	continuousValueSlot._setPrefix(continuousValuePrefix);
-      	
-      	this._addProperty(continuousValueSlot);
-  	  
-  	  
       	// Creates the humidity property
       	String humidityIRI = "http://com.tecnalia.smool/core/smoolcore#humidity";
       	String humidityPrefix = "smoolcore";
@@ -138,6 +127,17 @@ public class HumiditySensor extends AbstractOntConcept implements IHumiditySenso
       	
       	this._addProperty(physicalLocSlot);
   	  
+  	  
+      	// Creates the securityData property
+      	String securityDataIRI = "http://com.tecnalia.smool/core/smoolcore#securityData";
+      	String securityDataPrefix = "smoolcore";
+
+      	FunctionalObjectSlot < Security > securityDataSlot= new FunctionalObjectSlot<Security>(Security.class);
+      	securityDataSlot._setIRI(securityDataIRI);
+      	securityDataSlot._setPrefix(securityDataPrefix);
+      	
+      	this._addProperty(securityDataSlot);
+  	  
   	}
 	/*
 	* PROPERTIES: GETTERS AND SETTERS
@@ -147,8 +147,9 @@ public class HumiditySensor extends AbstractOntConcept implements IHumiditySenso
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
-	public void setDeviceID(String deviceID) {
-		this.updateAttribute("deviceID",deviceID);        
+	public HumiditySensor setDeviceID(String deviceID) {
+		this.updateAttribute("deviceID",deviceID);
+		return this;        
 	}
 		
 	 /**
@@ -163,8 +164,9 @@ public class HumiditySensor extends AbstractOntConcept implements IHumiditySenso
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
-	public void setVendor(String vendor) {
-		this.updateAttribute("vendor",vendor);        
+	public HumiditySensor setVendor(String vendor) {
+		this.updateAttribute("vendor",vendor);
+		return this;        
 	}
 		
 	 /**
@@ -199,27 +201,12 @@ public class HumiditySensor extends AbstractOntConcept implements IHumiditySenso
 	}
 
  	/**
- 	* Sets the continuousValue property.
- 	* @param continuousValue IContinuousInformation value
- 	*/
-	public void setContinuousValue(IContinuousInformation continuousValue) {
-		this.updateAttribute("continuousValue",continuousValue);        
-	}
-		
-	 /**
- 	* Gets the continuousValue property.
- 	* @return a IContinuousInformation value
- 	*/
-	public IContinuousInformation getContinuousValue() {
-    	return (IContinuousInformation) this._getFunctionalProperty("continuousValue").getValue();
-	}
-
- 	/**
  	* Sets the humidity property.
  	* @param humidity IHumidityInformation value
  	*/
-	public void setHumidity(IHumidityInformation humidity) {
-		this.updateAttribute("humidity",humidity);        
+	public HumiditySensor setHumidity(IHumidityInformation humidity) {
+		this.updateAttribute("humidity",humidity);
+		return this;        
 	}
 		
 	 /**
@@ -234,8 +221,9 @@ public class HumiditySensor extends AbstractOntConcept implements IHumiditySenso
  	* Sets the physicalLoc property.
  	* @param physicalLoc IPhysicalLocation value
  	*/
-	public void setPhysicalLoc(IPhysicalLocation physicalLoc) {
-		this.updateAttribute("physicalLoc",physicalLoc);        
+	public HumiditySensor setPhysicalLoc(IPhysicalLocation physicalLoc) {
+		this.updateAttribute("physicalLoc",physicalLoc);
+		return this;        
 	}
 		
 	 /**
@@ -244,6 +232,23 @@ public class HumiditySensor extends AbstractOntConcept implements IHumiditySenso
  	*/
 	public IPhysicalLocation getPhysicalLoc() {
     	return (IPhysicalLocation) this._getFunctionalProperty("physicalLoc").getValue();
+	}
+
+ 	/**
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
+ 	*/
+	public HumiditySensor setSecurityData(ISecurity securityData) {
+		this.updateAttribute("securityData",securityData);
+		return this;        
+	}
+		
+	 /**
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
+ 	*/
+	public ISecurity getSecurityData() {
+    	return (ISecurity) this._getFunctionalProperty("securityData").getValue();
 	}
 
 }

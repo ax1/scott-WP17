@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -17,6 +17,8 @@ import SCOTTConsumer.model.smoolcore.IAlarm;
 import SCOTTConsumer.model.smoolcore.ILogicalLocation;
        
 import SCOTTConsumer.model.smoolcore.IMessage;
+       
+import SCOTTConsumer.model.smoolcore.ISecurity;
        
 
 /**
@@ -36,7 +38,7 @@ public interface IMessageReceiveSensor extends IAbstractOntConcept, ILogicalSens
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
- 	public void setDeviceID(String deviceID );
+ 	public IMessageReceiveSensor setDeviceID(String deviceID );
 
 	/**
  	* Gets the deviceID property.
@@ -48,7 +50,7 @@ public interface IMessageReceiveSensor extends IAbstractOntConcept, ILogicalSens
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
- 	public void setVendor(String vendor );
+ 	public IMessageReceiveSensor setVendor(String vendor );
 
 	/**
  	* Gets the vendor property.
@@ -84,7 +86,7 @@ public interface IMessageReceiveSensor extends IAbstractOntConcept, ILogicalSens
  	* Sets the logicalLoc property.
  	* @param logicalLoc ILogicalLocation value
  	*/
- 	public void setLogicalLoc(ILogicalLocation logicalLoc );
+ 	public IMessageReceiveSensor setLogicalLoc(ILogicalLocation logicalLoc );
 
 	/**
  	* Gets the logicalLoc property.
@@ -96,7 +98,7 @@ public interface IMessageReceiveSensor extends IAbstractOntConcept, ILogicalSens
  	* Sets the message property.
  	* @param message IMessage value
  	*/
- 	public void setMessage(IMessage message );
+ 	public IMessageReceiveSensor setMessage(IMessage message );
 
 	/**
  	* Gets the message property.
@@ -108,11 +110,23 @@ public interface IMessageReceiveSensor extends IAbstractOntConcept, ILogicalSens
  	* Sets the origin property.
  	* @param origin ILogicalLocation value
  	*/
- 	public void setOrigin(ILogicalLocation origin );
+ 	public IMessageReceiveSensor setOrigin(ILogicalLocation origin );
 
 	/**
  	* Gets the origin property.
  	* @return a ILogicalLocation value
 	*/
  	public ILogicalLocation getOrigin();
+
+ 	/**
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
+ 	*/
+ 	public IMessageReceiveSensor setSecurityData(ISecurity securityData );
+
+	/**
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
+	*/
+ 	public ISecurity getSecurityData();
 }

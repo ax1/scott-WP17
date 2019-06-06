@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -13,6 +13,8 @@ package SCOTTConsumer.model.smoolcore;
        
 import org.smool.kpi.model.smart.IAbstractOntConcept;
 import SCOTTConsumer.model.smoolcore.IAlarm;
+       
+import SCOTTConsumer.model.smoolcore.ISecurity;
        
 
 /**
@@ -32,7 +34,7 @@ public interface IDevice extends IAbstractOntConcept{
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
- 	public void setDeviceID(String deviceID );
+ 	public IDevice setDeviceID(String deviceID );
 
 	/**
  	* Gets the deviceID property.
@@ -44,7 +46,7 @@ public interface IDevice extends IAbstractOntConcept{
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
- 	public void setVendor(String vendor );
+ 	public IDevice setVendor(String vendor );
 
 	/**
  	* Gets the vendor property.
@@ -63,4 +65,16 @@ public interface IDevice extends IAbstractOntConcept{
  	* @param alarms IAlarm value to remove
 	*/
  	public void removeAlarms(IAlarm alarms );
+
+ 	/**
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
+ 	*/
+ 	public IDevice setSecurityData(ISecurity securityData );
+
+	/**
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
+	*/
+ 	public ISecurity getSecurityData();
 }

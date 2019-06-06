@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -16,7 +16,7 @@ import SCOTTConsumer.model.smoolcore.IAlarm;
        
 import SCOTTConsumer.model.smoolcore.IPhysicalLocation;
        
-import SCOTTConsumer.model.smoolcore.IContinuousInformation;
+import SCOTTConsumer.model.smoolcore.ISecurity;
        
 
 /**
@@ -36,7 +36,7 @@ public interface IRangeActuator extends IAbstractOntConcept, IPhysicalActuator{
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
- 	public void setDeviceID(String deviceID );
+ 	public IRangeActuator setDeviceID(String deviceID );
 
 	/**
  	* Gets the deviceID property.
@@ -48,7 +48,7 @@ public interface IRangeActuator extends IAbstractOntConcept, IPhysicalActuator{
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
- 	public void setVendor(String vendor );
+ 	public IRangeActuator setVendor(String vendor );
 
 	/**
  	* Gets the vendor property.
@@ -72,7 +72,7 @@ public interface IRangeActuator extends IAbstractOntConcept, IPhysicalActuator{
  	* Sets the physicalLoc property.
  	* @param physicalLoc IPhysicalLocation value
  	*/
- 	public void setPhysicalLoc(IPhysicalLocation physicalLoc );
+ 	public IRangeActuator setPhysicalLoc(IPhysicalLocation physicalLoc );
 
 	/**
  	* Gets the physicalLoc property.
@@ -81,14 +81,14 @@ public interface IRangeActuator extends IAbstractOntConcept, IPhysicalActuator{
  	public IPhysicalLocation getPhysicalLoc();
 
  	/**
- 	* Sets the value property.
- 	* @param value IContinuousInformation value
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
  	*/
- 	public void setValue(IContinuousInformation value );
+ 	public IRangeActuator setSecurityData(ISecurity securityData );
 
 	/**
- 	* Gets the value property.
- 	* @return a IContinuousInformation value
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
 	*/
- 	public IContinuousInformation getValue();
+ 	public ISecurity getSecurityData();
 }

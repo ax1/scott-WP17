@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -17,6 +17,8 @@ import SCOTTConsumer.model.smoolcore.IAlarm;
 import SCOTTConsumer.model.smoolcore.ILogicalLocation;
        
 import SCOTTConsumer.model.smoolcore.IMessage;
+       
+import SCOTTConsumer.model.smoolcore.ISecurity;
        
 import SCOTTConsumer.model.smoolcore.ITelephoneNumber;
        
@@ -38,7 +40,7 @@ public interface ISMSSendActuator extends IAbstractOntConcept, IMessageSendActua
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
- 	public void setDeviceID(String deviceID );
+ 	public ISMSSendActuator setDeviceID(String deviceID );
 
 	/**
  	* Gets the deviceID property.
@@ -50,7 +52,7 @@ public interface ISMSSendActuator extends IAbstractOntConcept, IMessageSendActua
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
- 	public void setVendor(String vendor );
+ 	public ISMSSendActuator setVendor(String vendor );
 
 	/**
  	* Gets the vendor property.
@@ -86,7 +88,7 @@ public interface ISMSSendActuator extends IAbstractOntConcept, IMessageSendActua
  	* Sets the logicalLoc property.
  	* @param logicalLoc ILogicalLocation value
  	*/
- 	public void setLogicalLoc(ILogicalLocation logicalLoc );
+ 	public ISMSSendActuator setLogicalLoc(ILogicalLocation logicalLoc );
 
 	/**
  	* Gets the logicalLoc property.
@@ -98,7 +100,7 @@ public interface ISMSSendActuator extends IAbstractOntConcept, IMessageSendActua
  	* Sets the message property.
  	* @param message IMessage value
  	*/
- 	public void setMessage(IMessage message );
+ 	public ISMSSendActuator setMessage(IMessage message );
 
 	/**
  	* Gets the message property.
@@ -110,7 +112,7 @@ public interface ISMSSendActuator extends IAbstractOntConcept, IMessageSendActua
  	* Sets the origin property.
  	* @param origin ILogicalLocation value
  	*/
- 	public void setOrigin(ILogicalLocation origin );
+ 	public ISMSSendActuator setOrigin(ILogicalLocation origin );
 
 	/**
  	* Gets the origin property.
@@ -119,10 +121,22 @@ public interface ISMSSendActuator extends IAbstractOntConcept, IMessageSendActua
  	public ILogicalLocation getOrigin();
 
  	/**
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
+ 	*/
+ 	public ISMSSendActuator setSecurityData(ISecurity securityData );
+
+	/**
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
+	*/
+ 	public ISecurity getSecurityData();
+
+ 	/**
  	* Sets the smsFrom property.
  	* @param smsFrom ITelephoneNumber value
  	*/
- 	public void setSmsFrom(ITelephoneNumber smsFrom );
+ 	public ISMSSendActuator setSmsFrom(ITelephoneNumber smsFrom );
 
 	/**
  	* Gets the smsFrom property.

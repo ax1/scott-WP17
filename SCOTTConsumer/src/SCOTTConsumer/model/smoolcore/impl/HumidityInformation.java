@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -8,7 +8,7 @@
 * This file is a result of OWL 2 java transformation using EMF
 * Contributors:
 *    Enas Ashraf (inas@itida.gov.eg) - creation of level 2 metamodel and transformation to java classes 
-*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - reation of level 1 metamodel by creating ...
+*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - creation of level 1 metamodel by creating ...
 *******************************************************************************/ 
 package SCOTTConsumer.model.smoolcore.impl;
      
@@ -74,28 +74,6 @@ public class HumidityInformation extends AbstractOntConcept implements IHumidity
       	this._addProperty(dataIDSlot);
   	  
   	  
-      	// Creates the humidityUnit property
-      	String humidityUnitIRI = "http://com.tecnalia.smool/core/smoolcore#humidityUnit";
-      	String humidityUnitPrefix = "smoolcore";
-
-      	FunctionalDatatypeSlot < String > humidityUnitSlot= new FunctionalDatatypeSlot<String>(String.class);
-      	humidityUnitSlot._setIRI(humidityUnitIRI);
-      	humidityUnitSlot._setPrefix(humidityUnitPrefix);
-      	humidityUnitSlot.setRange("xsd:String");
-      	this._addProperty(humidityUnitSlot);
-  	  
-  	  
-      	// Creates the humidityValue property
-      	String humidityValueIRI = "http://com.tecnalia.smool/core/smoolcore#humidityValue";
-      	String humidityValuePrefix = "smoolcore";
-
-      	FunctionalDatatypeSlot < Double > humidityValueSlot= new FunctionalDatatypeSlot<Double>(Double.class);
-      	humidityValueSlot._setIRI(humidityValueIRI);
-      	humidityValueSlot._setPrefix(humidityValuePrefix);
-      	humidityValueSlot.setRange("xsd:Double");
-      	this._addProperty(humidityValueSlot);
-  	  
-  	  
       	// Creates the timestamp property
       	String timestampIRI = "http://com.tecnalia.smool/core/smoolcore#timestamp";
       	String timestampPrefix = "smoolcore";
@@ -117,6 +95,17 @@ public class HumidityInformation extends AbstractOntConcept implements IHumidity
       	unitSlot.setRange("xsd:String");
       	this._addProperty(unitSlot);
   	  
+  	  
+      	// Creates the value property
+      	String valueIRI = "http://com.tecnalia.smool/core/smoolcore#value";
+      	String valuePrefix = "smoolcore";
+
+      	FunctionalDatatypeSlot < Double > valueSlot= new FunctionalDatatypeSlot<Double>(Double.class);
+      	valueSlot._setIRI(valueIRI);
+      	valueSlot._setPrefix(valuePrefix);
+      	valueSlot.setRange("xsd:Double");
+      	this._addProperty(valueSlot);
+  	  
   	}
 	/*
 	* PROPERTIES: GETTERS AND SETTERS
@@ -126,8 +115,9 @@ public class HumidityInformation extends AbstractOntConcept implements IHumidity
  	* Sets the dataID property.
  	* @param dataID String value
  	*/
-	public void setDataID(String dataID) {
-		this.updateAttribute("dataID",dataID);        
+	public HumidityInformation setDataID(String dataID) {
+		this.updateAttribute("dataID",dataID);
+		return this;        
 	}
 		
 	 /**
@@ -139,43 +129,12 @@ public class HumidityInformation extends AbstractOntConcept implements IHumidity
 	}
 
  	/**
- 	* Sets the humidityUnit property.
- 	* @param humidityUnit String value
- 	*/
-	public void setHumidityUnit(String humidityUnit) {
-		this.updateAttribute("humidityUnit",humidityUnit);        
-	}
-		
-	 /**
- 	* Gets the humidityUnit property.
- 	* @return a String value
- 	*/
-	public String getHumidityUnit() {
-    	return (String) this._getFunctionalProperty("humidityUnit").getValue();
-	}
-
- 	/**
- 	* Sets the humidityValue property.
- 	* @param humidityValue Double value
- 	*/
-	public void setHumidityValue(Double humidityValue) {
-		this.updateAttribute("humidityValue",humidityValue);        
-	}
-		
-	 /**
- 	* Gets the humidityValue property.
- 	* @return a Double value
- 	*/
-	public Double getHumidityValue() {
-    	return (Double) this._getFunctionalProperty("humidityValue").getValue();
-	}
-
- 	/**
  	* Sets the timestamp property.
  	* @param timestamp String value
  	*/
-	public void setTimestamp(String timestamp) {
-		this.updateAttribute("timestamp",timestamp);        
+	public HumidityInformation setTimestamp(String timestamp) {
+		this.updateAttribute("timestamp",timestamp);
+		return this;        
 	}
 		
 	 /**
@@ -190,8 +149,9 @@ public class HumidityInformation extends AbstractOntConcept implements IHumidity
  	* Sets the unit property.
  	* @param unit String value
  	*/
-	public void setUnit(String unit) {
-		this.updateAttribute("unit",unit);        
+	public HumidityInformation setUnit(String unit) {
+		this.updateAttribute("unit",unit);
+		return this;        
 	}
 		
 	 /**
@@ -200,6 +160,23 @@ public class HumidityInformation extends AbstractOntConcept implements IHumidity
  	*/
 	public String getUnit() {
     	return (String) this._getFunctionalProperty("unit").getValue();
+	}
+
+ 	/**
+ 	* Sets the value property.
+ 	* @param value Double value
+ 	*/
+	public HumidityInformation setValue(Double value) {
+		this.updateAttribute("value",value);
+		return this;        
+	}
+		
+	 /**
+ 	* Gets the value property.
+ 	* @return a Double value
+ 	*/
+	public Double getValue() {
+    	return (Double) this._getFunctionalProperty("value").getValue();
 	}
 
 }

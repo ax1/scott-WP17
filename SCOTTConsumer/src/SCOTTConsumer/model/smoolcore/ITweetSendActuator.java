@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -17,6 +17,8 @@ import SCOTTConsumer.model.smoolcore.IAlarm;
 import SCOTTConsumer.model.smoolcore.ILogicalLocation;
        
 import SCOTTConsumer.model.smoolcore.IMessage;
+       
+import SCOTTConsumer.model.smoolcore.ISecurity;
        
 import SCOTTConsumer.model.smoolcore.ITwitterAccount;
        
@@ -38,7 +40,7 @@ public interface ITweetSendActuator extends IAbstractOntConcept, IMessageSendAct
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
- 	public void setDeviceID(String deviceID );
+ 	public ITweetSendActuator setDeviceID(String deviceID );
 
 	/**
  	* Gets the deviceID property.
@@ -50,7 +52,7 @@ public interface ITweetSendActuator extends IAbstractOntConcept, IMessageSendAct
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
- 	public void setVendor(String vendor );
+ 	public ITweetSendActuator setVendor(String vendor );
 
 	/**
  	* Gets the vendor property.
@@ -86,7 +88,7 @@ public interface ITweetSendActuator extends IAbstractOntConcept, IMessageSendAct
  	* Sets the logicalLoc property.
  	* @param logicalLoc ILogicalLocation value
  	*/
- 	public void setLogicalLoc(ILogicalLocation logicalLoc );
+ 	public ITweetSendActuator setLogicalLoc(ILogicalLocation logicalLoc );
 
 	/**
  	* Gets the logicalLoc property.
@@ -98,7 +100,7 @@ public interface ITweetSendActuator extends IAbstractOntConcept, IMessageSendAct
  	* Sets the message property.
  	* @param message IMessage value
  	*/
- 	public void setMessage(IMessage message );
+ 	public ITweetSendActuator setMessage(IMessage message );
 
 	/**
  	* Gets the message property.
@@ -110,7 +112,7 @@ public interface ITweetSendActuator extends IAbstractOntConcept, IMessageSendAct
  	* Sets the origin property.
  	* @param origin ILogicalLocation value
  	*/
- 	public void setOrigin(ILogicalLocation origin );
+ 	public ITweetSendActuator setOrigin(ILogicalLocation origin );
 
 	/**
  	* Gets the origin property.
@@ -119,10 +121,22 @@ public interface ITweetSendActuator extends IAbstractOntConcept, IMessageSendAct
  	public ILogicalLocation getOrigin();
 
  	/**
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
+ 	*/
+ 	public ITweetSendActuator setSecurityData(ISecurity securityData );
+
+	/**
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
+	*/
+ 	public ISecurity getSecurityData();
+
+ 	/**
  	* Sets the tweetWriter property.
  	* @param tweetWriter ITwitterAccount value
  	*/
- 	public void setTweetWriter(ITwitterAccount tweetWriter );
+ 	public ITweetSendActuator setTweetWriter(ITwitterAccount tweetWriter );
 
 	/**
  	* Gets the tweetWriter property.

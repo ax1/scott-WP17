@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -17,6 +17,8 @@ import SCOTTConsumer.model.smoolcore.IAlarm;
 import SCOTTConsumer.model.smoolcore.IPhysicalLocation;
        
 import SCOTTConsumer.model.smoolcore.IProgrammeInformation;
+       
+import SCOTTConsumer.model.smoolcore.ISecurity;
        
 
 /**
@@ -36,7 +38,7 @@ public interface IProgrammableActuator extends IAbstractOntConcept, IPhysicalAct
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
- 	public void setDeviceID(String deviceID );
+ 	public IProgrammableActuator setDeviceID(String deviceID );
 
 	/**
  	* Gets the deviceID property.
@@ -48,7 +50,7 @@ public interface IProgrammableActuator extends IAbstractOntConcept, IPhysicalAct
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
- 	public void setVendor(String vendor );
+ 	public IProgrammableActuator setVendor(String vendor );
 
 	/**
  	* Gets the vendor property.
@@ -72,7 +74,7 @@ public interface IProgrammableActuator extends IAbstractOntConcept, IPhysicalAct
  	* Sets the physicalLoc property.
  	* @param physicalLoc IPhysicalLocation value
  	*/
- 	public void setPhysicalLoc(IPhysicalLocation physicalLoc );
+ 	public IProgrammableActuator setPhysicalLoc(IPhysicalLocation physicalLoc );
 
 	/**
  	* Gets the physicalLoc property.
@@ -84,11 +86,23 @@ public interface IProgrammableActuator extends IAbstractOntConcept, IPhysicalAct
  	* Sets the programme property.
  	* @param programme IProgrammeInformation value
  	*/
- 	public void setProgramme(IProgrammeInformation programme );
+ 	public IProgrammableActuator setProgramme(IProgrammeInformation programme );
 
 	/**
  	* Gets the programme property.
  	* @return a IProgrammeInformation value
 	*/
  	public IProgrammeInformation getProgramme();
+
+ 	/**
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
+ 	*/
+ 	public IProgrammableActuator setSecurityData(ISecurity securityData );
+
+	/**
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
+	*/
+ 	public ISecurity getSecurityData();
 }

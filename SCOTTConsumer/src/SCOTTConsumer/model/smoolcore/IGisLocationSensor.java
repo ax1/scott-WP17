@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -17,6 +17,8 @@ import SCOTTConsumer.model.smoolcore.IAlarm;
 import SCOTTConsumer.model.smoolcore.IGisLocation;
        
 import SCOTTConsumer.model.smoolcore.IPhysicalLocation;
+       
+import SCOTTConsumer.model.smoolcore.ISecurity;
        
 
 /**
@@ -36,7 +38,7 @@ public interface IGisLocationSensor extends IAbstractOntConcept, ILocationSensor
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
- 	public void setDeviceID(String deviceID );
+ 	public IGisLocationSensor setDeviceID(String deviceID );
 
 	/**
  	* Gets the deviceID property.
@@ -48,7 +50,7 @@ public interface IGisLocationSensor extends IAbstractOntConcept, ILocationSensor
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
- 	public void setVendor(String vendor );
+ 	public IGisLocationSensor setVendor(String vendor );
 
 	/**
  	* Gets the vendor property.
@@ -72,7 +74,7 @@ public interface IGisLocationSensor extends IAbstractOntConcept, ILocationSensor
  	* Sets the gislocation property.
  	* @param gislocation IGisLocation value
  	*/
- 	public void setGislocation(IGisLocation gislocation );
+ 	public IGisLocationSensor setGislocation(IGisLocation gislocation );
 
 	/**
  	* Gets the gislocation property.
@@ -84,7 +86,7 @@ public interface IGisLocationSensor extends IAbstractOntConcept, ILocationSensor
  	* Sets the location property.
  	* @param location IPhysicalLocation value
  	*/
- 	public void setLocation(IPhysicalLocation location );
+ 	public IGisLocationSensor setLocation(IPhysicalLocation location );
 
 	/**
  	* Gets the location property.
@@ -96,11 +98,23 @@ public interface IGisLocationSensor extends IAbstractOntConcept, ILocationSensor
  	* Sets the physicalLoc property.
  	* @param physicalLoc IPhysicalLocation value
  	*/
- 	public void setPhysicalLoc(IPhysicalLocation physicalLoc );
+ 	public IGisLocationSensor setPhysicalLoc(IPhysicalLocation physicalLoc );
 
 	/**
  	* Gets the physicalLoc property.
  	* @return a IPhysicalLocation value
 	*/
  	public IPhysicalLocation getPhysicalLoc();
+
+ 	/**
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
+ 	*/
+ 	public IGisLocationSensor setSecurityData(ISecurity securityData );
+
+	/**
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
+	*/
+ 	public ISecurity getSecurityData();
 }

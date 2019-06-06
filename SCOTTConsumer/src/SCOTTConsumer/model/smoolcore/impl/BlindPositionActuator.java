@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -8,7 +8,7 @@
 * This file is a result of OWL 2 java transformation using EMF
 * Contributors:
 *    Enas Ashraf (inas@itida.gov.eg) - creation of level 2 metamodel and transformation to java classes 
-*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - reation of level 1 metamodel by creating ...
+*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - creation of level 1 metamodel by creating ...
 *******************************************************************************/ 
 package SCOTTConsumer.model.smoolcore.impl;
      
@@ -25,6 +25,8 @@ import SCOTTConsumer.model.smoolcore.IContinuousInformation;
 import SCOTTConsumer.model.smoolcore.impl.ContinuousInformation;
 import SCOTTConsumer.model.smoolcore.IPhysicalLocation;
 import SCOTTConsumer.model.smoolcore.impl.PhysicalLocation;
+import SCOTTConsumer.model.smoolcore.ISecurity;
+import SCOTTConsumer.model.smoolcore.impl.Security;
 
 /**
  * This class implements the ontology concept BlindPositionActuator
@@ -126,15 +128,15 @@ public class BlindPositionActuator extends AbstractOntConcept implements IBlindP
       	this._addProperty(physicalLocSlot);
   	  
   	  
-      	// Creates the value property
-      	String valueIRI = "http://com.tecnalia.smool/core/smoolcore#value";
-      	String valuePrefix = "smoolcore";
+      	// Creates the securityData property
+      	String securityDataIRI = "http://com.tecnalia.smool/core/smoolcore#securityData";
+      	String securityDataPrefix = "smoolcore";
 
-      	FunctionalObjectSlot < ContinuousInformation > valueSlot= new FunctionalObjectSlot<ContinuousInformation>(ContinuousInformation.class);
-      	valueSlot._setIRI(valueIRI);
-      	valueSlot._setPrefix(valuePrefix);
+      	FunctionalObjectSlot < Security > securityDataSlot= new FunctionalObjectSlot<Security>(Security.class);
+      	securityDataSlot._setIRI(securityDataIRI);
+      	securityDataSlot._setPrefix(securityDataPrefix);
       	
-      	this._addProperty(valueSlot);
+      	this._addProperty(securityDataSlot);
   	  
   	}
 	/*
@@ -145,8 +147,9 @@ public class BlindPositionActuator extends AbstractOntConcept implements IBlindP
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
-	public void setDeviceID(String deviceID) {
-		this.updateAttribute("deviceID",deviceID);        
+	public BlindPositionActuator setDeviceID(String deviceID) {
+		this.updateAttribute("deviceID",deviceID);
+		return this;        
 	}
 		
 	 /**
@@ -161,8 +164,9 @@ public class BlindPositionActuator extends AbstractOntConcept implements IBlindP
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
-	public void setVendor(String vendor) {
-		this.updateAttribute("vendor",vendor);        
+	public BlindPositionActuator setVendor(String vendor) {
+		this.updateAttribute("vendor",vendor);
+		return this;        
 	}
 		
 	 /**
@@ -200,8 +204,9 @@ public class BlindPositionActuator extends AbstractOntConcept implements IBlindP
  	* Sets the blindPos property.
  	* @param blindPos IContinuousInformation value
  	*/
-	public void setBlindPos(IContinuousInformation blindPos) {
-		this.updateAttribute("blindPos",blindPos);        
+	public BlindPositionActuator setBlindPos(IContinuousInformation blindPos) {
+		this.updateAttribute("blindPos",blindPos);
+		return this;        
 	}
 		
 	 /**
@@ -216,8 +221,9 @@ public class BlindPositionActuator extends AbstractOntConcept implements IBlindP
  	* Sets the physicalLoc property.
  	* @param physicalLoc IPhysicalLocation value
  	*/
-	public void setPhysicalLoc(IPhysicalLocation physicalLoc) {
-		this.updateAttribute("physicalLoc",physicalLoc);        
+	public BlindPositionActuator setPhysicalLoc(IPhysicalLocation physicalLoc) {
+		this.updateAttribute("physicalLoc",physicalLoc);
+		return this;        
 	}
 		
 	 /**
@@ -229,19 +235,20 @@ public class BlindPositionActuator extends AbstractOntConcept implements IBlindP
 	}
 
  	/**
- 	* Sets the value property.
- 	* @param value IContinuousInformation value
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
  	*/
-	public void setValue(IContinuousInformation value) {
-		this.updateAttribute("value",value);        
+	public BlindPositionActuator setSecurityData(ISecurity securityData) {
+		this.updateAttribute("securityData",securityData);
+		return this;        
 	}
 		
 	 /**
- 	* Gets the value property.
- 	* @return a IContinuousInformation value
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
  	*/
-	public IContinuousInformation getValue() {
-    	return (IContinuousInformation) this._getFunctionalProperty("value").getValue();
+	public ISecurity getSecurityData() {
+    	return (ISecurity) this._getFunctionalProperty("securityData").getValue();
 	}
 
 }

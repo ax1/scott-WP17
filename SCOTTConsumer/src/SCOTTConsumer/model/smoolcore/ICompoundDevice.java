@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -15,6 +15,8 @@ import org.smool.kpi.model.smart.IAbstractOntConcept;
 import SCOTTConsumer.model.smoolcore.IAlarm;
        
 import SCOTTConsumer.model.smoolcore.ISimpleDevice;
+       
+import SCOTTConsumer.model.smoolcore.ISecurity;
        
 
 /**
@@ -34,7 +36,7 @@ public interface ICompoundDevice extends IAbstractOntConcept, IDevice{
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
- 	public void setDeviceID(String deviceID );
+ 	public ICompoundDevice setDeviceID(String deviceID );
 
 	/**
  	* Gets the deviceID property.
@@ -46,7 +48,7 @@ public interface ICompoundDevice extends IAbstractOntConcept, IDevice{
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
- 	public void setVendor(String vendor );
+ 	public ICompoundDevice setVendor(String vendor );
 
 	/**
  	* Gets the vendor property.
@@ -77,4 +79,16 @@ public interface ICompoundDevice extends IAbstractOntConcept, IDevice{
  	* @param composedOf ISimpleDevice value to remove
 	*/
  	public void removeComposedOf(ISimpleDevice composedOf );
+
+ 	/**
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
+ 	*/
+ 	public ICompoundDevice setSecurityData(ISecurity securityData );
+
+	/**
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
+	*/
+ 	public ISecurity getSecurityData();
 }

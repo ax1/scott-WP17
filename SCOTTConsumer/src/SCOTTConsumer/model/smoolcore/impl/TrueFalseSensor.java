@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -8,7 +8,7 @@
 * This file is a result of OWL 2 java transformation using EMF
 * Contributors:
 *    Enas Ashraf (inas@itida.gov.eg) - creation of level 2 metamodel and transformation to java classes 
-*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - reation of level 1 metamodel by creating ...
+*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - creation of level 1 metamodel by creating ...
 *******************************************************************************/ 
 package SCOTTConsumer.model.smoolcore.impl;
      
@@ -21,10 +21,10 @@ import org.smool.kpi.model.smart.slots.NonFunctionalObjectSlot;
 import SCOTTConsumer.model.smoolcore.ITrueFalseSensor;
 import SCOTTConsumer.model.smoolcore.IAlarm;
 import SCOTTConsumer.model.smoolcore.impl.Alarm;
-import SCOTTConsumer.model.smoolcore.IBooleanInformation;
-import SCOTTConsumer.model.smoolcore.impl.BooleanInformation;
 import SCOTTConsumer.model.smoolcore.IPhysicalLocation;
 import SCOTTConsumer.model.smoolcore.impl.PhysicalLocation;
+import SCOTTConsumer.model.smoolcore.ISecurity;
+import SCOTTConsumer.model.smoolcore.impl.Security;
 
 /**
  * This class implements the ontology concept TrueFalseSensor
@@ -104,17 +104,6 @@ public class TrueFalseSensor extends AbstractOntConcept implements ITrueFalseSen
       	this._addProperty(alarmsSlot);
   	  
   	  
-      	// Creates the bool property
-      	String boolIRI = "http://com.tecnalia.smool/core/smoolcore#bool";
-      	String boolPrefix = "smoolcore";
-
-      	FunctionalObjectSlot < BooleanInformation > boolSlot= new FunctionalObjectSlot<BooleanInformation>(BooleanInformation.class);
-      	boolSlot._setIRI(boolIRI);
-      	boolSlot._setPrefix(boolPrefix);
-      	
-      	this._addProperty(boolSlot);
-  	  
-  	  
       	// Creates the physicalLoc property
       	String physicalLocIRI = "http://com.tecnalia.smool/core/smoolcore#physicalLoc";
       	String physicalLocPrefix = "smoolcore";
@@ -125,6 +114,17 @@ public class TrueFalseSensor extends AbstractOntConcept implements ITrueFalseSen
       	
       	this._addProperty(physicalLocSlot);
   	  
+  	  
+      	// Creates the securityData property
+      	String securityDataIRI = "http://com.tecnalia.smool/core/smoolcore#securityData";
+      	String securityDataPrefix = "smoolcore";
+
+      	FunctionalObjectSlot < Security > securityDataSlot= new FunctionalObjectSlot<Security>(Security.class);
+      	securityDataSlot._setIRI(securityDataIRI);
+      	securityDataSlot._setPrefix(securityDataPrefix);
+      	
+      	this._addProperty(securityDataSlot);
+  	  
   	}
 	/*
 	* PROPERTIES: GETTERS AND SETTERS
@@ -134,8 +134,9 @@ public class TrueFalseSensor extends AbstractOntConcept implements ITrueFalseSen
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
-	public void setDeviceID(String deviceID) {
-		this.updateAttribute("deviceID",deviceID);        
+	public TrueFalseSensor setDeviceID(String deviceID) {
+		this.updateAttribute("deviceID",deviceID);
+		return this;        
 	}
 		
 	 /**
@@ -150,8 +151,9 @@ public class TrueFalseSensor extends AbstractOntConcept implements ITrueFalseSen
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
-	public void setVendor(String vendor) {
-		this.updateAttribute("vendor",vendor);        
+	public TrueFalseSensor setVendor(String vendor) {
+		this.updateAttribute("vendor",vendor);
+		return this;        
 	}
 		
 	 /**
@@ -186,27 +188,12 @@ public class TrueFalseSensor extends AbstractOntConcept implements ITrueFalseSen
 	}
 
  	/**
- 	* Sets the bool property.
- 	* @param bool IBooleanInformation value
- 	*/
-	public void setBool(IBooleanInformation bool) {
-		this.updateAttribute("bool",bool);        
-	}
-		
-	 /**
- 	* Gets the bool property.
- 	* @return a IBooleanInformation value
- 	*/
-	public IBooleanInformation getBool() {
-    	return (IBooleanInformation) this._getFunctionalProperty("bool").getValue();
-	}
-
- 	/**
  	* Sets the physicalLoc property.
  	* @param physicalLoc IPhysicalLocation value
  	*/
-	public void setPhysicalLoc(IPhysicalLocation physicalLoc) {
-		this.updateAttribute("physicalLoc",physicalLoc);        
+	public TrueFalseSensor setPhysicalLoc(IPhysicalLocation physicalLoc) {
+		this.updateAttribute("physicalLoc",physicalLoc);
+		return this;        
 	}
 		
 	 /**
@@ -215,6 +202,23 @@ public class TrueFalseSensor extends AbstractOntConcept implements ITrueFalseSen
  	*/
 	public IPhysicalLocation getPhysicalLoc() {
     	return (IPhysicalLocation) this._getFunctionalProperty("physicalLoc").getValue();
+	}
+
+ 	/**
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
+ 	*/
+	public TrueFalseSensor setSecurityData(ISecurity securityData) {
+		this.updateAttribute("securityData",securityData);
+		return this;        
+	}
+		
+	 /**
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
+ 	*/
+	public ISecurity getSecurityData() {
+    	return (ISecurity) this._getFunctionalProperty("securityData").getValue();
 	}
 
 }

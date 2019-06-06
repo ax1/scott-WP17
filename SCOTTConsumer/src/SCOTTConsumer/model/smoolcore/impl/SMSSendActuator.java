@@ -1,6 +1,6 @@
 
 /*******************************************************************************
-* Copyright (c) 2012 Tecnalia Research and Innovation.
+* Copyright (c) 2018 Tecnalia Research and Innovation.
 * All rights reserved. This program and the accompanying materials
 * are made available under the terms of the Eclipse Public License v1.0
 * which accompanies this distribution, and is available at
@@ -8,7 +8,7 @@
 * This file is a result of OWL 2 java transformation using EMF
 * Contributors:
 *    Enas Ashraf (inas@itida.gov.eg) - creation of level 2 metamodel and transformation to java classes 
-*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - reation of level 1 metamodel by creating ...
+*    Adrian Noguero (Tecnalia Research and Innovation - Software Systems Engineering) - creation of level 1 metamodel by creating ...
 *******************************************************************************/ 
 package SCOTTConsumer.model.smoolcore.impl;
      
@@ -25,6 +25,8 @@ import SCOTTConsumer.model.smoolcore.ILogicalLocation;
 import SCOTTConsumer.model.smoolcore.impl.LogicalLocation;
 import SCOTTConsumer.model.smoolcore.IMessage;
 import SCOTTConsumer.model.smoolcore.impl.Message;
+import SCOTTConsumer.model.smoolcore.ISecurity;
+import SCOTTConsumer.model.smoolcore.impl.Security;
 import SCOTTConsumer.model.smoolcore.ITelephoneNumber;
 import SCOTTConsumer.model.smoolcore.impl.TelephoneNumber;
 
@@ -150,6 +152,17 @@ public class SMSSendActuator extends AbstractOntConcept implements ISMSSendActua
       	this._addProperty(originSlot);
   	  
   	  
+      	// Creates the securityData property
+      	String securityDataIRI = "http://com.tecnalia.smool/core/smoolcore#securityData";
+      	String securityDataPrefix = "smoolcore";
+
+      	FunctionalObjectSlot < Security > securityDataSlot= new FunctionalObjectSlot<Security>(Security.class);
+      	securityDataSlot._setIRI(securityDataIRI);
+      	securityDataSlot._setPrefix(securityDataPrefix);
+      	
+      	this._addProperty(securityDataSlot);
+  	  
+  	  
       	// Creates the smsFrom property
       	String smsFromIRI = "http://com.tecnalia.smool/core/smoolcore#smsFrom";
       	String smsFromPrefix = "smoolcore";
@@ -180,8 +193,9 @@ public class SMSSendActuator extends AbstractOntConcept implements ISMSSendActua
  	* Sets the deviceID property.
  	* @param deviceID String value
  	*/
-	public void setDeviceID(String deviceID) {
-		this.updateAttribute("deviceID",deviceID);        
+	public SMSSendActuator setDeviceID(String deviceID) {
+		this.updateAttribute("deviceID",deviceID);
+		return this;        
 	}
 		
 	 /**
@@ -196,8 +210,9 @@ public class SMSSendActuator extends AbstractOntConcept implements ISMSSendActua
  	* Sets the vendor property.
  	* @param vendor String value
  	*/
-	public void setVendor(String vendor) {
-		this.updateAttribute("vendor",vendor);        
+	public SMSSendActuator setVendor(String vendor) {
+		this.updateAttribute("vendor",vendor);
+		return this;        
 	}
 		
 	 /**
@@ -258,8 +273,9 @@ public class SMSSendActuator extends AbstractOntConcept implements ISMSSendActua
  	* Sets the logicalLoc property.
  	* @param logicalLoc ILogicalLocation value
  	*/
-	public void setLogicalLoc(ILogicalLocation logicalLoc) {
-		this.updateAttribute("logicalLoc",logicalLoc);        
+	public SMSSendActuator setLogicalLoc(ILogicalLocation logicalLoc) {
+		this.updateAttribute("logicalLoc",logicalLoc);
+		return this;        
 	}
 		
 	 /**
@@ -274,8 +290,9 @@ public class SMSSendActuator extends AbstractOntConcept implements ISMSSendActua
  	* Sets the message property.
  	* @param message IMessage value
  	*/
-	public void setMessage(IMessage message) {
-		this.updateAttribute("message",message);        
+	public SMSSendActuator setMessage(IMessage message) {
+		this.updateAttribute("message",message);
+		return this;        
 	}
 		
 	 /**
@@ -290,8 +307,9 @@ public class SMSSendActuator extends AbstractOntConcept implements ISMSSendActua
  	* Sets the origin property.
  	* @param origin ILogicalLocation value
  	*/
-	public void setOrigin(ILogicalLocation origin) {
-		this.updateAttribute("origin",origin);        
+	public SMSSendActuator setOrigin(ILogicalLocation origin) {
+		this.updateAttribute("origin",origin);
+		return this;        
 	}
 		
 	 /**
@@ -303,11 +321,29 @@ public class SMSSendActuator extends AbstractOntConcept implements ISMSSendActua
 	}
 
  	/**
+ 	* Sets the securityData property.
+ 	* @param securityData ISecurity value
+ 	*/
+	public SMSSendActuator setSecurityData(ISecurity securityData) {
+		this.updateAttribute("securityData",securityData);
+		return this;        
+	}
+		
+	 /**
+ 	* Gets the securityData property.
+ 	* @return a ISecurity value
+ 	*/
+	public ISecurity getSecurityData() {
+    	return (ISecurity) this._getFunctionalProperty("securityData").getValue();
+	}
+
+ 	/**
  	* Sets the smsFrom property.
  	* @param smsFrom ITelephoneNumber value
  	*/
-	public void setSmsFrom(ITelephoneNumber smsFrom) {
-		this.updateAttribute("smsFrom",smsFrom);        
+	public SMSSendActuator setSmsFrom(ITelephoneNumber smsFrom) {
+		this.updateAttribute("smsFrom",smsFrom);
+		return this;        
 	}
 		
 	 /**
