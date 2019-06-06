@@ -24,40 +24,38 @@ public class ProducerMain {
 	ServerSocket serverSocket;
 
 	public ProducerMain() throws Exception {
+		try (ServerSocket serverSocket = new ServerSocket(4444)) {
+			// connection to SIB
+			final String name = "SCOTTProducer" + System.currentTimeMillis() % 10000;
+			// SmoolKP.connect();
+			SmoolKP.connect("sib1", "smool.tecnalia.com", 80);
 
-		// connection to SIB
-		final String name = "SCOTTProducer" + System.currentTimeMillis() % 10000;
-		// SmoolKP.connect();
-		SmoolKP.connect("sib1", "smool.tecnalia.com", 80);
+			// create harvester as plain presence sensor
+			Producer producer = SmoolKP.getProducer();
+			String presenceID = name + "sensor";
+			PresenceSensor presenceSensor = new PresenceSensor(presenceID);
 
-		// create harvester as plain presence sensor
-		Producer producer = SmoolKP.getProducer();
-		String presenceID = name + "sensor";
-		PresenceSensor presenceSensor = new PresenceSensor(presenceID);
+			PresenceInformation presence = new PresenceInformation(presenceID + "information");
+			presenceSensor.setPresence(presence);
+			boolean firstTime = true;
 
-		PresenceInformation presence = new PresenceInformation(presenceID + "information");
-		presenceSensor.setPresence(presence);
-		boolean firstTime = true;
-
-		// create socket for IPC transmission
-		serverSocket = new ServerSocket(4444);
-
-		// Send presence, the location will be set in the consumer
-		// This way. configuration is only done in the KPConsumer
-		// producer.id->location, presence.id->containerID
-		while (true) {
-			try (Socket socket = serverSocket.accept()) {
-				BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-				String harvesterID = reader.readLine();
-				socket.close();
-
-				presence.setDataID(harvesterID).setTimestamp(Long.toString(System.currentTimeMillis()));
-				System.out.println("sending alive for  harvester " + harvesterID);
-				if (firstTime) {
-					firstTime = false;
-					producer.createPresenceSensor(presenceID, name, "TECNALIA", null, null, presence, null);
-				} else {
-					producer.updatePresenceSensor(presenceID, name, "TECNALIA", null, null, presence, null);
+			// Send presence, the location will be set in the consumer
+			// This way. configuration is only done in the KPConsumer
+			// producer.id->location, presence.id->containerID
+			while (true) {
+				try (Socket socket = serverSocket.accept()) {
+					BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+					String harvesterID = reader.readLine();
+					socket.close();
+					presence.setStatus(true).setDataID(harvesterID)
+							.setTimestamp(Long.toString(System.currentTimeMillis()));
+					System.out.println("sending alive for  harvester " + harvesterID);
+					if (firstTime) {
+						firstTime = false;
+						producer.createPresenceSensor(presenceID, name, "TECNALIA", null, null, presence, null);
+					} else {
+						producer.updatePresenceSensor(presenceID, name, "TECNALIA", null, null, presence, null);
+					}
 				}
 			}
 		}
