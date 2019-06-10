@@ -5,3 +5,4 @@
 *.gz
 *.xz
 *.env
+node_modules
