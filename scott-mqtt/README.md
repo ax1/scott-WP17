@@ -1,0 +1,22 @@
+# SCOTT-MQTT
+
+Send data from SMOOL consumers receiving harvester data, to the SFTM services, by using INDRA's CMW MQTT broker.
+
+## Pre-requisites
+
+**Change user and password with the ones in the .env file.** For security reasons this file is not commited.
+
+To test by using mosquitto client (change to real user, password values):
+
+```sh
+nmap -Pn cmw.ext.innovarail.indra.es -p 8883
+
+mosquitto_sub -h cmw.ext.innovarail.indra.es -p 8883 --cafile "/home/ubuntu/SOFTWARE/SCOTT/INTERCAMBIO INDRA/ACCESO SERVIDOR MQTT/SCOTT__WP17-Integration_Lab/TECNALIA/public key/extca-chain.cert.pem"  --insecure -u $USER -P $PASSWORD -t "#"
+
+mosquitto_pub -h cmw.ext.innovarail.indra.es -p 8883 --cafile "/home/ubuntu/SOFTWARE/SCOTT/INTERCAMBIO INDRA/ACCESO SERVIDOR MQTT/SCOTT__WP17-Integration_Lab/TECNALIA/public key/extca-chain.cert.pem" --insecure -u $USER -P $PASSWORD -t "130/101/pp/pp/pp/pp/101/pp" -m "aaaee"
+```
+
+## Usage
+
+1- TCP socket receiving data from SMOOL consumer
+2- a MQTT message is sent to broker
