@@ -1,6 +1,8 @@
 package SCOTTConsumer.logic;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.net.Socket;
 import java.util.Observer;
 
 import org.smool.kpi.model.exception.KPIModelException;
@@ -20,8 +22,20 @@ public class ConsumerMain {
 
 		// --------------add custom observer to subscription-------
 		Observer observer = (o, concept) -> {
-			PresenceSensor sensor = (PresenceSensor) concept;
-			System.out.println(sensor.getDeviceID() + " ->  harvester " + sensor.getPresence().getDataID());
+			try {
+				PresenceSensor sensor = (PresenceSensor) concept;
+				System.out.println(sensor.getDeviceID() + " ->  harvester " + sensor.getPresence().getDataID());
+				String harvesterID = sensor.getPresence().getDataID();
+				boolean match = harvesterID.matches("\\d+");
+				if (harvesterID.matches("\\d+")) {
+					Socket socket = new Socket("localhost", 4445);
+					OutputStream output = socket.getOutputStream();
+					output.write(harvesterID.getBytes());
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
 		};
 
 		Consumer consumer = SmoolKP.getConsumer();
