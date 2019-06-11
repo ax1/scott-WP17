@@ -18,8 +18,6 @@ const connectOptions = {
   rejectUnauthorized: false
 }
 
-
-
 var payload = `
 {
   "ServiceID": 131100,
@@ -39,7 +37,7 @@ var payload = `
           "TimeStamp": 1555055619267,
           "TimeAccuracy": 1000000000,
           "Resources": {
-            "5750": "CONTAINER_A282X12",
+            "5750": "38635512",
             "5513": "43.295242",
             "5514": "-2.891246",
             "5515":"0",
