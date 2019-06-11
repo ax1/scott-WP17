@@ -13,7 +13,7 @@ nmap -Pn cmw.ext.innovarail.indra.es -p 8883
 
 mosquitto_sub -h cmw.ext.innovarail.indra.es -p 8883 --cafile "/home/ubuntu/SOFTWARE/SCOTT/INTERCAMBIO INDRA/ACCESO SERVIDOR MQTT/SCOTT__WP17-Integration_Lab/TECNALIA/public key/extca-chain.cert.pem"  --insecure -u $USER -P $PASSWORD -t "#"
 
-mosquitto_pub -h cmw.ext.innovarail.indra.es -p 8883 --cafile "/home/ubuntu/SOFTWARE/SCOTT/INTERCAMBIO INDRA/ACCESO SERVIDOR MQTT/SCOTT__WP17-Integration_Lab/TECNALIA/public key/extca-chain.cert.pem" --insecure -u $USER -P $PASSWORD -t "130/101/pp/pp/pp/pp/101/pp" -m "aaaee"
+mosquitto_pub -h cmw.ext.innovarail.indra.es -p 8883 --cafile "/home/ubuntu/SOFTWARE/SCOTT/INTERCAMBIO INDRA/ACCESO SERVIDOR MQTT/SCOTT__WP17-Integration_Lab/TECNALIA/public key/extca-chain.cert.pem" --insecure -u $USER -P $PASSWORD -t "131/100/pp/pp/pp/pp/101/pp" -m "aaaee"
 ```
 
 ## Usage
