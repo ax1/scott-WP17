@@ -4,7 +4,7 @@
   "description": "Send mqtt data to INDRA's broker(CMW), so the SFTM gets positioning data",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test/test"
   },
   "keywords": [
     "SCOTT",
@@ -16,6 +16,7 @@
   "author": "ax1",
   "license": "UNLICENSED",
   "dependencies": {
+    "a1-util": "^1.0.0",
     "dotenv": "^8.0.0",
     "mqtt": "^3.0.0"
   }
