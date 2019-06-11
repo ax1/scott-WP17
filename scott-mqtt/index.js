@@ -1,7 +1,7 @@
-require('dotenv').config('../.env')
+const dotenv = require('dotenv').config({ path: '../.env' })
 const net = require('net')
 const { send } = require('./mqtt')
-
+if (dotenv.error) throw dotenv.error
 if (!process.env.MQTT_USER) throw new Error('Environment variables are NOT configured!')
 
 const server = net.createServer(function (c) {
