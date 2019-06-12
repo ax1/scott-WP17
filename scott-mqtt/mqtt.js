@@ -18,47 +18,52 @@ const connectOptions = {
   rejectUnauthorized: false
 }
 
-function send() {
+function send(harvesterID) {
   const client = mqtt.connect(connectOptions)
   client.on('connect', () => {
     console.log('connected to mqtt server')
+    const payload = message(harvesterID)
     //SERVICE/SUBSERVICE/REGION/SUBREGION/ SOURCE/SUBSOURCE/STATUS/CRCHead/CRCPay
     client.publish('131/100/100/100/110/110/101/204455/308899', payload, { qos: 1 }, msg => { console.log("Response: " + msg); client.end() }, err => console.error("Error: " + err))
   })
 }
 
-var payload = `
-{
-  "ServiceID": 131100,
-  "Root": {
-    "Gateway": 0,
-    "Source": 0
-  },
-  "Nodes": [
-    {
-      "Safety": false,
-      "NodeID": 187221,
-      "TimeStamp": 1555055619267,
-      "TimeAccuracy": 1000000000,
-      "Sensors-Actuators": [
-        {
-          "SensorID": 3336,
-          "TimeStamp": 1555055619267,
-          "TimeAccuracy": 1000000000,
-          "Resources": {
-            "5750": "38635512",
-            "5513": "43.295242",
-            "5514": "-2.891246",
-            "5515":"0",
-            "5516":"100"
+function message(id) {
+  const containerID = 3652552
+  const json = `
+  {
+    "ServiceID": 131100,
+    "Root": {
+      "Gateway": 0,
+      "Source": 0
+    },
+    "Nodes": [
+      {
+        "Safety": false,
+        "NodeID": ${id},
+        "TimeStamp": ${Date.now()},
+        "TimeAccuracy": 1000000000,
+        "Sensors-Actuators": [
+          {
+            "SensorID": 3336,
+            "TimeStamp": 1555055619267,
+            "TimeAccuracy": 1000000000,
+            "Resources": {
+              "5750": "${containerID}",
+              "5513": "${process.env.LATITUDE}",
+              "5514": "${process.env.LONGITUDE}",
+              "5515":"0",
+              "5516":"100"
+            }
           }
-        }
-      ],
-      "CRC": 12237466
-    }
-  ],
-  "CRC": 24495477
+        ],
+        "CRC": 12237466
+      }
+    ],
+    "CRC": 24495477
+  }
+  `
+  return json
 }
-`
 
 module.exports = { send }
