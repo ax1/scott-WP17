@@ -18,6 +18,15 @@ const connectOptions = {
   rejectUnauthorized: false
 }
 
+function send() {
+  const client = mqtt.connect(connectOptions)
+  client.on('connect', () => {
+    console.log('connected to mqtt server')
+    //SERVICE/SUBSERVICE/REGION/SUBREGION/ SOURCE/SUBSOURCE/STATUS/CRCHead/CRCPay
+    client.publish('131/100/100/100/110/110/101/204455/308899', payload, { qos: 1 }, msg => { console.log("Response: " + msg); client.end() }, err => console.error("Error: " + err))
+  })
+}
+
 var payload = `
 {
   "ServiceID": 131100,
@@ -51,15 +60,5 @@ var payload = `
   "CRC": 24495477
 }
 `
-
-function send() {
-  const client = mqtt.connect(connectOptions)
-  client.on('connect', () => {
-    console.log('connected to mqtt server')
-    //SERVICE/SUBSERVICE/REGION/SUBREGION/ SOURCE/SUBSOURCE/STATUS/CRCHead/CRCPay
-    client.publish('131/100/100/100/110/110/101/204455/308899', payload, msg => { console.log("Response: " + msg); client.end() }, err => console.error("Error: " + err))
-  })
-}
-
 
 module.exports = { send }
