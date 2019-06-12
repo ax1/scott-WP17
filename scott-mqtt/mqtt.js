@@ -57,7 +57,7 @@ function send() {
   client.on('connect', () => {
     console.log('connected to mqtt server')
     //SERVICE/SUBSERVICE/REGION/SUBREGION/ SOURCE/SUBSOURCE/STATUS/CRCHead/CRCPay
-    client.publish('131/100/100/100/110/110/101', payload, msg => console.log("Response: " + msg), err => console.error("Error: " + err))
+    client.publish('131/100/100/100/110/110/101/204455/308899', payload, msg => { console.log("Response: " + msg); client.end() }, err => console.error("Error: " + err))
   })
 }
 
