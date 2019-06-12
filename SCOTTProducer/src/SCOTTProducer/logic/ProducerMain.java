@@ -49,17 +49,25 @@ public class ProducerMain {
 			// producer.id->location, presence.id->containerID
 			while (true) {
 				try (Socket socket = serverSocket.accept()) {
-					BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-					String harvesterID = reader.readLine();
-					socket.close();
-					presence.setStatus(true).setDataID(harvesterID)
-							.setTimestamp(Long.toString(System.currentTimeMillis()));
-					System.out.println("sending alive for  harvester " + harvesterID);
-					if (firstTime) {
-						firstTime = false;
-						producer.createPresenceSensor(presenceID, name, "TECNALIA", null, null, presence, null);
+					if (socket.getLocalAddress().isLoopbackAddress()) {
+						// only local socket (for tcp sockets. For IPC sockes this could be removed but
+						// JNI based java libraries for linux OS are required, so tcp socket is still
+						// easier to maintain)
+						socket.getOutputStream().write("Error: Only localhost clients are allowed".getBytes());
+						socket.close();
 					} else {
-						producer.updatePresenceSensor(presenceID, name, "TECNALIA", null, null, presence, null);
+						BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+						String harvesterID = reader.readLine();
+						socket.close();
+						presence.setStatus(true).setDataID(harvesterID)
+								.setTimestamp(Long.toString(System.currentTimeMillis()));
+						System.out.println("sending alive for  harvester " + harvesterID);
+						if (firstTime) {
+							firstTime = false;
+							producer.createPresenceSensor(presenceID, name, "TECNALIA", null, null, presence, null);
+						} else {
+							producer.updatePresenceSensor(presenceID, name, "TECNALIA", null, null, presence, null);
+						}
 					}
 				}
 			}
