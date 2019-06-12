@@ -6,3 +6,4 @@
 *.xz
 *.env
 node_modules
+*.daemon
