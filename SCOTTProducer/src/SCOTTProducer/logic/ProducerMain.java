@@ -49,13 +49,10 @@ public class ProducerMain {
 			// producer.id->location, presence.id->containerID
 			while (true) {
 				try (Socket socket = serverSocket.accept()) {
+					// only local socket (for tcp sockets. For IPC sockes this could be removed but
+					// JNI based java libraries for linux OS are required, so tcp socket is still
+					// easier to maintain)
 					if (socket.getLocalAddress().isLoopbackAddress()) {
-						// only local socket (for tcp sockets. For IPC sockes this could be removed but
-						// JNI based java libraries for linux OS are required, so tcp socket is still
-						// easier to maintain)
-						socket.getOutputStream().write("Error: Only localhost clients are allowed".getBytes());
-						socket.close();
-					} else {
 						BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 						String harvesterID = reader.readLine();
 						socket.close();
@@ -68,6 +65,10 @@ public class ProducerMain {
 						} else {
 							producer.updatePresenceSensor(presenceID, name, "TECNALIA", null, null, presence, null);
 						}
+					} else {
+						// for security reasons only local connections are allowed
+						socket.getOutputStream().write("Error: Only localhost clients are allowed".getBytes());
+						socket.close();
 					}
 				}
 			}
