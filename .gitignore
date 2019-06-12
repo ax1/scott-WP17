@@ -1,6 +1,5 @@
 .metadata
 .recommenders
-*.class
 *.zip
 *.gz
 *.xz
