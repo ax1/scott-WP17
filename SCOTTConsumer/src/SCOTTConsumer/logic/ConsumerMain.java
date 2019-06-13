@@ -3,6 +3,7 @@ package SCOTTConsumer.logic;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.Date;
 import java.util.Observer;
 
 import org.smool.kpi.model.exception.KPIModelException;
@@ -23,19 +24,25 @@ public class ConsumerMain {
 		// --------------add custom observer to subscription-------
 		Observer observer = (o, concept) -> {
 			try {
+				// ---ARF TEMPORARY----
+				SmoolKP.updateTimestamp();
+				// ---END TEMPORARY---
 				PresenceSensor sensor = (PresenceSensor) concept;
-				System.out.println(sensor.getDeviceID() + " ->  harvester " + sensor.getPresence().getDataID());
+				System.out.println(sensor.getDeviceID() + " ->  harvester " + sensor.getPresence().getDataID() + " at "
+						+ (new Date()).toString());
 				String harvesterID = sensor.getPresence().getDataID();
 				boolean match = harvesterID.matches("\\d+");
-				if (harvesterID.matches("\\d+")) {
-					Socket socket = new Socket("localhost", 4445);
-					OutputStream output = socket.getOutputStream();
-					output.write(harvesterID.getBytes());
+				if (match) {
+					try (Socket socket = new Socket("localhost", 4445)) {
+						OutputStream output = socket.getOutputStream();
+						output.write(harvesterID.getBytes());
+					} catch (Exception e) {
+						throw e;
+					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
 		};
 
 		Consumer consumer = SmoolKP.getConsumer();
@@ -44,8 +51,8 @@ public class ConsumerMain {
 	}
 
 	public static void main(String[] args) throws Exception {
-		// Logger.setDebugging(true);
-		// Logger.setDebugLevel(4);
+//		Logger.setDebugging(true);
+//		Logger.setDebugLevel(4);
 		while (true) {
 			try {
 				new ConsumerMain();

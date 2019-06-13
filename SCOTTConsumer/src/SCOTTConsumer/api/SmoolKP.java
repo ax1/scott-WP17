@@ -4,86 +4,73 @@
  */
 package SCOTTConsumer.api;
 
-
-
 import java.io.IOException;
-import java.net.DatagramSocket;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketException;
-import java.util.Vector;
 import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.Collection;
-
-import SCOTTConsumer.api.util.SmoolKPUtil;
-
 import java.util.List;
+import java.util.Vector;
 
-import org.smool.kpi.ssap.message.parameter.SSAPMessageRDFParameter.TypeAttribute;
-
-import org.smool.kpi.model.smart.AbstractOntConcept;
-
-import org.smool.kpi.model.smart.SmartModel;
 import org.smool.kpi.common.Logger;
-import org.smool.kpi.model.IModelListener;
 import org.smool.kpi.connector.SIBDescriptor;
+import org.smool.kpi.model.IModelListener;
 import org.smool.kpi.model.ModelManager;
 import org.smool.kpi.model.exception.KPIModelException;
+import org.smool.kpi.model.smart.AbstractOntConcept;
+import org.smool.kpi.model.smart.SmartModel;
 import org.smool.kpi.ssap.ISIBDiscoveryListener;
+import org.smool.kpi.ssap.message.parameter.SSAPMessageRDFParameter.TypeAttribute;
 
-import SCOTTConsumer.model.smoolcore.*;
-import SCOTTConsumer.model.smoolcore.impl.*;
+import SCOTTConsumer.api.util.SmoolKPUtil;
+import SCOTTConsumer.model.smoolcore.impl.MessageReceiveSensor;
+import SCOTTConsumer.model.smoolcore.impl.PresenceSensor;
 
 public class SmoolKP {
 
 	/**
 	 * Reference to the Consumer interface
 	 */
-	private static Consumer consumer = null; 
+	private static Consumer consumer = null;
 	/**
 	 * Reference to the Producer interface
 	 */
-	private static Producer producer = null; 
-	
+	private static Producer producer = null;
+
 	/**
 	 * A HashMap that contains pairs key-value of conceptID-concept to be produced
 	 */
 	private static HashMap<String, AbstractOntConcept> conceptMap;
-	
+
 	/**
 	 * KP name
 	 */
 	private static String KP_NAME = "SCOTTConsumer";
-	
+
 	/**
 	 * Reference to the object responsible of SIB discovery and model notifications
 	 */
 	private static DiscoveryListener dl = null;
-	
+
 	/**
 	 * Reference to the thread that will stop the discovery
 	 */
 	private static DiscoveryStopper ds = null;
 
-
 	/**
-     * Singleton reference
-     */
+	 * Singleton reference
+	 */
 	private static SmoolKP instance = new SmoolKP();
-	
-	
+
 	/**
 	 * Constructor
 	 */
 	private SmoolKP() {
 		conceptMap = new HashMap<String, AbstractOntConcept>();
 		dl = this.new DiscoveryListener();
-		ds = this.new DiscoveryStopper(dl);   
+		ds = this.new DiscoveryStopper(dl);
 	}
 
 	/**
 	 * Check whether the KP is connected to the SIB
+	 * 
 	 * @return TRUE if connected
 	 */
 	public static boolean isConnectedToSIB() {
@@ -92,7 +79,7 @@ public class SmoolKP {
 		}
 		return dl.getModel().isConnected();
 	}
-	
+
 	/**
 	 * Clean threads when trying to reconnect multiple times. SmoolKP does not clean
 	 * resources when reconnecting (example, the TCPIPConnector thread is created
@@ -112,47 +99,54 @@ public class SmoolKP {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Connect to a SIB with zero configuration.
-	 * <p>If any SIB is available in the network, this method will perform a multicast ping for discovering existing SIBs, and then connect to the first SIB found</p>.
+	 * <p>
+	 * If any SIB is available in the network, this method will perform a multicast
+	 * ping for discovering existing SIBs, and then connect to the first SIB found
+	 * </p>
+	 * .
+	 * 
 	 * @throws IOException
 	 */
 	public static void connect() throws IOException {
-	  	clean();
+		clean();
 		SmoolKP.synchronousSearch(1000, true);
 		if (SmoolKP.isSIBfound()) {
 			System.out.println("Found a SIB: " + SmoolKP.getDiscoveredSIBs().get(0).getSIBName());
 			if (SmoolKP.connectToSIB(1000)) {
 				System.out.println("Successfully connected to SIB");
 			} else {
-				throw new IOException ("Unable to connect to SIB");
+				throw new IOException("Unable to connect to SIB");
 			}
 		}
 	}
-	
+
 	/**
 	 * Connect to a SIB
-	 * @param name 		the name of the SIB (typical values are "sib", "sib1", etc...)
-	 * @param address 	the IP or hostname where the SIB is running ("192.168.1.5", "sib.acme.com", etc...)
-	 * @param port		TCP port where the SIB is listening
+	 * 
+	 * @param name    the name of the SIB (typical values are "sib", "sib1", etc...)
+	 * @param address the IP or hostname where the SIB is running ("192.168.1.5",
+	 *                "sib.acme.com", etc...)
+	 * @param port    TCP port where the SIB is listening
 	 * @throws IOException
 	 */
 	public static void connect(String name, String address, int port) throws IOException {
 		clean();
-		boolean connected = SmoolKP.connectToSIB(name,address, Integer.toString(port),1000);
+		startWatchdog(name, address, port);
+		boolean connected = SmoolKP.connectToSIB(name, address, Integer.toString(port), 1000);
 		if (connected) {
 			System.out.println("Successfully connected to SIB");
 		} else {
-			throw new IOException ("Unable to connect to SIB");
+			throw new IOException("Unable to connect to SIB");
 		}
 	}
-	
-	
+
 	/**
-	 * Connect to a specific SIB. 
-	 * This method blocks until the connection process has ended.
-	 * This method is equivalent to: connectToSIB(sibName, sibAddress, sibPort, 0)
+	 * Connect to a specific SIB. This method blocks until the connection process
+	 * has ended. This method is equivalent to: connectToSIB(sibName, sibAddress,
+	 * sibPort, 0)
 	 * 
 	 * @param sibName. The name of the SIB.
 	 * @param sibAddress. The IP Address of the SIB
@@ -164,8 +158,8 @@ public class SmoolKP {
 	}
 
 	/**
-	 * Connect to a specific SIB. 
-	 * This method blocks until either the connection process has ended or the timeout expires.
+	 * Connect to a specific SIB. This method blocks until either the connection
+	 * process has ended or the timeout expires.
 	 * 
 	 * @param sibName. The name of the SIB.
 	 * @param sibAddress. The IP Address of the SIB
@@ -175,15 +169,13 @@ public class SmoolKP {
 	 */
 	public static boolean connectToSIB(String sibName, String sibAddress, String sibPort, int milliseconds) {
 
-		if (dl.getModel() != null && dl.getModel().isConnected()){
+		if (dl.getModel() != null && dl.getModel().isConnected()) {
 			Logger.error("Already connected to SIB");
 			return false;
-		}
-		else if (KP_NAME == null || KP_NAME.equals("")) {
+		} else if (KP_NAME == null || KP_NAME.equals("")) {
 			Logger.error("No KP Name was provided. Cannot connect.");
 			return false;
-		}
-		else {
+		} else {
 			try {
 
 				java.util.Properties p = new java.util.Properties();
@@ -196,7 +188,7 @@ public class SmoolKP {
 				model.setTimeout(10000);
 				dl.setModel(model);
 				dl.getModel().connect(false);
-				
+
 				dl.setSIBParams(sibAddress, sibPort);
 
 				if (milliseconds > 0) {
@@ -206,41 +198,39 @@ public class SmoolKP {
 						Thread.sleep(milliseconds / maxCount);
 					}
 					return dl.getModel().isConnected();
-				}
-				else {
+				} else {
 					while (!dl.getModel().isConnected()) {
 						Thread.sleep(100);
 					}
 					return true;
 				}
-			}
-			catch(KPIModelException kpie) {
+			} catch (KPIModelException kpie) {
 				Logger.error("Failed to connect to SIB...");
 				return false;
-			}
-			catch (InterruptedException ie) {
+			} catch (InterruptedException ie) {
 				return dl.getModel().isConnected();
 			}
 		}
-		
+
 	}
-	
+
 	/**
-	 * Method used to connect to the first SIB discovered. 
-	 * The method blocks until the connection process has finished.
-	 * This method is equivalent to connectToSIB(0, 0)
+	 * Method used to connect to the first SIB discovered. The method blocks until
+	 * the connection process has finished. This method is equivalent to
+	 * connectToSIB(0, 0)
 	 * 
 	 * @return TRUE if connection was successful
 	 */
 	public static boolean connectToSIB() {
 		return connectToSIB(0, 0);
 	}
-	
+
 	/**
-	 * Method used to connect to the first SIB discovered. 
-	 * The method blocks until the connection process has finished or the provided timeout expires.
+	 * Method used to connect to the first SIB discovered. The method blocks until
+	 * the connection process has finished or the provided timeout expires.
 	 * 
-	 * @param milliseconds the timeout value in milliseconds. If milliseconds <= 0 no timeout is set.
+	 * @param milliseconds the timeout value in milliseconds. If milliseconds <= 0
+	 *                     no timeout is set.
 	 * @return TRUE if connection was successful
 	 */
 	public static boolean connectToSIB(int milliseconds) {
@@ -248,22 +238,22 @@ public class SmoolKP {
 	}
 
 	/**
-	 * Method used to connect to any SIB discovered. 
-	 * The method blocks until the connection process has finished or the provided timeout expires.
+	 * Method used to connect to any SIB discovered. The method blocks until the
+	 * connection process has finished or the provided timeout expires.
 	 * 
-	 * @param milliseconds the timeout value in milliseconds. If milliseconds <= 0 no timeout is set.
-	 * @param sibNumber the array number of the discovered SIB to connect to.
+	 * @param milliseconds the timeout value in milliseconds. If milliseconds <= 0
+	 *                     no timeout is set.
+	 * @param sibNumber    the array number of the discovered SIB to connect to.
 	 * @return TRUE if connection was successful
 	 */
 	public static boolean connectToSIB(int milliseconds, int sibNumber) {
-		
-		if (dl.getModel() != null && dl.getModel().isConnected()){
+
+		if (dl.getModel() != null && dl.getModel().isConnected()) {
 			Logger.error("Already connected to SIB");
 			return false;
-		}
-		else {
+		} else {
 			try {
-				
+
 				Vector<SIBDescriptor> desc = dl.getSIBDescriptors();
 				if (sibNumber > desc.size()) {
 					Logger.error("No such SIB...");
@@ -275,23 +265,27 @@ public class SmoolKP {
 					Logger.error("Failed to get the SIB descriptor");
 					return false;
 				}
-				//Angel 05/11/14, DEFAULT_IPADDRESS is not always in properties 
+				// Angel 05/11/14, DEFAULT_IPADDRESS is not always in properties
 				String tempParam = theSIB.getProperties().getProperty("DEFAULT_IPADDRESS");
-				if (tempParam==null || tempParam.equals("")){
-				  	Logger.warn("DEFAULT_IPADDRESS not found!! trying to add ADDRESSES instead");
-					theSIB.getProperties().setProperty("DEFAULT_IPADDRESS",theSIB.getProperties().getProperty("ADDRESSES"));
+				if (tempParam == null || tempParam.equals("")) {
+					Logger.warn("DEFAULT_IPADDRESS not found!! trying to add ADDRESSES instead");
+					theSIB.getProperties().setProperty("DEFAULT_IPADDRESS",
+							theSIB.getProperties().getProperty("ADDRESSES"));
 				}
-				
-				//TODO Angel: (long term) review list of sib properties and remove obsolete or error-prone properties (ADDRESSES and PORT are good, DEFAULT_IPADDRESSis mandatory but it collides with ADDRESSES and HOST is an old property)
+
+				// TODO Angel: (long term) review list of sib properties and remove obsolete or
+				// error-prone properties (ADDRESSES and PORT are good, DEFAULT_IPADDRESSis
+				// mandatory but it collides with ADDRESSES and HOST is an old property)
 
 				SmartModel model = ModelManager.getInstance().createModel(KP_NAME, theSIB);
 				model.addModelListener(dl); // listen to sib events
 				model.setTimeout(10000);
 				dl.setModel(model);
 				dl.getModel().connect(false);
-				
-				dl.setSIBParams(theSIB.getProperties().getProperty("DEFAULT_IPADDRESS"), theSIB.getProperties().getProperty("PORT"));
-				
+
+				dl.setSIBParams(theSIB.getProperties().getProperty("DEFAULT_IPADDRESS"),
+						theSIB.getProperties().getProperty("PORT"));
+
 				if (milliseconds > 0) {
 					int count = 0;
 					int maxCount = (milliseconds / 5) > 0 ? 5 : 1;
@@ -299,15 +293,13 @@ public class SmoolKP {
 						Thread.sleep(milliseconds / maxCount);
 					}
 					return dl.getModel().isConnected();
-				}
-				else {
+				} else {
 					while (!dl.getModel().isConnected()) {
 						Thread.sleep(100);
 					}
 					return true;
 				}
-			} 
-			catch (Exception e) {
+			} catch (Exception e) {
 				Logger.error("Could not connect to SIB. Please try again");
 				return false;
 			}
@@ -316,60 +308,60 @@ public class SmoolKP {
 
 	/**
 	 * Used to disconnect from SIB
+	 * 
 	 * @return TRUE if disconnection was successful
 	 */
 	public static boolean disconnectFromSIB() {
-		
+
 		if (dl.getModel() == null) {
 			Logger.error("Model is null, cannot disconnect");
 			return false;
-		}
-		else if (!dl.getModel().isConnected()){
+		} else if (!dl.getModel().isConnected()) {
 			return true;
 		}
-		try {	
-			if (SmoolKPUtil.isMachineReacheable(dl.getSIBAddress(), Integer.parseInt(dl.getSIBPort()), "TCP")){
-				//Logger.debug("Disconnecting from SIB...");
+		try {
+			if (SmoolKPUtil.isMachineReacheable(dl.getSIBAddress(), Integer.parseInt(dl.getSIBPort()), "TCP")) {
+				// Logger.debug("Disconnecting from SIB...");
 				dl.getModel().disconnect();
 				Logger.debug("Disconnected successfully from SIB!");
 				dl.setSIBParams(null, null);
 			}
 			return true;
-		} 
-		catch (KPIModelException e) {
+		} catch (KPIModelException e) {
 			Logger.error("Could not disconnect to SIB. Please try again");
 			return false;
-		}	
+		}
 	}
 
-	
 	/**
-	 * Used to start searching for SIBs asynchronously (non-blocking).
-	 * The search will be stopped when the first SIB is discovered.
-	 * It is equivalent to asynchronousSearch(true).
+	 * Used to start searching for SIBs asynchronously (non-blocking). The search
+	 * will be stopped when the first SIB is discovered. It is equivalent to
+	 * asynchronousSearch(true).
 	 */
-	public static void asynchronousSearch(){
+	public static void asynchronousSearch() {
 		asynchronousSearch(true);
 	}
 
 	/**
 	 * Used to start searching for SIBs asynchronously (non-blocking).
-	 * @param stopWithFirstSIB true if the search should be stopped when the first SIB is located. False otherwise.
+	 * 
+	 * @param stopWithFirstSIB true if the search should be stopped when the first
+	 *                         SIB is located. False otherwise.
 	 */
-	public static void asynchronousSearch(boolean stopWithFirstSIB){
+	public static void asynchronousSearch(boolean stopWithFirstSIB) {
 		if (KP_NAME == null || KP_NAME.equals("")) {
 			Logger.error("No KPName defined. Cannot start search.");
 			return;
 		}
-		
+
 		Logger.debug("Looking for SIBs in the surroundings");
-		//create a discoveryListener and start looking for SIBs
+		// create a discoveryListener and start looking for SIBs
 		if (dl == null) {
 			dl = instance.new DiscoveryListener();
 		}
 		ModelManager.getInstance().addSIBDiscoveryListener(dl);
 		dl.discoverSIBs(true);
-		
+
 		if (stopWithFirstSIB) {
 			if (ds == null) {
 				ds = instance.new DiscoveryStopper(dl);
@@ -377,46 +369,49 @@ public class SmoolKP {
 			}
 		}
 	}
-	
+
 	/**
-	 * Used to start searching for SIBs synchronously (blocking).
-	 * The method returns when the first SIB is located.
+	 * Used to start searching for SIBs synchronously (blocking). The method returns
+	 * when the first SIB is located.
 	 */
 	public static void synchronousSearch() {
 		synchronousSearch(0, true);
 	}
-	
+
 	/**
-	 * Used to start searching for SIBs synchronously (blocking).
-	 * The method returns when the first SIB is located or when the timeout expires.
+	 * Used to start searching for SIBs synchronously (blocking). The method returns
+	 * when the first SIB is located or when the timeout expires.
 	 * 
-	 * @param milliseconds the timeout in milliseconds. If milliseconds <= 0 no timeout is set.
+	 * @param milliseconds the timeout in milliseconds. If milliseconds <= 0 no
+	 *                     timeout is set.
 	 */
 	public static void synchronousSearch(int milliseconds) {
 		synchronousSearch(milliseconds, true);
 	}
-	
+
 	/**
-	 * Used to start searching for SIBs synchronously (blocking).
-	 * The method may return when the first SIB is located or when the timeout expires.
+	 * Used to start searching for SIBs synchronously (blocking). The method may
+	 * return when the first SIB is located or when the timeout expires.
 	 * 
-	 * @param milliseconds the timeout in milliseconds. If milliseconds <= 0 no timeout is set.
-	 * @param stopWithFirstSIB true if the search should be stopped when the first SIB is located. False otherwise.
+	 * @param milliseconds     the timeout in milliseconds. If milliseconds <= 0 no
+	 *                         timeout is set.
+	 * @param stopWithFirstSIB true if the search should be stopped when the first
+	 *                         SIB is located. False otherwise.
 	 */
 	public static void synchronousSearch(int milliseconds, boolean stopWithFirstSIB) {
 		Logger.debug("Looking for SIBs in the surroundings");
-		//create a discoveryListener and start looking for SIBs
-		//dl = instance.new DiscoveryListener();
+		// create a discoveryListener and start looking for SIBs
+		// dl = instance.new DiscoveryListener();
 		ModelManager.getInstance().addSIBDiscoveryListener(dl);
 		dl.discoverSIBs(true);
-		
+
 		if (stopWithFirstSIB) {
 			if (ds == null) {
 				ds = instance.new DiscoveryStopper(dl);
 			}
 			ds.start();
 		}
-		
+
 		try {
 			if (milliseconds > 0) {
 				int count = 0;
@@ -424,31 +419,30 @@ public class SmoolKP {
 				while (!isSIBfound() && count++ < maxCount) {
 					Thread.sleep(milliseconds / maxCount);
 				}
-			}
-			else {
-				while (!isSIBfound()  && dl.isLookingForSIBs()) {
+			} else {
+				while (!isSIBfound() && dl.isLookingForSIBs()) {
 					Thread.sleep(100);
 				}
 			}
+		} catch (InterruptedException ie) {
 		}
-		catch (InterruptedException ie) {}
-		
-		
+
 	}
-	
+
 	/**
 	 * Used to stop searching for SIBs
 	 */
-	public static void stopSearch(){
+	public static void stopSearch() {
 		dl.stopDiscovery();
 		if (ds != null) {
 			ds.doStop();
-			//ds = null;
+			// ds = null;
 		}
 	}
 
 	/**
 	 * Checks if the DiscoveryListener has found a SIB
+	 * 
 	 * @return TRUE if DiscoveryListener found a SIB
 	 */
 	public static boolean isSIBfound() {
@@ -457,15 +451,16 @@ public class SmoolKP {
 
 	/**
 	 * Returns the discovered SIB list.
+	 * 
 	 * @return a Vector containing the results.
 	 */
 	public static Vector<SIBDescriptor> getDiscoveredSIBs() {
 		return dl.getSIBDescriptors();
 	}
-	
 
 	/**
 	 * Returns the singleton Producer instance
+	 * 
 	 * @return the instance
 	 * @throws KPIModelException if an error occurs
 	 */
@@ -475,10 +470,10 @@ public class SmoolKP {
 		}
 		return producer;
 	}
-	
 
 	/**
 	 * Returns the singleton Consumer instance
+	 * 
 	 * @return the instance
 	 * @throws KPIModelException if an error occurs
 	 */
@@ -489,72 +484,67 @@ public class SmoolKP {
 		return consumer;
 	}
 
-
-
 	/**
 	 * Modify the default KP name
+	 * 
 	 * @param kpName the new KP name.
 	 */
 	public static void setKPName(String kpName) {
 		SmoolKP.KP_NAME = kpName;
 	}
 
-
-
 	/**
-	 * This class is used for the implementation of connection and 
-	 * disconnection from the SIB, based on a SIB Discovering 
-	 * approach.
+	 * This class is used for the implementation of connection and disconnection
+	 * from the SIB, based on a SIB Discovering approach.
 	 *
 	 */
 	private class DiscoveryListener implements ISIBDiscoveryListener, IModelListener {
-		
-		 
+
 		/**
 		 * Reference to the smart model
 		 */
 		private SmartModel model = null;
-		
+
 		/**
 		 * List to store discovered SIBs
 		 */
 		private Vector<SIBDescriptor> sdList = new Vector<SIBDescriptor>();
-		
+
 		/**
 		 * Flag to control if discovery must be stopped once a SIB is found
 		 */
 		private boolean stopWhenSIBDiscovered;
-		
+
 		/**
 		 * Flag to control if discovery must be stopped once a SIB is found
 		 */
 		private boolean lookingForSIBs;
-		
+
 		/**
-		 * Used to store the IP from the SIB 
+		 * Used to store the IP from the SIB
 		 */
 		private String SIBAddress = null;
 
 		/**
-		 * Used to store the listening Port from the SIB 
+		 * Used to store the listening Port from the SIB
 		 */
 		private String SIBPort = null;
 
- 		/**
+		/**
 		 * Used to control if a SIB is discovered
 		 */
 		private boolean sibDiscovered;
- 
+
 		/**
 		 * Constructor
 		 */
-		public DiscoveryListener(){
+		public DiscoveryListener() {
 			this.model = null;
 			this.stopWhenSIBDiscovered = false;
 			this.sibDiscovered = false;
 			this.lookingForSIBs = false;
 		}
-		
+
 		/**
 		 * Get the value of the lookingForSIBs flag.
 		 * 
@@ -574,61 +564,57 @@ public class SmoolKP {
 			this.SIBAddress = sibAddress;
 			this.SIBPort = sibPort;
 		}
-		
+
 		/**
-		 * Implementation for the method of the interface
-		 * ISIBDiscoveryListener. This method is automatically
-		 * called when a SIB is found, invoked from the ModelManager class
+		 * Implementation for the method of the interface ISIBDiscoveryListener. This
+		 * method is automatically called when a SIB is found, invoked from the
+		 * ModelManager class
 		 */
 		public void SIBDiscovered(SIBDescriptor sd) {
-			
-			sdList.add(sd);  // simply add it to a list
+
+			sdList.add(sd); // simply add it to a list
 			sibDiscovered = true;
-			//Angel 04/11/14 solve issue #55. Stop thread when a sib has been discovered		
+			// Angel 04/11/14 solve issue #55. Stop thread when a sib has been discovered
 			if (stopWhenSIBDiscovered) {
-				try{
+				try {
 					ModelManager.getInstance().stopLookForSIB();
-				}catch (KPIModelException e) {
+				} catch (KPIModelException e) {
 					Logger.error("Could not stop looking for more SIBs");
 				}
 			}
 
-	
+		}
 
-		}
-		
 		public void SIBConnectorDiscoveryFinished(String connectorName) {
-			// Not used		
+			// Not used
 		}
-		
 
 		/**
-		 * Implementation for the method of the interface
-		 * ISIBDiscoveryListener. This method is automatically
-		 * called when it is finished the search of SIBs
-		 */	
+		 * Implementation for the method of the interface ISIBDiscoveryListener. This
+		 * method is automatically called when it is finished the search of SIBs
+		 */
 		public void SIBDiscoveryFinished() {
 			try {
-				//tell the model to stop looking for SIBS
+				// tell the model to stop looking for SIBS
 				ModelManager.getInstance().stopLookForSIB();
 				if (sdList.size() == 0) {
 					Logger.debug("No SIB Descriptors were found. Impossible to connect. ");
 					return;
 				}
-			} 
-			catch(Exception e) {
+			} catch (Exception e) {
 				Logger.error("Could not establish a link with discovered SIB.");
 			}
-		}	
+		}
 
 		/**
 		 * Gets the Smart Model
+		 * 
 		 * @return the Smart Model
 		 */
 		public SmartModel getModel() {
 			return model;
 		}
-		
+
 		/**
 		 * Sets the Smart Model
 		 * 
@@ -637,7 +623,7 @@ public class SmoolKP {
 		void setModel(SmartModel model) {
 			this.model = model;
 		}
-			
+
 		/**
 		 * Check the value of the sibDiscovered flag and stop discovery if needed.
 		 * 
@@ -667,21 +653,21 @@ public class SmoolKP {
 		public String getSIBPort() {
 			return SIBPort;
 		}
-		
+
 		/**
 		 * Returns the discovered SIB list
 		 */
 		public Vector<SIBDescriptor> getSIBDescriptors() {
 			return sdList;
 		}
-	
+
 		/**
 		 * Starts the inquiry of the SIBs
 		 */
 		public void discoverSIBs() {
 			discoverSIBs(true);
 		}
-		
+
 		/**
 		 * Starts the inquiry of the SIBs
 		 */
@@ -691,8 +677,7 @@ public class SmoolKP {
 			sdList.removeAllElements();
 			try {
 				ModelManager.getInstance().lookForSIB(); // starts looking for SIBs
-			} 
-			catch (KPIModelException e) {
+			} catch (KPIModelException e) {
 				Logger.error("Error during SIB discovery");
 			}
 		}
@@ -706,31 +691,29 @@ public class SmoolKP {
 			}
 			lookingForSIBs = false;
 		}
-			
+
 		/**
-		 * Implementation of the IModelListener method
-		 * that is notified when the SmartModel connects
-		 * to the SIB
+		 * Implementation of the IModelListener method that is notified when the
+		 * SmartModel connects to the SIB
 		 */
 		public void connected() {
 			Logger.debug("KP connected susccesfully!");
 		}
 
 		/**
-		 * Implementation of the IModelListener method
-		 * that is notified when the SIB is disconnected or stopped
+		 * Implementation of the IModelListener method that is notified when the SIB is
+		 * disconnected or stopped
 		 */
 		public void disconnected() {
 			Logger.debug("KP disconnected susccesfully!");
 			sibDiscovered = false;
-			//this.discoverSIBs();
+			// this.discoverSIBs();
 
 		}
 
 		/**
-		 * Implementation of the IModelListener method
-		 * that is notified when a SIB error arises, and 
-		 * cannot longer create a SIB 
+		 * Implementation of the IModelListener method that is notified when a SIB error
+		 * arises, and cannot longer create a SIB
 		 */
 		public void connectionError(String error) {
 			Logger.debug("There was a problem trying to connect to SIB:" + error);
@@ -739,45 +722,41 @@ public class SmoolKP {
 		}
 
 		/**
-		 * Implementation of the IModelListener method
-		 * that is notified when a SIB is initalized
-		 */	
+		 * Implementation of the IModelListener method that is notified when a SIB is
+		 * initalized
+		 */
 		public void initialized() {
 			// Not used...
-			//Logger.debug("Model initialized and inserted correctly into SIB");
+			// Logger.debug("Model initialized and inserted correctly into SIB");
 		}
-		
+
 		/**
-		 * Implementation of the IModelListener method
-		 * that is notified when a something is published
-		 * in the SIB
-		 */		
+		 * Implementation of the IModelListener method that is notified when a something
+		 * is published in the SIB
+		 */
 		public void published() {
 			Logger.debug("Model has been published correctly");
-		}	
-		
-		
+		}
 
 	}
-	
 
 	private class DiscoveryStopper extends Thread {
 		private boolean running;
 		private DiscoveryListener dl;
-		
+
 		public DiscoveryStopper(DiscoveryListener dl) {
 			running = false;
-			this.dl = dl; 
+			this.dl = dl;
 		}
-		
+
 		public void doStop() {
 			running = false;
 			try {
 				this.join(5000);
+			} catch (InterruptedException e) {
 			}
-			catch (InterruptedException e) {}
 		}
-		
+
 		public void run() {
 			boolean done = false;
 			running = true;
@@ -785,16 +764,16 @@ public class SmoolKP {
 				if (dl.isSIBDiscovered()) {
 					done = true;
 					dl.stopDiscovery();
-				}
-				else {
+				} else {
 					try {
 						Thread.sleep(50);
+					} catch (InterruptedException e) {
 					}
-					catch (InterruptedException e) {}
 				}
 			}
 		}
 	}
+
 	private class ProducerImpl implements Producer {
 
 		public ProducerImpl() throws KPIModelException {
@@ -813,18 +792,18 @@ public class SmoolKP {
 			}
 		}
 
-
-		public void subscribeToMessageReceiveSensor(MessageReceiveSensorSubscription subscription, String individualID) throws KPIModelException {
+		public void subscribeToMessageReceiveSensor(MessageReceiveSensorSubscription subscription, String individualID)
+				throws KPIModelException {
 			if (individualID == null || individualID.equals("")) {
 				dl.getModel().subscribe(MessageReceiveSensor.class, subscription);
-			}
-			else {
+			} else {
 				dl.getModel().subscribe(MessageReceiveSensor.class, individualID, subscription);
 			}
 			dl.getModel().publish();
 		}
 
-		public void unsubscribeToMessageReceiveSensor(MessageReceiveSensorSubscription subscription) throws KPIModelException {
+		public void unsubscribeToMessageReceiveSensor(MessageReceiveSensorSubscription subscription)
+				throws KPIModelException {
 			dl.getModel().unsubscribe(subscription);
 			dl.getModel().publish();
 		}
@@ -840,11 +819,11 @@ public class SmoolKP {
 			return dl.getModel().query(MessageReceiveSensor.class, individualID, TypeAttribute.RDFM3);
 		}
 
-		public void subscribeToPresenceSensor(PresenceSensorSubscription subscription, String individualID) throws KPIModelException {
+		public void subscribeToPresenceSensor(PresenceSensorSubscription subscription, String individualID)
+				throws KPIModelException {
 			if (individualID == null || individualID.equals("")) {
 				dl.getModel().subscribe(PresenceSensor.class, subscription);
-			}
-			else {
+			} else {
 				dl.getModel().subscribe(PresenceSensor.class, individualID, subscription);
 			}
 			dl.getModel().publish();
@@ -867,5 +846,69 @@ public class SmoolKP {
 		}
 	}
 
+	private static Thread watchdog;
+
+	/**
+	 * This is an "all weather" thread to check and reconnect, if TCP connection was
+	 * lost due to:
+	 * <ul>
+	 * <li>no producer is sending (neither data nor pings) data so consumer
+	 * connection does not receive for hours and the Operating system timeout closes
+	 * the connection</li>
+	 * <li>producer sending erratic data and no ping, the same, the OS closes
+	 * socket</li>
+	 * <li>producer and consumer over internet or router, routers atuomatically
+	 * closes idle connections every 5 mins if no message was sent</li>
+	 * <li>computers in mode sleep for a long time, when waking up, the socket is
+	 * off but no exception is thrown to the app so no way tu detect this case</li>
+	 * <li>other unknown casualties</li>
+	 * </ul>
+	 * 
+	 * <p>
+	 * How it works:
+	 * </p>
+	 * The thread is started and checking always if connection is alive, if not, try
+	 * to reconnect with the same ID and params that were initially, if problems,
+	 * log error and exit(1) the application (so a systemd service could restart the
+	 * app properly)
+	 */
+	private static void startWatchdog(String sib, String addr, int port) {
+		config(sib, addr, port);
+
+		if (watchdog != null)
+			return;
+
+		watchdog = new Thread(() -> {
+			try {
+				Thread.sleep(10000);
+				if (System.currentTimeMillis() - lastTimestamp > 300000) {
+					System.out.println("KP IS NOT CONNECTED TO SIB!, reconnecting...");
+					lastTimestamp = System.currentTimeMillis();
+					SmoolKP.connect(sib, addr, port);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+	}
+
+	private static String sib;
+	private static String addr;
+	private static int port;
+	private static long lastTimestamp;
+
+	private static void config(String sib, String addr, int port) {
+		lastTimestamp = System.currentTimeMillis();
+		if (sib != null)
+			SmoolKP.sib = sib;
+		if (addr != null)
+			SmoolKP.addr = addr;
+		if (port != 0)
+			SmoolKP.port = port;
+	}
+
+	public static synchronized void updateTimestamp() {
+		lastTimestamp = System.currentTimeMillis();
+	}
 
 }
