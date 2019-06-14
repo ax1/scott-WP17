@@ -44,16 +44,24 @@ function message(id) {
         "TimeStamp": ${Date.now()},
         "TimeAccuracy": 1000000000,
         "Sensors-Actuators": [
+         {
+            "SensorID": 3341,
+            "TimeStamp": 1536230330,
+            "TimeAccuracy": 143567890,
+            "Resources": {
+              "5527": "${containerID}"
+            }
+          },
           {
             "SensorID": 3336,
             "TimeStamp": 1555055619267,
             "TimeAccuracy": 1000000000,
             "Resources": {
-              "5750": "${containerID}",
               "5513": "${process.env.LATITUDE}",
               "5514": "${process.env.LONGITUDE}",
               "5515":"0",
               "5516":"100"
+              "5750": "WAGON/CONTAINER"
             }
           }
         ],
