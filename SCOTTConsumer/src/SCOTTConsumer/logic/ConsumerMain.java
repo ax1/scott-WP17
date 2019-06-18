@@ -25,7 +25,7 @@ public class ConsumerMain {
 		Observer observer = (o, concept) -> {
 			try {
 				// ---ARF TEMPORARY----
-				SmoolKP.lastTimestamp = System.currentTimeMillis();
+				// SmoolKP.lastTimestamp = System.currentTimeMillis();
 				// ---END TEMPORARY---
 				PresenceSensor sensor = (PresenceSensor) concept;
 				System.out.println(sensor.getDeviceID() + " ->  harvester " + sensor.getPresence().getDataID() + " at "
