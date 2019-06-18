@@ -33,7 +33,7 @@ public class ConsumerMain {
 				String harvesterID = sensor.getPresence().getDataID();
 				boolean match = harvesterID.matches("\\d+");
 				if (match) {
-					try (Socket socket = new Socket("localhost", 4445)) {
+					try (Socket socket = new Socket("127.0.0.1", 4445)) {
 						OutputStream output = socket.getOutputStream();
 						output.write(harvesterID.getBytes());
 					} catch (Exception e) {
