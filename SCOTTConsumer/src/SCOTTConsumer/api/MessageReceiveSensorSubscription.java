@@ -47,6 +47,7 @@ public class MessageReceiveSensorSubscription extends AbstractSubscription<Messa
 	}
 	
 	private void customNotify(MessageReceiveSensor concept) {
+	  SmoolKP.lastTimestamp = System.currentTimeMillis(); // update last time a message arrived
 	  if(customObserver!=null) customObserver.update(null, concept);
 	}
 

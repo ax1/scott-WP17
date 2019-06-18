@@ -25,7 +25,7 @@ public class ConsumerMain {
 		Observer observer = (o, concept) -> {
 			try {
 				// ---ARF TEMPORARY----
-				SmoolKP.updateTimestamp();
+				SmoolKP.lastTimestamp = System.currentTimeMillis();
 				// ---END TEMPORARY---
 				PresenceSensor sensor = (PresenceSensor) concept;
 				System.out.println(sensor.getDeviceID() + " ->  harvester " + sensor.getPresence().getDataID() + " at "
@@ -47,7 +47,8 @@ public class ConsumerMain {
 
 		Consumer consumer = SmoolKP.getConsumer();
 		consumer.subscribeToPresenceSensor(new PresenceSensorSubscription(observer), null);
-		Thread.sleep(Long.MAX_VALUE);
+		// Thread.sleep(Long.MAX_VALUE);
+		SmoolKP.watchdog();
 	}
 
 	public static void main(String[] args) throws Exception {

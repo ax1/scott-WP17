@@ -47,6 +47,7 @@ public class PresenceSensorSubscription extends AbstractSubscription<PresenceSen
 	}
 	
 	private void customNotify(PresenceSensor concept) {
+	  SmoolKP.lastTimestamp = System.currentTimeMillis(); // update last time a message arrived
 	  if(customObserver!=null) customObserver.update(null, concept);
 	}
 

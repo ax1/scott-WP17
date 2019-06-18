@@ -31,7 +31,7 @@ thing Smool includes CustomDataSender
 			 * AVAILABLE SMOOL PRODUCING DATA:
 			 * []
 			 * AVAILABLE SMOOL CONSUMING DATA:
-			 * [org.smool.sdk.ontmodel.ontmodel.impl.ClassImpl@7342eb53 (URI: http://com.tecnalia.smool/core/smoolcore#MessageReceiveSensor, GenerationType: Consumer), org.smool.sdk.ontmodel.ontmodel.impl.ClassImpl@3c6f363 (URI: http://com.tecnalia.smool/core/smoolcore#PresenceSensor, GenerationType: Consumer)]
+			 * [org.smool.sdk.ontmodel.ontmodel.impl.ClassImpl@329e6700 (URI: http://com.tecnalia.smool/core/smoolcore#PresenceSensor, GenerationType: Consumer), org.smool.sdk.ontmodel.ontmodel.impl.ClassImpl@736b145b (URI: http://com.tecnalia.smool/core/smoolcore#MessageReceiveSensor, GenerationType: Consumer)]
 			 */
 			internal event s : TemperatureData?temperatureSensorData
 			action do 
