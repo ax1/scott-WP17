@@ -99,6 +99,7 @@ public class SmoolKP {
 	 * and not disposed every time).
 	 */
 	private static void clean() {
+	  	lastTimestamp = System.currentTimeMillis();
 		try {
 			if (dl != null && dl.getModel() != null) {
 				// dl.getModel().disconnect();
@@ -125,6 +126,7 @@ public class SmoolKP {
 			System.out.println("Found a SIB: " + SmoolKP.getDiscoveredSIBs().get(0).getSIBName());
 			if (SmoolKP.connectToSIB(1000)) {
 				System.out.println("Successfully connected to SIB");
+				SmoolKP.isConnected=true;
 			} else {
 				throw new IOException ("Unable to connect to SIB");
 			}
@@ -140,8 +142,8 @@ public class SmoolKP {
 	 */
 	public static void connect(String name, String address, int port) throws IOException {
 		clean();
-		boolean connected = SmoolKP.connectToSIB(name,address, Integer.toString(port),1000);
-		if (connected) {
+		SmoolKP.isConnected = SmoolKP.connectToSIB(name,address, Integer.toString(port),1000);
+		if (SmoolKP.isConnected) {
 			System.out.println("Successfully connected to SIB");
 		} else {
 			throw new IOException ("Unable to connect to SIB");
@@ -332,6 +334,7 @@ public class SmoolKP {
 				//Logger.debug("Disconnecting from SIB...");
 				dl.getModel().disconnect();
 				Logger.debug("Disconnected successfully from SIB!");
+				isConnected = false;
 				dl.setSIBParams(null, null);
 			}
 			return true;
@@ -723,8 +726,8 @@ public class SmoolKP {
 		public void disconnected() {
 			Logger.debug("KP disconnected susccesfully!");
 			sibDiscovered = false;
+			isConnected = false;
 			//this.discoverSIBs();
-
 		}
 
 		/**
@@ -734,6 +737,7 @@ public class SmoolKP {
 		 */
 		public void connectionError(String error) {
 			Logger.debug("There was a problem trying to connect to SIB:" + error);
+			isConnected = false;
 			this.discoverSIBs();
 
 		}
@@ -997,4 +1001,120 @@ public class SmoolKP {
 	}
 
 
+	   	// -----------------------------------------------------------------------------------------------------------------------------
+		// ARF:14/06/19
+		// Custom functionality to prevent TCP connection undetected problems in
+		// production environments, where the clients are running standalone for days
+		// and they, or the server itself, could fail silently
+		// -----------------------------------------------------------------------------------------------------------------------------
+	
+		public static long lastTimestamp = System.currentTimeMillis();
+		public static boolean isConnected;
+	
+		/**
+		 * Check if connection with smool seems OK. This is a last-resource critical
+		 * check for sokets really working because otherwise a transission error could
+		 * appear and neither exceptions nor messages are raised in the client. This
+		 * problem affects mostly to consumer KPs. The producer should not have this
+		 * problem because once a messge is sent, if problem, the exception will be
+		 * raised.
+		 * <p>
+		 * Two checks:
+		 * </p>
+		 * <ul>
+		 * <li>if local network card or cable was disconnected, the OS socket is still
+		 * alive ,but, if the client is a producer, there is no way to know if we're
+		 * receiving data from producers, since no messages arrives. Therefore a timeout
+		 * limit to receive messages is set</li>
+		 * <li>if remote network is down the exception in the connector would be thrown,
+		 * but if the smool server application is stopped, but the server keeps alive,
+		 * only disconnection messages are received in the SmooKP on client, so this
+		 * method also checks that boolean value</li>
+		 * </ul>
+		 * <p>
+		 * Please note that the lastTimestamp is updated automatically on any observer
+		 * object, so if messages are arriving at good pace, that value is updated
+		 * </p>
+		 * <p>
+		 * Remember than even if implementing socket keep_alive and default OS is 2
+		 * hous, internet routers could break connection every 5 mins of idle socket
+		 * 8and other network elements as well, so do not trust on OS events and
+		 * timeouts to replace this feature. Other people has try and fight with those
+		 * issues and the best way to know if the KP is really able to receive data is
+		 * to test those two problems.
+		 * </p>
+		 * 
+		 * @param timeoutInSeconds The maximun time to be expected that at least a
+		 *                         mesage should arrive. if 0 (default), the timeout
+		 *                         will be set to 5 minutes. If clients send data more
+		 *                         scarcely, a PING message (example, subscribing to
+		 *                         message receive nd the producer sending message as a
+		 *                         simple PING) should be sent periodically at least for
+		 *                         one of the producers.
+		 * @throws IOException If the connection is not valid, or it may have undetected
+		 *                     problems.
+		 */
+		public static void checkConnection(long timeoutInSeconds) throws IOException {
+			if (!isConnected) {
+				throw new IOException(
+						"KP IS NOT CONNECTED TO SIB! (maybe the server was restarted). A reconnection should be invoked");
+			} else if (System.currentTimeMillis() - lastTimestamp > timeoutInSeconds * 1000) {
+				throw new IOException(
+						"KP SUBSCRIPTION SEEMS NOT HAVING ANY DATA FOR LONG TIME! (it could be a network problem, ...or not. Anyway reconnection should be invoked)");
+			}
+		}
+	
+		/**
+		 * Check if TCP connection is OK
+		 * 
+		 * @see #checKConnection(timeout) javadoc
+		 * @throws IOException
+		 */
+		public static void checkConnection() throws IOException {
+			checkConnection(5 * 60);
+		}
+	
+		/**
+		 * Method useful for consumerKPs and when nrunning in different subnetworks.
+		 * 
+		 * <p>
+		 * Handy ready-to-use watchdog to check if connection to server is OK in
+		 * consumers. You should replace the Thread.sleep(max) in the ConsumerMain with
+		 * this watchdog. Every 10 seconds checks if the connection to SMOOL server is
+		 * still valid.
+		 * </p>
+		 * 
+		 * <p>
+		 * Note that you can implement your own custom watchdogs by using only the
+		 * checkConnection() methods.Copy and modify the source code of the watchdog.
+		 * </p>
+		 * 
+		 * <p>
+		 * Default time to see if any message (either sensor data or ping messages)
+		 * arrived is 5 mins
+		 * </p>
+		 * 
+		 * @see #checKConnection(timeout) javadoc
+		 * 
+		 * @throws IOException
+		 */
+		public static void watchdog() throws IOException {
+			watchdog(5 * 60); // 5 mins
+		}
+	
+		/**
+		 * @see #watchdog()
+		 * @param timeoutInSeconds
+		 * @throws IOException
+		 */
+		public static void watchdog(long timeoutInSeconds) throws IOException {
+			while (true) {
+				try {
+					Thread.sleep(10000);
+				} catch (Exception e) {
+				}
+				SmoolKP.checkConnection(timeoutInSeconds);
+			}
+		}
+    
 }

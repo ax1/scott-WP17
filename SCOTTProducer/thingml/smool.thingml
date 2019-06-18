@@ -29,7 +29,7 @@ thing Smool includes CustomDataSender
 		state main {
 			/*
 			 * AVAILABLE SMOOL PRODUCING DATA:
-			 * [org.smool.sdk.ontmodel.ontmodel.impl.ClassImpl@a04462d (URI: http://com.tecnalia.smool/core/smoolcore#PresenceSensor, GenerationType: Producer), org.smool.sdk.ontmodel.ontmodel.impl.ClassImpl@410126b8 (URI: http://com.tecnalia.smool/core/smoolcore#MessageReceiveSensor, GenerationType: Producer)]
+			 * [org.smool.sdk.ontmodel.ontmodel.impl.ClassImpl@4bd5086d (URI: http://com.tecnalia.smool/core/smoolcore#PresenceSensor, GenerationType: Producer), org.smool.sdk.ontmodel.ontmodel.impl.ClassImpl@7bfb9224 (URI: http://com.tecnalia.smool/core/smoolcore#MessageReceiveSensor, GenerationType: Producer)]
 			 * AVAILABLE SMOOL CONSUMING DATA:
 			 * []
 			 */
