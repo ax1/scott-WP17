@@ -6,3 +6,5 @@
 *.env
 node_modules
 *.daemon
+log.txt
+*.log
