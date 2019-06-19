@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import org.smool.kpi.common.Logger;
 import org.smool.kpi.model.exception.KPIModelException;
 
 import SCOTTProducer.api.Producer;
@@ -77,8 +76,8 @@ public class ProducerMain {
 	}
 
 	public static void main(String[] args) throws Exception {
-		Logger.setDebugging(true);
-		Logger.setDebugLevel(4);
+		// Logger.setDebugging(true);
+		// Logger.setDebugLevel(4);
 		while (true) {
 			try {
 				new ProducerMain();
