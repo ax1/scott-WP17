@@ -60,7 +60,7 @@ function message(id) {
               "5513": "${process.env.LATITUDE}",
               "5514": "${process.env.LONGITUDE}",
               "5515":"0",
-              "5516":"100"
+              "5516":"100",
               "5750": "WAGON/CONTAINER"
             }
           }
@@ -71,6 +71,10 @@ function message(id) {
     "CRC": 24495477
   }
   `
+
+  //check JSON is well format
+  JSON.parse(json)
+
   return json
 }
 
