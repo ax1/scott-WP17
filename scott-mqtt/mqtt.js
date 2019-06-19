@@ -46,7 +46,7 @@ function message(id) {
         "Sensors-Actuators": [
          {
             "SensorID": 3341,
-            "TimeStamp": 1536230330,
+            "TimeStamp": ${Date.now()},
             "TimeAccuracy": 143567890,
             "Resources": {
               "5527": "${containerID}"
@@ -54,7 +54,7 @@ function message(id) {
           },
           {
             "SensorID": 3336,
-            "TimeStamp": 1555055619267,
+            "TimeStamp": ${Date.now()},
             "TimeAccuracy": 1000000000,
             "Resources": {
               "5513": "${process.env.LATITUDE}",
