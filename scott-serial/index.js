@@ -1,3 +1,9 @@
+/**
+ * usage:
+ * - node index           to start app
+ * - node index 112233    to start and also send a harvester id on start (useful in development)
+ */
+
 const net = require('net')
 const PORT = 4444
 
@@ -14,7 +20,7 @@ function ping() {
   socketClient('PING')
 }
 
-const data = process.argv[2] ? process.argv[2] : 'test message'
+const data = process.argv[2] ? process.argv[2] : 'TEST START' // do not send a number by default, only when starting with a number. Otherwise the receiver would get a harvester id each time this app is started up.
 
 socketClient(data)
 setInterval(ping, 120000)
