@@ -28,12 +28,11 @@ import SCOTTProducer.model.smoolcore.impl.PresenceSensor;
 public class ProducerMain {
 	ServerSocket serverSocket;
 
-	public ProducerMain() throws Exception {
+	public ProducerMain(String sib, String addr, int port) throws Exception {
 		try (ServerSocket serverSocket = new ServerSocket(4444)) {
 			// connection to SIB
 			final String name = "SCOTTProducer" + System.currentTimeMillis() % 10000;
-			// SmoolKP.connect();
-			SmoolKP.connect("sib1", "smool.tecnalia.com", 80);
+			SmoolKP.connect(sib, addr, port);
 
 			// create harvester as plain presence sensor
 			Producer producer = SmoolKP.getProducer();
@@ -78,9 +77,14 @@ public class ProducerMain {
 	public static void main(String[] args) throws Exception {
 		// Logger.setDebugging(true);
 		// Logger.setDebugLevel(4);
+
+		String sib = args.length > 0 ? args[0] : "sib1";
+		String addr = args.length > 1 ? args[1] : "smool.tecnalia.com";
+		int port = args.length > 2 ? Integer.valueOf(args[2]) : 80;
+
 		while (true) {
 			try {
-				new ProducerMain();
+				new ProducerMain(sib, addr, port);
 			} catch (KPIModelException | IOException e) {
 				e.printStackTrace();
 				Thread.sleep(10000);

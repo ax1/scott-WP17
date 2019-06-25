@@ -15,11 +15,11 @@ import SCOTTConsumer.model.smoolcore.impl.PresenceSensor;
 
 public class ConsumerMain {
 
-	public ConsumerMain() throws Exception {
+	public ConsumerMain(String sib, String addr, int port) throws Exception {
 		final String name = "SCOTTConsumer_" + Long.toString(System.nanoTime());
 		SmoolKP.setKPName(name);
 		// -------------connect to SIB---------------------------------------------
-		SmoolKP.connect("sib1", "smool.tecnalia.com", 80);
+		SmoolKP.connect(sib, addr, port);
 
 		// --------------add custom observer to subscription-------
 		Observer observer = (o, concept) -> {
@@ -55,9 +55,14 @@ public class ConsumerMain {
 	public static void main(String[] args) throws Exception {
 //		Logger.setDebugging(true);
 //		Logger.setDebugLevel(4);
+
+		String sib = args.length > 0 ? args[0] : "sib1";
+		String addr = args.length > 1 ? args[1] : "smool.tecnalia.com";
+		int port = args.length > 2 ? Integer.valueOf(args[2]) : 80;
+
 		while (true) {
 			try {
-				new ConsumerMain();
+				new ConsumerMain(sib, addr, port);
 			} catch (KPIModelException | IOException e) {
 				e.printStackTrace();
 				Thread.sleep(10000);
