@@ -17,3 +17,4 @@ cd ~/runtime-smool/SCOTTProducer
 javac -d bin -cp bin:lib/* src/SCOTTProducer/logic/ProducerMain.java
 
 java -cp bin:lib/* SCOTTProducer.logic.ProducerMain
+```
