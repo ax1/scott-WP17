@@ -34,6 +34,7 @@ public class ConsumerMain {
 				boolean match = harvesterID.matches("\\d+");
 				if (match) {
 					try (Socket socket = new Socket("127.0.0.1", 4445)) {
+						System.out.println("Consumer: sending harvesterID to local socket. " + harvesterID);
 						OutputStream output = socket.getOutputStream();
 						output.write(harvesterID.getBytes());
 					} catch (Exception e) {
