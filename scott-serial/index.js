@@ -17,7 +17,7 @@ function socketClient(data) {
 
 function ping() {
   //ping is needed to keep socket running because if NAT in the middle, the default tcp_alive wont work because default is 2 hours and the NAT closes automatically connections idle every 5 minutes
-  socketClient('PING')
+  socketClient('222222')
 }
 
 const data = process.argv[2] ? process.argv[2] : 'TEST START' // do not send a number by default, only when starting with a number. Otherwise the receiver would get a harvester id each time this app is started up.
