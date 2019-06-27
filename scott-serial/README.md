@@ -29,5 +29,5 @@ The problem is that attiny85 did not work sending data with the radiohead lib. S
 - test serial monitor receiving data
 - prepare to raspberry, make a resistor divider to shift from 5V to 3V3
 - connect arduino tx to resistor and 3v3 pin in resistor to pin 10 in raspi
-- test receing with minicom
+- test receiving with minicom
 - install scott-serial (this app)
