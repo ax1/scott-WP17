@@ -5,7 +5,7 @@ function init(cb) {
   const port = new SerialPort('/dev/serial0', { baudRate: 9600 })
   const parser = new Readline()
   port.pipe(parser)
-  parser.on('data', line => cb(line.replace(" ", "")))
+  parser.on('data', line => cb(line.replace(" ", "").replace('\r', '')))
 }
 
 module.exports = { init }
