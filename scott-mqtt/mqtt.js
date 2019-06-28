@@ -23,7 +23,7 @@ function send(harvesterID) {
   client.on('connect', () => {
     console.log('connected to mqtt server')
     const payload = message(harvesterID)
-    const cleanPayload = payload.replace(/(\r\n|\n|\r|\t)/gm, '').trim() // INDRA wants the payload to keep small
+    const cleanPayload = payload.replace(/(\r\n|\n|\r|\t\s)/gm, '').trim() // INDRA wants the payload to keep small
     //SERVICE/SUBSERVICE/REGION/SUBREGION/ SOURCE/SUBSOURCE/STATUS/CRCHead/CRCPay
     client.publish('131/100/100/100/110/110/101/204455/308899', cleanPayload, { qos: 1 }, msg => { console.log("Response: " + msg); client.end() }, err => console.error("Error: " + err))
   })
