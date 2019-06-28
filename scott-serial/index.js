@@ -11,6 +11,8 @@ const PORT = 4444
 const serial = require('./serial')
 const fetch = require('node-fetch')
 
+const INITIAL_DATA = process.argv[2] ? process.argv[2] : 'TEST START' // do not send a number by default, only when starting with a number. Otherwise the receiver would get a harvester id each time this app is started up.
+
 function socketClient(data) {
   const s = net.Socket()
   s.on('data', data => console.log('response from server: ' + data))
@@ -25,17 +27,6 @@ function ping() {
   socketClient('222222')
 }
 
-const data = process.argv[2] ? process.argv[2] : 'TEST START' // do not send a number by default, only when starting with a number. Otherwise the receiver would get a harvester id each time this app is started up.
-
-
-//------------------------------------------
-//              RUN
-//------------------------------------------
-socketClient(data) // send initial data if args have the id when starting. (E.g.: node index 1111)
-setInterval(ping, 120000) // keep app sending PING messages periodically
-serial.init(socketClient) // set a callback function when serial data is arrived
-
-
 async function saveResource(id, value, status) {
   if (!id) throw new Error("id cannot be null")
   const urlResource = `https://rcc.esilab.org/registry/services/resources/${id}`
@@ -49,3 +40,10 @@ async function saveResource(id, value, status) {
   const response = await fetch(urlResource, { method: 'put', body })
   return response
 }
+
+//------------------------------------------
+//              RUN
+//------------------------------------------
+socketClient(INITIAL_DATA) // send initial data if args have the id when starting. (E.g.: node index 1111)
+setInterval(ping, 120000) // keep app sending PING messages periodically
+serial.init(socketClient) // set a callback function when serial data is arrived
