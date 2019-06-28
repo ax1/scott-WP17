@@ -9,6 +9,7 @@
 const net = require('net')
 const PORT = 4444
 const serial = require('./serial')
+const fetch = require('node-fetch')
 
 function socketClient(data) {
   const s = net.Socket()
@@ -16,10 +17,11 @@ function socketClient(data) {
   s.connect(PORT)
   s.write(data)
   s.end()
+  saveResource("harvester", Date.now(), 0).catch(err => console.error(err))
 }
 
 function ping() {
-  //ping is needed to keep socket running because if NAT in the middle, the default tcp_alive wont work because default is 2 hours and the NAT closes automatically connections idle every 5 minutes
+  // ping is needed to keep socket running because if NAT in the middle, the default tcp_alive wont work because default is 2 hours and the NAT closes automatically connections idle every 5 minutes
   socketClient('222222')
 }
 
@@ -32,3 +34,18 @@ const data = process.argv[2] ? process.argv[2] : 'TEST START' // do not send a n
 socketClient(data) // send initial data if args have the id when starting. (E.g.: node index 1111)
 setInterval(ping, 120000) // keep app sending PING messages periodically
 serial.init(socketClient) // set a callback function when serial data is arrived
+
+
+async function saveResource(id, value, status) {
+  if (!id) throw new Error("id cannot be null")
+  const urlResource = `https://rcc.esilab.org/registry/services/resources/${id}`
+  const res = await fetch(urlResource)
+  if (res.status >= 400) throw new Error('Error when accessing resource at ' + urlResource + ". Status code=" + res.status)
+  const resource = await res.json()
+  resource.value = value
+  resource.timestamp = Date.now()
+  if (status !== null && status != undefined) resource.status = status
+  const body = JSON.stringify(resource)
+  const response = await fetch(urlResource, { method: 'put', body })
+  return response
+}
