@@ -19,7 +19,8 @@ function socketClient(data) {
   s.connect(PORT)
   s.write(data)
   s.end()
-  saveResource("harvester", Date.now(), 0).catch(err => console.error(err))
+  const value = ('' + Date.now()).substring(10)
+  saveResource("harvester", value, 0).catch(err => console.error(err))
 }
 
 function ping() {
