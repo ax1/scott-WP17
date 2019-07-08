@@ -46,7 +46,6 @@ function message(id) {
 
   //check JSON is well format
   JSON.parse(json)
-
   return json
 }
 
