@@ -37,10 +37,10 @@ function message(id) {
             }
           }
         ],
-        "CRC": 12237466
+        "CRC": 0
       }
     ],
-    "CRC": 24495477
+    "CRC": 0
   }
   `
 
