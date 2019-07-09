@@ -6,7 +6,7 @@ if (!process.env.MQTT_USER) throw new Error('Environment variables are NOT confi
 
 // for tests, start the app and send a message
 if (process.argv[2]) {
-  send(process.argv[2])
+  if (Number.isInteger(Number.parseInt(process.argv[2]))) send(process.argv[2])
 }
 
 // normal usage, start a tcp socket and listen to events
