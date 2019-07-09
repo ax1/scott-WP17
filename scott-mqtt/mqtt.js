@@ -9,11 +9,11 @@ const { crc } = require('./crc')
  * 131/100 messages from tecnalia ws
  * 100/100 whatever region
  * 110 tecnalia company
- * 110 messages from harvesters (Idoia can also send 131/100 messages but this value is different than 110, 110 represents MY messages)
- * 100 message not processed and it will be processed by cmw itself and then send the same message with status 101. 101 status processed (because the messages I send are always valid because validation/discadrding is done upstream in the SCOTTProducer)
+ * 100 messages from harvesters (Idoia can also send other J131100 messages but this value is different than 100, 100 represents MY HARVESTER messages)
+ * 100 status, message not processed and it will be processed by cmw itself and then send the same message with status 101. 101 status processed (because the messages I send are always valid because validation/discadrding is done upstream in the SCOTTProducer)
  * LOOKOUT->the message sent is status 100 but cmw will resend the status 101 in topic to subscribers
  */
-const TOPIC_HEAD = '131/100/100/100/110/110/100'
+const TOPIC_HEAD = '131/100/100/100/110/100/100'
 
 const connectOptions = {
   host: "cmw.ext.innovarail.indra.es",
@@ -39,11 +39,11 @@ function send(harvesterID) {
     console.log('connected to mqtt server, sending message for harvester ' + harvesterID)
     const payload = message(harvesterID)
     const cleanPayload = payload.replace(/(\r\n|\n|\r|\t|\s)/gm, '') // INDRA wants the payload to keep small
-    const cleanHead = TOPIC_HEAD.replace('/', '')
+    const cleanHead = TOPIC_HEAD.replace(/\//g, '')
     const CRCHead = crc(cleanHead)
     const CRCPay = crc(cleanPayload)
     const topic = `${TOPIC_HEAD}/${CRCHead}/${CRCPay}` // SERVICE/SUBSERVICE/REGION/SUBREGION/SOURCE/SUBSOURCE/STATUS/CRCHead/CRCPay
-    client.publish(topic, cleanPayload, { qos: 1 }, msg => { console.log("Response: " + msg); client.end() }, err => console.error("Error: " + err))
+    client.publish(topic, cleanPayload, { qos: 1 }, msg => { client.end() }, err => console.error("Error: " + err))
   })
 }
 
