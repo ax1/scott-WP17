@@ -31,11 +31,11 @@ function message(id) {
             "TimeStamp": ${timestamp},
             "TimeAccuracy": 1000000000,
             "Resources": {
+              "5750": "WAGON/CONTAINER",
               "5513": "${process.env.LATITUDE}",
               "5514": "${process.env.LONGITUDE}",
-              "5515":"0",
               "5516":"100",
-              "5750": "WAGON/CONTAINER"
+              "5518": ${timestamp}
             }
           }
         ],
