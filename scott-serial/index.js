@@ -14,6 +14,7 @@ const fetch = require('node-fetch')
 const INITIAL_DATA = process.argv[2] ? process.argv[2] : 'TEST START' // do not send a number by default, only when starting with a number. Otherwise the receiver would get a harvester id each time this app is started up.
 
 function socketClient(data) {
+  if (!isValidMessage(value)) return
   const s = net.Socket()
   s.on('data', data => console.log('response from server: ' + data))
   s.connect(PORT)
@@ -40,6 +41,39 @@ async function saveResource(id, value, status) {
   const body = JSON.stringify(resource)
   const response = await fetch(urlResource, { method: 'put', body })
   return response
+}
+
+function isValidMessage(value) {
+  return (!isEchoMessage() && isConformantValue(value)) ? true : false
+}
+
+let timestamp = Date.now()
+
+/**
+ * Several echo meessages could arrive, only 1 is needed
+ */
+function isEchoMessage() {
+  const now = Date.now()
+  if (now - timestamp < 1000) {
+    return true
+  } else {
+    timestamp = now
+    return false
+  }
+}
+
+/**
+ * Discard values sent by other devices
+ */
+function isConformantValue(value) {
+  try {
+    if (value.length != 4) return false
+    const arr = [...value].map(el => parseInt(el))
+    const total = arr.reduce((t, el) => t + el)
+    return total === 10 ? true : false
+  } catch (err) {
+    return false
+  }
 }
 
 //------------------------------------------
