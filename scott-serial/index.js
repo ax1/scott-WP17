@@ -14,7 +14,7 @@ const fetch = require('node-fetch')
 const INITIAL_DATA = process.argv[2] ? process.argv[2] : 'TEST START' // do not send a number by default, only when starting with a number. Otherwise the receiver would get a harvester id each time this app is started up.
 
 function socketClient(data) {
-  if (!isValidMessage(value)) return
+  if (!isValidMessage(data)) return
   const s = net.Socket()
   s.on('data', data => console.log('response from server: ' + data))
   s.connect(PORT)
