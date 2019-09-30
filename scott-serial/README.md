@@ -7,7 +7,7 @@ This code ins itended to run on raspberry PI3
 # Important data
 
 - on raspi, the default TX/RX for serial are the 8/10 pins
-- to read serial use command `sudo minicom -b 9600 -o /dev/serial0` (o /dev/ttyS0 )  
+- to read serial use command `sudo minicom -b 9600 -o -D /dev/serial0` (o /dev/ttyS0 )  
 
 ## Background
 
