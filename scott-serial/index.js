@@ -76,6 +76,16 @@ function isConformantValue(value) {
   }
 }
 
+/**
+ * Get all stream unhandled errors to trace unknown critical errors
+ */
+process.addListener('uncaughtException', (err) => {
+  console.error('CRITICAL!...PASSING AT **UNCAUGHTEXCEPTION**')
+  console.error(err) //log even if logger is disabled!
+  console.trace(err)
+  process.exit(1)
+})
+
 //------------------------------------------
 //              RUN
 //------------------------------------------
