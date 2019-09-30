@@ -26,7 +26,7 @@ function socketClient(data) {
 
 function ping() {
   // ping is needed to keep socket running because if NAT in the middle, the default tcp_alive wont work because default is 2 hours and the NAT closes automatically connections idle every 5 minutes
-  socketClient('222222')
+  socketClient('5500') //5+5+0+0=10->PASS
 }
 
 async function saveResource(id, value, status) {
