@@ -14,4 +14,5 @@ function init(cb) {
 function stopGraceFully(err) {
   console.error(err); process.exit(1)
 }
+
 module.exports = { init }

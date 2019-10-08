@@ -22,6 +22,10 @@ Then the ASK modulation was really fine with arduinos nanos `radioHead`library. 
 
 The problem is that attiny85 did not work sending data with the radiohead lib. So manchester library was used instead BUT the range was reduced drastically on high noise environments.
 
+## Configuration
+- Check serial address and change it in the serial.js
+- [OPTIONAL] remove sendng data to external IoT middleware (IRIDIUM) in production. See index.js
+
 ## Usage
 
 - use arduino nano as receiver and connect radio
