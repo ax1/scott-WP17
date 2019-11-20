@@ -20,8 +20,7 @@ function socketClient(data) {
   s.connect(PORT)
   s.write(data)
   s.end()
-  const value = ('' + Date.now()).substring(9, 12)
-  saveResource("harvester", value, 0).catch(err => console.error(err))
+  saveResource("harvester", data, 0).catch(console.error)
 }
 
 function ping() {
