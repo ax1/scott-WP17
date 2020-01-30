@@ -35,6 +35,7 @@ const connectOptions = {
 
 function send(harvesterID) {
   const client = mqtt.connect(connectOptions)
+
   client.on('connect', () => {
     console.log('connected to mqtt server, sending message for harvester ' + harvesterID)
     const payload = message(harvesterID)
@@ -43,8 +44,15 @@ function send(harvesterID) {
     const CRCHead = crc(cleanHead)
     const CRCPay = crc(cleanPayload)
     const topic = `${TOPIC_HEAD}/${CRCHead}/${CRCPay}` // SERVICE/SUBSERVICE/REGION/SUBREGION/SOURCE/SUBSOURCE/STATUS/CRCHead/CRCPay
-    client.publish(topic, cleanPayload, { qos: 1 }, msg => { client.end() }, err => console.error("Error: " + err))
+    client.publish(topic, cleanPayload, { qos: 1 }, (err, data) => { if (err) console.error('Error:' + err); })
   })
+
+  client.on('error', err => { console.error(err); client.end() })
+  client.on('offline', err => { console.error('Cannot connect to MQTT server'); client.end() })
+  client.on('disconnect', packet => { console.log('the mqttt server sent a disconnection packet'); client.end() })
+  client.on('close', client.end)
+  client.on('end', (err, data) => { if (err) console.error(err); })
+
 }
 
 module.exports = { send }
