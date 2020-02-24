@@ -16,7 +16,7 @@ const { crc } = require('./crc')
 const TOPIC_HEAD = '131/100/100/100/110/100/100'
 
 const connectOptions = {
-  host: "cmw.ext.innovarail.indra.es",
+  host: process.env.MQTT_HOST,
   port: 8883,
   protocol: "mqtts",
   keepalive: 10,
