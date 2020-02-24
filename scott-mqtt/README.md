@@ -27,3 +27,6 @@ mosquitto_pub -h cmw.ext.innovarail.indra.es -p 8883 --cafile "/home/ubuntu/SOFT
 1- `node index` start a socket and wait for harvester data before sending mqtt
 2- `node index $harvesterID` (useful on tests) start the socket but send a message inmediately
 
+## Tips
+
+to get the public address of the device, use `curl ifconfig.me`
