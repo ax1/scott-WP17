@@ -3,6 +3,8 @@
  * Calculate CRC-32
  * 
  * See https://stackoverflow.com/questions/18638900/javascript-crc32
+ * 
+ * To test online, see https://crccalc.com/
  */
 
 module.exports = { crc, crcHex }

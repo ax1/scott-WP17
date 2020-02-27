@@ -1,5 +1,5 @@
 const mqtt = require('mqtt')
-const message = require('./message')
+const { message } = require('./message')
 const { crc } = require('./crc')
 
 
