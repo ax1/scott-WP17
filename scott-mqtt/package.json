@@ -4,7 +4,7 @@
   "description": "Send mqtt data to INDRA's broker(CMW), so the SFTM gets positioning data",
   "main": "index.js",
   "scripts": {
-    "test": "node test/test"
+    "test": "node test/test && node test/message"
   },
   "keywords": [
     "SCOTT",

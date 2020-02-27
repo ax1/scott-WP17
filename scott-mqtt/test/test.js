@@ -1,5 +1,4 @@
 const net = require('net')
-//const assert = require('assert')
 const util = require('a1-util')
 
 console.log('Usage:\n  - start `node index` first, then execute test')
