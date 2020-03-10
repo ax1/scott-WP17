@@ -12,7 +12,6 @@ function message(id) {
 }
 
 function buildMessage(id) {
-  const containerID = 3652552
   const timestamp = Date.now()
   const json = `
   {
@@ -34,7 +33,7 @@ function buildMessage(id) {
             "TimeStamp": ${timestamp},
             "TimeAccuracy": 143567890,
             "Resources": {
-              "5527": "${containerID}"
+              "5527": "${id}"
             }
           },
           {
