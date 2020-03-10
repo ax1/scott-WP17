@@ -36,13 +36,13 @@ function testINDRA(originalJSON, expectedSerial, expectedCRC) {
   const calculatedCRC = crc(serial)
 
   // JSON must have the same order in keys, after deserialized and serialized again
-  assert.deepStrictEqual(source, text, 'input json and output cannot be different')
+  assert.deepStrictEqual(text, source, 'input json and output cannot be different')
 
   // [OPTIONAL since we do not have serial to compare most of the time] The serialized string of values must match
-  if (expectedSerial) assert.deepStrictEqual(expectedSerial, serial, 'Indra serialValues and Tecnalia serialValues must have the same value')
+  if (expectedSerial) assert.deepStrictEqual(serial, expectedSerial, 'Indra serialValues and Tecnalia serialValues must have the same value')
 
   // CRCs must match  
-  assert.deepStrictEqual(expectedCRC, calculatedCRC, 'Indra CRC and Tecnalia CRC must have the same value')
+  assert.deepStrictEqual(calculatedCRC, expectedCRC, 'Indra CRC and Tecnalia CRC must have the same value')
 }
 
 const INDRA_NODE_JSON = '{"Safety": false, "NodeID": 1, "TimeStamp": 1536230850, "TimeAccuracy": 143567890, "Sensors-Actuators": [{"SensorID": 3341, "TimeStamp": 1536230330, "TimeAccuracy": 143567890, "Resources": {"5527": "0000000000000000000011672"}}, {"SensorID": 3341, "TimeStamp": 1536231220, "TimeAccuracy": 143567890, "Resources": {"5527": "0000000000000000000011672"}}, {"SensorID": 3336, "TimeStamp": 1536230330, "TimeAccuracy": 143567890, "Resources": {"5750": "WAGON/CONTAINER", "5513": "43.138453", "5514": "-2.556184", "5516": "100", "5518": 1536230850}}, {"SensorID": 3341, "TimeStamp": 1536230220, "TimeAccuracy": 143567890, "Resources": {"5527": "Observationsandcomments"}}]}'
@@ -71,3 +71,7 @@ function testTECNALIA() {
 
 testTECNALIA()
 
+
+
+const IDOIA = '{"ServiceID":132103,"Root":{"Gateway":110,"Source":110,"TimeStamp":0},"Nodes":[{"Safety":false,"NodeID":1,"TimeStamp":1582798771,"TimeAccuracy":100000000,"Sensors-Actuators":[{"SensorID":3341,"TimeStamp":1582798771,"TimeAccuracy":100000000,"Resources":{"5527":"PMps2JLlqngfMmUoC1yDag=="}},{"SensorID":3341,"TimeStamp":1582798771,"TimeAccuracy":100000000,"Resources":{"5527":"0000000000000000000001357"}},{"SensorID":3300,"TimeStamp":1582798771,"TimeAccuracy":100000000,"Resources":{"9000":1}},{"SensorID":3300,"TimeStamp":1582798771,"TimeAccuracy":100000000,"Resources":{"9000":10}},{"SensorID":3341,"TimeStamp":1582798771,"TimeAccuracy":100000000,"Resources":{"5527":"9111111111111111111111"}},{"SensorID":3300,"TimeStamp":1582798771,"TimeAccuracy":100000000,"Resources":{"9000":101}},{"SensorID":3300,"TimeStamp":1582798771,"TimeAccuracy":100000000,"Resources":{"9000":2}},{"SensorID":3306,"TimeStamp":1582798771,"TimeAccuracy":100000000,"Resources":{"5850":true}},{"SensorID":3300,"TimeStamp":1582798771,"TimeAccuracy":100000000,"Resources":{"9000":1}},{"SensorID":3300,"TimeStamp":1582798771,"TimeAccuracy":100000000,"Resources":{"9000":0}}],"CRC":333096443}],"CRC":2583080604}'
+testINDRA(IDOIA, null, 2583080604)
