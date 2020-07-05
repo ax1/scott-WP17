@@ -18,7 +18,7 @@ function socketClient(data) {
   const s = net.Socket()
   s.on('data', data => console.log('response from server: ' + data))
   s.connect(PORT)
-  s.write(data)
+  s.write(data) // TODO ARF: this write is not inside a connect(), and if server is not run, write is executed, This is not a problem for this client, but this is not a good example for reusing as tcp client. See the enact for logging SIB data, or  see https://riptutorial.com/node-js/example/22406/a-simple-tcp-client
   s.end()
   saveResource("harvester", data, 0).catch(console.error)
 }
