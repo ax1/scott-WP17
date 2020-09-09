@@ -14,7 +14,7 @@ This code ins itended to run on raspberry PI3
 Trying to get direct radio bytes to serial pins, some problems:
 - must configure the serial. raspi-serial was used but no good results because it is just a serial and no modulation
 - 433 modulation libraries for 433-ASK modulation are not so good (try other 433 techniques later)
-- the bluetooth uses the uart serail so it must be disable. See npm raspi-serial.
+- the bluetooth uses the UART serial so it must be disable. See npm raspi-serial
 
 **So first decision is to add an intermediate chip to get the radio/demodulate and then pass a clean id to the serial gpio pins**
 

@@ -15,12 +15,13 @@ const INITIAL_DATA = process.argv[2] ? process.argv[2] : 'TEST START' // do not 
 
 function socketClient(data) {
   if (!isValidMessage(data)) return
+  saveResource("harvester", data, 0).catch(console.error)
   const s = net.Socket()
   s.on('data', data => console.log('response from server: ' + data))
   s.connect(PORT)
   s.write(data) // TODO ARF: this write is not inside a connect(), and if server is not run, write is executed, This is not a problem for this client, but this is not a good example for reusing as tcp client. See the enact for logging SIB data, or  see https://riptutorial.com/node-js/example/22406/a-simple-tcp-client
   s.end()
-  saveResource("harvester", data, 0).catch(console.error)
+
 }
 
 function ping() {
@@ -30,7 +31,7 @@ function ping() {
 
 async function saveResource(id, value, status) {
   if (!id) throw new Error("id cannot be null")
-  const urlResource = `https://rcc.esilab.org/registry/services/resources/${id}`
+  const urlResource = `https://rcc.esilab.org/registry/resources/${id}`
   const res = await fetch(urlResource)
   if (res.status >= 400) throw new Error('Error when accessing resource at ' + urlResource + ". Status code=" + res.status)
   const resource = await res.json()
