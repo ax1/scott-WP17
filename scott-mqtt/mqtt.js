@@ -17,7 +17,7 @@ const TOPIC_HEAD = '131/100/100/100/110/100/100'
 
 const connectOptions = {
   host: process.env.MQTT_HOST,
-  port: 8883,
+  port: 8887,
   protocol: "mqtts",
   keepalive: 10,
   clean: true,
