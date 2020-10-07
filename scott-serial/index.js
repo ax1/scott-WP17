@@ -25,6 +25,7 @@ function socketClient(data) {
 }
 
 function callback(data){
+  if (!isValidMessage(data)) return
   console.log(`SCOTT: harvester ID = ${data}`)
   saveResource("harvester",data,0).catch(console.error)
 }
