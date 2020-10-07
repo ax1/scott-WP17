@@ -24,6 +24,11 @@ function socketClient(data) {
 
 }
 
+function callback(data){
+  console.log(`SCOTT: harvester ID = ${data}`)
+  saveResource("harvester",data,0).catch(console.error)
+}
+
 function ping() {
   // ping is needed to keep socket running because if NAT in the middle, the default tcp_alive wont work because default is 2 hours and the NAT closes automatically connections idle every 5 minutes
   socketClient('5500') //5+5+0+0=10->PASS
@@ -89,6 +94,6 @@ process.addListener('uncaughtException', (err) => {
 //------------------------------------------
 //              RUN
 //------------------------------------------
-socketClient(INITIAL_DATA) // send initial data if args have the id when starting. (E.g.: node index 1111)
-setInterval(ping, 120000) // keep app sending PING messages periodically
-serial.init(socketClient) // set a callback function when serial data is arrived
+//socketClient(INITIAL_DATA) // send initial data if args have the id when starting. (E.g.: node index 1111)
+//setInterval(ping, 120000) // keep app sending PING messages periodically
+serial.init(callback) // set a callback function when serial data is arrived
