@@ -2,7 +2,7 @@
 
 Get data from a 433MHz radio device and return the id of the harvester sending the signal.
 
-This code ins itended to run on raspberry PI3
+This code is intended to run on raspberry PI3
 
 # Important data
 
