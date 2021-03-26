@@ -4,6 +4,10 @@
 
 This repository is related to the [SCOTT project](https://scottproject.eu/) (EU H2020), addressing the Use Case (in Work Package 17) [Safe freight and traffic management in intermodal logistic hubs](https://scottproject.eu/uc11-safe-freight-and-traffic-management-in-intermodal-logistic-hubs/).
 
+This work has been partly funded by SCOTT (www.scott-project.eu). SCOTT has received funding from the Electronic Component Systems for European Leadership Joint Undertaking under grant agreement No 737422. This Joint Undertaking receives support from the European Union’s Horizon 2020 research and innovation programme and Austria, Spain, Finland, Ireland, Sweden, Germany, Poland, Portugal, Netherlands, Belgium, Norway.
+
+
+
 ## How it works
 
 Some low-power devices (harvesters), attached to train wagons or important goods, provide `alive` signals (see [Autonomy of devices / energy efficiency of WSN](https://scottproject.eu/autonomy-of-devices-energy-efficiency-of-wsn/) ). These signals are received by gateways covering different areas of a train shunting yard (project `scott-serial`). To provide interoperability among gateways from different vendors, the open-source [SOFIA - SMOOL IoT middleware](https://bitbucket.org/jasonjxm/smool/) is used. The project `SCOTTProducer` transforms the harvester info into a semantic message and sends it to an SMOOL server located in the internal network of the shunting yard. These messages are received automatically by the `SCOTTConsumer`. The content is then extracted and delivered to the `scott-mqtt` project, which assembles the ad-hoc message for usage in CMW brokers. Finally, these brokers deliver the message to the SCOTT SFTM controlling the management of goods to be delivered. 
