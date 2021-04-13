@@ -9,7 +9,7 @@
   "author": "ax1",
   "license": "UNLICENSED",
   "dependencies": {
-    "node-fetch": "^2.6.0",
-    "serialport": "^7.1.5"
+    "node-fetch": "^2.6.1",
+    "serialport": "^9.0.7"
   }
 }
